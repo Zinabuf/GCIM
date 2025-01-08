@@ -1,0 +1,14 @@
+Package: GCIM
+Title: Genetic Causality inference model
+Version: 0.0.1.000
+Authors@R: 
+    person("Zinabu", "Fentaw", , "zfentaw5@gmail.com", role = c("aut", "cre"))
+Description: A statistical package for GxE interaction to decipher the direction of causations.A statistical package for GxE interaction to decipher the direction of causations.
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2.9000
+Depends: 
+    R (>= 3.5)
+LazyData: true
