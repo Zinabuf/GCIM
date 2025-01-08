@@ -33,11 +33,9 @@ GCIM analysis uses PLink2 for the analysis of discovery data and the package is 
 ~~~
 plink_path <- "<plink_path>/plink2"
 ~~~
-2. Set the working directory and run the following R functions
-3. 
-4. Check the combination of the outcome and exposure variable types
-5. 
-   3.1. Binary outcome with binary exposure variable any type of confounders.
+2. Set the working directory and run the following R functions 
+3. Check the combination of the outcome and exposure variable types
+   3.1. Binary outcome with binary exposure variable any type of confounder for the proposed direction of causation
 This function performs genome-wide interaction studies (GWEIS), genome-wide association studies
 (GWAS), polygenic risk score (PRS) computation, and regression analysis to determine causal
 directions for binary outcomes and binary exposure variables in the reverse direction.
@@ -47,13 +45,42 @@ directions for binary outcomes and binary exposure variables in the reverse dire
    ~~~
    bbp_gweis(plink_path, dis_snp, bp_dis_phen, bp_dis_cov, output_dir, confounders)
    ~~~
-   3.1.1. Performing GWAS
-   
-   
-   
+   3.1.2. Performing GWAS
+   ~~~
+   bbp_gweis(plink_path, dis_snp, bp_dis_cov, output_dir, confounders)
+   ~~~
+   3.1.3. Calculate PRS 
+   ~~~
 
+   ~~~
+   3.1.4. GCIM computing estimation for the proposed direction.
+     gcim_bbp <- glm(Outcome ~ Additive_PRS + Interaction_PRS + Cov_PRS +
+                    Interaction_PRS:Cov_PRS + Confounders,
+                  family = "binomial", data = regression_data)
+
+  return(summary(gcim_bbp))
+}
+   
+ 3.2. Binary outcome with binary exposure variable any type of confounder for the reverse direction of causation.
+ 
+ 
+3.3. Binary outcome with quantitative exposure variable any type of confounder for the proposed direction of causation. 
    
    
+3.4. Binary outcome with quantitative exposure variable any type of confounder for the reverse direction of causation.
+
+
+3.5. quantitative outcome with quantitative exposure variable any type of confounder for the proposed direction of causation.
+
+
+3.6. quantitative outcome with quantitative exposure variable any type of confounder for the proposed direction of causation.
+
+
+3.7. quantitative outcome with quantitative exposure variable any type of confounder for the proposed direction of causation.
+
+
+3.8. quantitative outcome with quantitative exposure variable any type of confounder for the proposed direction of causation.
+
 
 
 
