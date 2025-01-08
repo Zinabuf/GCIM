@@ -54,13 +54,15 @@ directions for binary outcomes and binary exposure variables in the reverse dire
 
    ~~~
    3.1.4. GCIM computing estimation for the proposed direction.
+
+   ~~~
      gcim_bbp <- glm(Outcome ~ Additive_PRS + Interaction_PRS + Cov_PRS +
                     Interaction_PRS:Cov_PRS + Confounders,
                   family = "binomial", data = regression_data)
 
   return(summary(gcim_bbp))
 }
-   
+  ~~~ 
  3.2. Binary outcome with binary exposure variable any type of confounder for the reverse direction of causation.
  
  
