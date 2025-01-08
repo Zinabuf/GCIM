@@ -35,6 +35,25 @@ plink_path <- "<plink_path>/plink2"
 ~~~
 2. Set the working directory and run the following R functions
 3. 
+4. Check the combination of the outcome and exposure variable types
+5. 
+   3.1. Binary outcome with binary exposure variable any type of confounders.
+This function performs genome-wide interaction studies (GWEIS), genome-wide association studies
+(GWAS), polygenic risk score (PRS) computation, and regression analysis to determine causal
+directions for binary outcomes and binary exposure variables in the reverse direction.
+
+   3.1.1. Performing GWEIS
+
+   ~~~
+   bbp_gweis(plink_path, dis_snp, bp_dis_phen, bp_dis_cov, output_dir, confounders)
+   ~~~
+   3.1.1. Performing GWAS
+   
+   
+   
+
+   
+   
 
 
 
