@@ -15,8 +15,8 @@
 #'       (e.g., A T, G G, coded as separate columns).}
 #' }
 #'
-#' @usage data(dis_snp.ped)
+#' @usage data(tar_snp.ped)
 #' @docType data
 #' @keywords datasets
-#' @name dis_snp.ped
+#' @name tar_snp.ped
 NULL
