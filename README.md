@@ -49,10 +49,6 @@ directions for binary outcomes and binary exposure variables in the reverse dire
    ~~~
    bbp_gweis(plink_path, dis_snp, bp_dis_cov, output_dir, confounders)
    ~~~
-   3.1.3. Calculate PRS 
-   ~~~
-
-   ~~~
    3.1.4. GCIM computing estimation for the proposed direction.
 
    ~~~
