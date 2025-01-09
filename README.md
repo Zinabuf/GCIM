@@ -47,11 +47,14 @@ directions for binary outcomes and binary exposure variables in the proposed dir
    ~~~
    bbp_gweis(plink_path, dis_snp, bp_dis_phen, bp_dis_cov, output_dir, confounders)
    ~~~
+
    3.1.2. Performing GWAS
+   
    ~~~
-   bp_gweis(plink_path, dis_snp, bp_dis_cov, output_dir, confounders)
+   bp_gwas(plink_path, dis_snp, bp_dis_cov, output_dir, confounders)
    ~~~
-   3.1.3. GCIM computing estimation for the proposed direction.
+
+   3.1.3. GCIM analysis for the proposed direction with binary outcomes and binary exposures.
 
    ~~~
      gcim_bbp <- glm(Outcome ~ Additive_PRS + Interaction_PRS + Cov_PRS +
@@ -76,7 +79,7 @@ directions for binary outcomes and binary exposure variables in the reverse dire
    ~~~
    bp_gwas(plink_path, dis_snp, br_dis_phen, output_dir, confounders)
    ~~~
-   3.2.3. GCIM computing estimation for the reverse direction.
+   3.2.3. GCIM analysis for the reverse direction with binary outcomes and binary exposures.
 
    ~~~
      gcim_bbr <- glm(Outcome ~ Additive_PRS + Interaction_PRS + Cov_PRS +
@@ -98,9 +101,9 @@ directions for binary outcomes and quantitative exposure variables in the propos
    ~~~
    3.3.2. Performing GWAS
    ~~~
-   qp_gweis(plink_path, dis_snp, qp_dis_cov, output_dir, confounders)
+   qp_gwas(plink_path, dis_snp, qp_dis_cov, output_dir, confounders)
    ~~~
-   3.3.3. GCIM computing estimation for the proposed direction.
+   3.3.3. GCIM analysis for the proposed direction with binary outcomes and quantitative exposures.
 
    ~~~
      gcim_bqp <- glm(Outcome ~ Additive_PRS + Interaction_PRS + Cov_PRS +
@@ -122,14 +125,14 @@ directions for binary outcomes and quantitative exposure variables in the revers
    ~~~
    3.4.2. Performing GWAS
    ~~~
-   br_gweis(plink_path, dis_snp, br_dis_cov, output_dir, confounders)
+   br_gwas(plink_path, dis_snp, br_dis_cov, output_dir, confounders)
    ~~~
-   3.4.3. GCIM computing estimation for the proposed direction.
+   3.4.3. GCIM analysis for the reverse direction with binary outcomes and quantitative exposures.
 
    ~~~
-     gcim_bqr <- glm(Outcome ~ Additive_PRS + Interaction_PRS + Cov_PRS +
+     gcim_bqr <- lm(Outcome ~ Additive_PRS + Interaction_PRS + Cov_PRS +
                     Interaction_PRS:Cov_PRS + Confounders,
-                  family = "binomial", data = regression_data)
+                   data = regression_data)
 
   summary(gcim_bqr)
   ~~~
@@ -146,9 +149,9 @@ directions for quantitative outcomes and quantitative exposure variables in the 
    ~~~
    3.5.2. Performing GWAS
    ~~~
-   qp_gweis(plink_path, dis_snp, qp_dis_cov, output_dir, confounders)
+   qp_gwas(plink_path, dis_snp, qp_dis_cov, output_dir, confounders)
    ~~~
-   3.5.3. GCIM computing estimation for the proposed direction.
+   3.5.3. GCIM analysis for the proposed direction with quantitative outcomes and quantitative exposures.
 
    ~~~
      gcim_qqp <- lm(Outcome ~ Additive_PRS + Interaction_PRS + Cov_PRS +
@@ -170,12 +173,12 @@ directions for quantitative outcomes and quantitative exposure variables in the 
    ~~~
    3.6.2. Performing GWAS
    ~~~
-   qr_gweis(plink_path, dis_snp, qr_dis_phen, output_dir, confounders)
+   qr_gwas(plink_path, dis_snp, qr_dis_phen, output_dir, confounders)
    ~~~
-   3.6.3. GCIM computing estimation for the proposed direction.
+   3.6.3. GCIM analysis for the reverse direction with quantitative outcomes and quantitative exposures.
 
    ~~~
-     gcim_qqr <- glm(Outcome ~ Additive_PRS + Interaction_PRS + Cov_PRS +
+     gcim_qqr <- lm(Outcome ~ Additive_PRS + Interaction_PRS + Cov_PRS +
                     Interaction_PRS:Cov_PRS + Confounders,
                   data = regression_data)
 
@@ -192,12 +195,12 @@ directions for quantitative outcomes and Binary exposure variables in the propos
    ~~~
    3.7.2. Performing GWAS
    ~~~
-   qp_gweis(plink_path, dis_snp, bp_dis_cov, output_dir, confounders)
+   qp_gwas(plink_path, dis_snp, bp_dis_cov, output_dir, confounders)
    ~~~
-   3.7.3. GCIM computing estimation for the proposed direction.
+   3.7.3. GCIM analysis for the proposed direction with quantitative outcomes and binary exposures.
 
    ~~~
-     gcim_qbp <- glm(Outcome ~ Additive_PRS + Interaction_PRS + Cov_PRS +
+     gcim_qbp <- lm(Outcome ~ Additive_PRS + Interaction_PRS + Cov_PRS +
                     Interaction_PRS:Cov_PRS + Confounders,
                     data = regression_data)
 
@@ -211,9 +214,9 @@ directions for quantitative outcomes and Binary exposure variables in the propos
    ~~~
    3.8.2. Performing GWAS
    ~~~
-   qr_gweis(plink_path, dis_snp, bp_dis_cov, output_dir, confounders)
+   qr_gwas(plink_path, dis_snp, bp_dis_cov, output_dir, confounders)
    ~~~
-   3.8.3. GCIM computing estimation for the proposed direction.
+   3.8.3. GCIM analysis for the proposed direction with binary outcomes and binary exposures.
 
    ~~~
      gcim_qbr <- glm(Outcome ~ Additive_PRS + Interaction_PRS + Cov_PRS +
