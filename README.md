@@ -67,7 +67,7 @@ This function performs genome-wide interaction studies (GWEIS), genome-wide asso
 (GWAS), polygenic risk score (PRS) computation, and regression analysis to determine causal
 directions for binary outcomes and binary exposure variables in the reverse direction.
 
-  3.3.1. Performing GWEIS
+  3.2.1. Performing GWEIS
 
    ~~~
    bbr_gweis(plink_path, dis_snp, br_dis_cov, br_dis_phen, output_dir, confounders)
@@ -163,16 +163,16 @@ directions for quantitative outcomes and quantitative exposure variables in the 
 (GWAS), polygenic risk score (PRS) computation, and regression analysis to determine causal
 directions for quantitative outcomes and quantitative exposure variables in the proposed direction.
 
- 3.1.1. Performing GWEIS
+ 3.6.1. Performing GWEIS
 
    ~~~
    qqr_gweis(plink_path, dis_snp, qr_dis_cov, qr_dis_phen, output_dir, confounders)
    ~~~
-   3.1.2. Performing GWAS
+   3.6.2. Performing GWAS
    ~~~
    qr_gweis(plink_path, dis_snp, qr_dis_phen, output_dir, confounders)
    ~~~
-   3.1.4. GCIM computing estimation for the proposed direction.
+   3.6.3. GCIM computing estimation for the proposed direction.
 
    ~~~
      gcim_qqr <- glm(Outcome ~ Additive_PRS + Interaction_PRS + Cov_PRS +
@@ -185,16 +185,16 @@ directions for quantitative outcomes and quantitative exposure variables in the 
  This function performs genome-wide interaction studies (GWEIS), genome-wide association studies
 (GWAS), polygenic risk score (PRS) computation, and regression analysis to determine causal
 directions for quantitative outcomes and Binary exposure variables in the proposed direction.
- 3.1.1. Performing GWEIS
+ 3.7.1. Performing GWEIS
 
    ~~~
    qbp_gweis(plink_path, dis_snp, bp_dis_phen, bp_dis_cov, output_dir, confounders)
    ~~~
-   3.1.2. Performing GWAS
+   3.7.2. Performing GWAS
    ~~~
    qp_gweis(plink_path, dis_snp, bp_dis_cov, output_dir, confounders)
    ~~~
-   3.1.4. GCIM computing estimation for the proposed direction.
+   3.7.3. GCIM computing estimation for the proposed direction.
 
    ~~~
      gcim_qbp <- glm(Outcome ~ Additive_PRS + Interaction_PRS + Cov_PRS +
@@ -204,16 +204,16 @@ directions for quantitative outcomes and Binary exposure variables in the propos
   summary(gcim_qbp)
 3.8. Quantitative outcome with binary exposure variable any type of confounder for the proposed direction of causation.
 
- 3.1.1. Performing GWEIS
+ 3.8.1. Performing GWEIS
 
    ~~~
    qbr_gweis(plink_path, dis_snp, br_dis_cov, qr_dis_phen, output_dir, confounders)
    ~~~
-   3.1.2. Performing GWAS
+   3.8.2. Performing GWAS
    ~~~
    qr_gweis(plink_path, dis_snp, bp_dis_cov, output_dir, confounders)
    ~~~
-   3.1.4. GCIM computing estimation for the proposed direction.
+   3.8.3. GCIM computing estimation for the proposed direction.
 
    ~~~
      gcim_qbr <- glm(Outcome ~ Additive_PRS + Interaction_PRS + Cov_PRS +
