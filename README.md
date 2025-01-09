@@ -75,10 +75,13 @@ directions for binary outcomes and binary exposure variables in the reverse dire
    ~~~
    bbr_gweis(plink_path, dis_snp, br_dis_cov, br_dis_phen, output_dir, confounders)
    ~~~
+
    3.2.2. Performing GWAS
+   
    ~~~
    bp_gwas(plink_path, dis_snp, br_dis_phen, output_dir, confounders)
    ~~~
+
    3.2.3. GCIM analysis for the reverse direction with binary outcomes and binary exposures.
 
    ~~~
@@ -88,6 +91,7 @@ directions for binary outcomes and binary exposure variables in the reverse dire
 
   summary(gcim_bbr)
    ~~~
+
 3.3. Binary outcome with quantitative exposure variable any type of confounder for the proposed direction of causation.
 
  This function performs genome-wide interaction studies (GWEIS), genome-wide association studies
