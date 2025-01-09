@@ -103,10 +103,13 @@ directions for binary outcomes and quantitative exposure variables in the propos
    ~~~
    bqp_gweis(plink_path, dis_snp, bp_dis_phen, qp_dis_cov, output_dir, confounders)
    ~~~
+
    3.3.2. Performing GWAS
+   
    ~~~
    qp_gwas(plink_path, dis_snp, qp_dis_cov, output_dir, confounders)
    ~~~
+
    3.3.3. GCIM analysis for the proposed direction with binary outcomes and quantitative exposures.
 
    ~~~
@@ -116,6 +119,7 @@ directions for binary outcomes and quantitative exposure variables in the propos
 
   summary(gcim_bqp)
    ~~~
+
 3.4. Binary outcome with quantitative exposure variable any type of confounder for the reverse direction of causation.
 
  This function performs genome-wide interaction studies (GWEIS), genome-wide association studies
@@ -127,10 +131,13 @@ directions for binary outcomes and quantitative exposure variables in the revers
    ~~~
    bqr_gweis(plink_path, dis_snp, qr_dis_cov, br_dis_phen, output_dir, confounders)
    ~~~
+
    3.4.2. Performing GWAS
+    
    ~~~
    br_gwas(plink_path, dis_snp, br_dis_cov, output_dir, confounders)
    ~~~
+
    3.4.3. GCIM analysis for the reverse direction with binary outcomes and quantitative exposures.
 
    ~~~
@@ -140,6 +147,7 @@ directions for binary outcomes and quantitative exposure variables in the revers
 
   summary(gcim_bqr)
   ~~~
+
 3.5. Quantitative outcome with quantitative exposure variable any type of confounder for the proposed direction of causation.
 
  This function performs genome-wide interaction studies (GWEIS), genome-wide association studies
@@ -151,10 +159,13 @@ directions for quantitative outcomes and quantitative exposure variables in the 
    ~~~
    qqp_gweis(plink_path, dis_snp, qp_dis_phen, qp_dis_cov, output_dir, confounders)
    ~~~
+
    3.5.2. Performing GWAS
+   
    ~~~
    qp_gwas(plink_path, dis_snp, qp_dis_cov, output_dir, confounders)
    ~~~
+
    3.5.3. GCIM analysis for the proposed direction with quantitative outcomes and quantitative exposures.
 
    ~~~
@@ -163,6 +174,7 @@ directions for quantitative outcomes and quantitative exposure variables in the 
                    data = regression_data)
 
   summary(gcim_qqp)
+  ~~~
 
 3.6. Quantitative outcome with quantitative exposure variable any type of confounder for the reverse direction of causation.
 
@@ -175,10 +187,13 @@ directions for quantitative outcomes and quantitative exposure variables in the 
    ~~~
    qqr_gweis(plink_path, dis_snp, qr_dis_cov, qr_dis_phen, output_dir, confounders)
    ~~~
+
    3.6.2. Performing GWAS
+   
    ~~~
    qr_gwas(plink_path, dis_snp, qr_dis_phen, output_dir, confounders)
    ~~~
+
    3.6.3. GCIM analysis for the reverse direction with quantitative outcomes and quantitative exposures.
 
    ~~~
@@ -187,6 +202,8 @@ directions for quantitative outcomes and quantitative exposure variables in the 
                   data = regression_data)
 
   summary(gcim_qqr)
+  ~~~
+
 3.7. Quantitative outcome with binary exposure variable any type of confounder for the proposed direction of causation.
 
  This function performs genome-wide interaction studies (GWEIS), genome-wide association studies
@@ -197,10 +214,13 @@ directions for quantitative outcomes and Binary exposure variables in the propos
    ~~~
    qbp_gweis(plink_path, dis_snp, bp_dis_phen, bp_dis_cov, output_dir, confounders)
    ~~~
+
    3.7.2. Performing GWAS
+   
    ~~~
    qp_gwas(plink_path, dis_snp, bp_dis_cov, output_dir, confounders)
    ~~~
+
    3.7.3. GCIM analysis for the proposed direction with quantitative outcomes and binary exposures.
 
    ~~~
@@ -209,6 +229,8 @@ directions for quantitative outcomes and Binary exposure variables in the propos
                     data = regression_data)
 
   summary(gcim_qbp)
+   ~~~
+
 3.8. Quantitative outcome with binary exposure variable any type of confounder for the proposed direction of causation.
 
  3.8.1. Performing GWEIS
@@ -216,10 +238,13 @@ directions for quantitative outcomes and Binary exposure variables in the propos
    ~~~
    qbr_gweis(plink_path, dis_snp, br_dis_cov, qr_dis_phen, output_dir, confounders)
    ~~~
+
    3.8.2. Performing GWAS
+   
    ~~~
    qr_gwas(plink_path, dis_snp, bp_dis_cov, output_dir, confounders)
    ~~~
+
    3.8.3. GCIM analysis for the proposed direction with binary outcomes and binary exposures.
 
    ~~~
@@ -228,7 +253,7 @@ directions for quantitative outcomes and Binary exposure variables in the propos
                   family = "binomial", data = regression_data)
 
   summary(gcim_qbr)
-
+   ~~~
 
 
 
