@@ -22,13 +22,13 @@ The genetic data should be in Plink binary format(.bed, .bim, and .fam), and the
 
 Outcome data, Exposure or Environmental variables, and confounder variables
 
-The outcome, exposure, and confounder variable or other covariate data should be split into the discovery dataset(ideally 80% of the data ) and the target dataset(the remaining 20% of the data) depending on the type of outcome variables. 
+Depending on the type of outcome variables, the outcome, exposure, and confounder variable or other covariate data should be split into the discovery dataset(ideally 80% of the data ) and the target dataset(the remaining 20% of the data). 
 
 
 Quick start
 
-GCIM analysis uses PLink2 for the analysis of discovery data and the package is compatible with the Linux operating system. 
-1. download the plink2 from the Plink website and then specify the executable Plink file path.
+GCIM analysis uses PLink2 to analyze discovery data, and the package is compatible with the Linux operating system. 
+1. download the plink2 from the Plink website and specify the executable Plink file path.
    
 ~~~
 plink_path <- "<plink_path>/plink2"
@@ -62,7 +62,8 @@ directions for binary outcomes and binary exposure variables in the proposed dir
                   family = "binomial", data = regression_data)
 
   summary(gcim_bbp)
-  ~~~ 
+  ~~~
+ 
  3.2. Binary outcome with binary exposure variable any type of confounder for the reverse direction of causation.
 
 
