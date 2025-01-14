@@ -4,8 +4,9 @@ The genetic causality inference model(GCIM) is a statistical method for detectin
  Author list: Zinabu Fentaw, S.Hong Lee
 -
 
-```json
-   // code for coloring
+```blue
+   library(devtools)
+   install_github("zinabuf/GCIM")
 ```
    
 Package installation
