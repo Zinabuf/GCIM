@@ -8,6 +8,10 @@ The genetic causality inference model(GCIM) is a statistical method for detectin
    library(devtools)
    install_github("zinabuf/GCIM")
 ```
+
+```html
+   Load the library
+```
    
 Package installation
 
