@@ -46,9 +46,9 @@ This function performs genome-wide interaction studies (GWEIS), genome-wide asso
 (GWAS), polygenic risk score (PRS) computation, and regression analysis to determine causal
 directions for binary outcomes and binary exposure variables in the proposed direction.
 
--
+'''
    3.1.1. Performing GWEIS
--
+'''
 
    ~~~
    bbp_gweis(plink_path, dis_snp, bp_dis_phen, bp_dis_cov, output_dir, confounders)
