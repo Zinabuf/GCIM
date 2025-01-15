@@ -111,23 +111,26 @@ directions for binary outcomes and quantitative exposure variables in the propos
     3.3.1. Performing GWEIS
 
    ~~~
-   bqp_gweis(plink_path, dis_snp, bp_dis_phen, qp_dis_cov, output_dir, confounders)
+   bqp_gweis(plink_path, dis_snp, bp_dis_phen, qp_dis_cov, output_dir)
    ~~~
 
    3.3.2. Performing GWAS
    
    ~~~
-   qp_gwas(plink_path, dis_snp, qp_dis_cov, output_dir, confounders)
+   qp_gwas(plink_path, dis_snp, qp_dis_cov, output_dir)
    ~~~
 
-   3.3.3. GCIM analysis for the proposed direction with binary outcomes and quantitative exposures.
+  3.3.3. Compute Polygenic Risk Scores (PRS) for bqp
+
+~~~
+bqp_prs(plink_path, tar_snp, output_dir)
+~~~~
+
+
+   3.3.4. GCIM analysis for the proposed direction with binary outcomes and quantitative exposures.
 
    ~~~
-     gcim_bqp <- glm(Outcome ~ Additive_PRS + Interaction_PRS + Cov_PRS +
-                    Interaction_PRS:Cov_PRS + Confounders,
-                  family = "binomial", data = regression_data)
-
-  summary(gcim_bqp)
+gcim_bqp(bp_tar_phen, qp_tar_cov, prs_add_scaled, prs_int_scaled, prs_cov_scaled, confounders)
    ~~~
 
 3.4. Binary outcome with quantitative exposure variable any type of confounder for the reverse direction of causation.
