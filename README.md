@@ -90,7 +90,7 @@ directions for binary outcomes and binary exposure variables in the reverse dire
    ~~~
    br_gwas(plink_path, dis_snp, br_dis_phen, output_dir)
    ~~~
-  3.2.3. Compute Polygenic Risk Scores (PRS) for bbp
+  3.2.3. Compute Polygenic Risk Scores (PRS) for bbr
 
 ~~~
 bbr_prs(plink_path, tar_snp, output_dir)
@@ -133,7 +133,7 @@ bqp_prs(plink_path, tar_snp, output_dir)
 gcim_bqp(bp_tar_phen, qp_tar_cov, prs_add_scaled, prs_int_scaled, prs_cov_scaled, confounders)
    ~~~
 
-3.4. Binary outcome with quantitative exposure variable any type of confounder for the reverse direction of causation.
+3.4. Binary outcome with quantitative exposure variable any confounder for the reverse direction of causation.
 
  This function performs genome-wide interaction studies (GWEIS), genome-wide association studies
 (GWAS), polygenic risk score (PRS) computation, and regression analysis to determine causal
@@ -142,26 +142,29 @@ directions for binary outcomes and quantitative exposure variables in the revers
  3.4.1. Performing GWEIS
 
    ~~~
-   bqr_gweis(plink_path, dis_snp, qr_dis_cov, br_dis_phen, output_dir, confounders)
+   bqr_gweis(plink_path, dis_snp, qr_dis_cov, br_dis_phen, output_dir)
    ~~~
 
    3.4.2. Performing GWAS
     
    ~~~
-   br_gwas(plink_path, dis_snp, br_dis_cov, output_dir, confounders)
+   br_gwas(plink_path, dis_snp, br_dis_phen, output_dir)
    ~~~
 
-   3.4.3. GCIM analysis for the reverse direction with binary outcomes and quantitative exposures.
+  3.4.3. Compute Polygenic Risk Scores (PRS) for bqr
+
+~~~
+bqr_prs(plink_path, tar_snp, output_dir)
+~~~~
+
+
+   3.4.4. GCIM analysis for the reverse direction with binary outcomes and quantitative exposures.
 
    ~~~
-     gcim_bqr <- lm(Outcome ~ Additive_PRS + Interaction_PRS + Cov_PRS +
-                    Interaction_PRS:Cov_PRS + Confounders,
-                   data = regression_data)
-
-  summary(gcim_bqr)
+gcim_bqr(qr_tar_cov, br_tar_phen, prs_add_scaled, prs_int_scaled, prs_cov_scaled, confounders)
   ~~~
 
-3.5. Quantitative outcome with quantitative exposure variable any type of confounder for the proposed direction of causation.
+3.5. Quantitative outcome with quantitative exposure variable any confounder for the proposed direction of causation.
 
  This function performs genome-wide interaction studies (GWEIS), genome-wide association studies
 (GWAS), polygenic risk score (PRS) computation, and regression analysis to determine causal
@@ -170,7 +173,7 @@ directions for quantitative outcomes and quantitative exposure variables in the 
    3.5.1. Performing GWEIS
 
    ~~~
-   qqp_gweis(plink_path, dis_snp, qp_dis_phen, qp_dis_cov, output_dir, confounders)
+ qqp_gweis(plink_path, dis_snp, qp_dis_phen, qp_dis_cov, output_dir)
    ~~~
 
    3.5.2. Performing GWAS
@@ -179,14 +182,16 @@ directions for quantitative outcomes and quantitative exposure variables in the 
    qp_gwas(plink_path, dis_snp, qp_dis_cov, output_dir, confounders)
    ~~~
 
-   3.5.3. GCIM analysis for the proposed direction with quantitative outcomes and quantitative exposures.
+  3.5.3. Compute Polygenic Risk Scores (PRS) for qqp
+
+~~~
+qqp_prs(plink_path, tar_snp, output_dir)
+~~~~
+
+   3.5.4. GCIM analysis for the proposed direction with quantitative outcomes and exposures.
 
    ~~~
-     gcim_qqp <- lm(Outcome ~ Additive_PRS + Interaction_PRS + Cov_PRS +
-                    Interaction_PRS:Cov_PRS + Confounders,
-                   data = regression_data)
-
-  summary(gcim_qqp)
+gcim_qqp(qp_tar_phen, qp_tar_cov, prs_add_scaled, prs_int_scaled, prs_cov_scaled, confounders)
   ~~~
 
 3.6. Quantitative outcome with quantitative exposure variable any type of confounder for the reverse direction of causation.
@@ -204,68 +209,80 @@ directions for quantitative outcomes and quantitative exposure variables in the 
    3.6.2. Performing GWAS
    
    ~~~
-   qr_gwas(plink_path, dis_snp, qr_dis_phen, output_dir, confounders)
+   qr_gwas(plink_path, dis_snp, qr_dis_phen, output_dir)
    ~~~
 
-   3.6.3. GCIM analysis for the reverse direction with quantitative outcomes and quantitative exposures.
+  3.6.3. Compute Polygenic Risk Scores (PRS) for qqr
+
+~~~
+qqr_prs(plink_path, tar_snp, output_dir)
+~~~~
+
+   3.6.4. GCIM analysis for the reverse direction with quantitative outcomes and quantitative exposures.
 
    ~~~
-     gcim_qqr <- lm(Outcome ~ Additive_PRS + Interaction_PRS + Cov_PRS +
-                    Interaction_PRS:Cov_PRS + Confounders,
-                  data = regression_data)
-
-  summary(gcim_qqr)
+gcim_qqr(qr_tar_cov, qr_tar_phen, prs_add_scaled, prs_int_scaled, prs_cov_scaled, confounders)
   ~~~
 
 3.7. Quantitative outcome with binary exposure variable any type of confounder for the proposed direction of causation.
 
  This function performs genome-wide interaction studies (GWEIS), genome-wide association studies
 (GWAS), polygenic risk score (PRS) computation, and regression analysis to determine causal
-directions for quantitative outcomes and Binary exposure variables in the proposed direction.
+directions for quantitative outcomes and binary exposure variables in the proposed direction.
+
  3.7.1. Performing GWEIS
 
    ~~~
-   qbp_gweis(plink_path, dis_snp, bp_dis_phen, bp_dis_cov, output_dir, confounders)
+   qbp_gweis(plink_path, dis_snp, qp_dis_phen, bp_dis_cov, output_dir)
    ~~~
 
    3.7.2. Performing GWAS
    
    ~~~
-   qp_gwas(plink_path, dis_snp, bp_dis_cov, output_dir, confounders)
+   bp_gwas(plink_path, dis_snp, bp_dis_cov, output_dir)
    ~~~
 
-   3.7.3. GCIM analysis for the proposed direction with quantitative outcomes and binary exposures.
+  3.7.3. Compute Polygenic Risk Scores (PRS) for qbp
+
+~~~
+qbp_prs(plink_path, tar_snp, output_dir)
+~~~~
+
+   3.7.4. GCIM analysis for the proposed direction with quantitative outcomes and binary exposures.
 
    ~~~
-     gcim_qbp <- lm(Outcome ~ Additive_PRS + Interaction_PRS + Cov_PRS +
-                    Interaction_PRS:Cov_PRS + Confounders,
-                    data = regression_data)
-
-  summary(gcim_qbp)
+gcim_qbp(qp_tar_phen, bp_tar_cov, prs_add_scaled, prs_int_scaled, prs_cov_scaled, confounders)
    ~~~
 
-3.8. Quantitative outcome with binary exposure variable any type of confounder for the proposed direction of causation.
+3.8. Quantitative outcome with binary exposure variable any confounder for the reverse direction of causation.
+
+ This function performs genome-wide interaction studies (GWEIS), genome-wide association studies
+(GWAS), polygenic risk score (PRS) computation, and regression analysis to determine causal
+directions for quantitative outcomes and binary exposure variables in the reverse direction.
 
  3.8.1. Performing GWEIS
 
    ~~~
-   qbr_gweis(plink_path, dis_snp, br_dis_cov, qr_dis_phen, output_dir, confounders)
+  qbr_gweis(plink_path, dis_snp, br_dis_cov, qr_dis_phen, output_dir)
    ~~~
 
    3.8.2. Performing GWAS
    
    ~~~
-   qr_gwas(plink_path, dis_snp, bp_dis_cov, output_dir, confounders)
+   qr_gwas(plink_path, dis_snp, qr_dis_phen, output_dir)
    ~~~
 
-   3.8.3. GCIM analysis for the proposed direction with binary outcomes and binary exposures.
+  3.8.3. Compute Polygenic Risk Scores (PRS) for qbr
+
+~~~
+qbr_prs(plink_path, tar_snp, output_dir)
+~~~~
+
+
+   3.8.4. GCIM analysis for the reverse direction with quantitative outcomes and binary exposures.
 
    ~~~
-     gcim_qbr <- glm(Outcome ~ Additive_PRS + Interaction_PRS + Cov_PRS +
-                    Interaction_PRS:Cov_PRS + Confounders,
-                  family = "binomial", data = regression_data)
-
-  summary(gcim_qbr)
+gcim_qbr(br_tar_cov, qr_tar_phen, prs_add_scaled, prs_int_scaled, prs_cov_scaled, confounders)
    ~~~
 
 
