@@ -4,7 +4,7 @@ The genetic causality inference model(GCIM) is a statistical method for detectin
  Author list: Zinabu Fentaw, Dovini Jayasinghe, S.Hong Lee
 -
 
-NB: The proposed direction of causation refers to the causal relationship that is the primary focus of the researcher's interest, while the reverse direction of causation examines the opposite relationship to test its validity.
+NB: The proposed direction of causation refers to the causal directions of GxE interaction that is the primary focus of the researcher's interest, while the reverse direction of causation examines the opposite relationship to test its validity.
 
    
 Package installation
