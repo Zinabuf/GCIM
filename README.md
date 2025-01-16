@@ -18,13 +18,16 @@ library(GCIM)
 ~~~
 Data preparation for input data files
 
-The data preparation follows: All data files should be split into two files for discovery and target data for Genetic data, Outcome(phenotype data), exposure(environmental data), and confounder variables. 
+The data preparation follows: All data files should be split into two files for discovery and target data including Genetic data, Outcome(phenotype data), exposure(environmental data), and confounder variables. 
 
 Genetic data 
 
-The genetic data should be in Plink binary format(.bed, .bim, and .fam), and then it should be split into the discovery dataset(ideally 80% of the data ) and the target dataset(the remaining 20% of the data)
+The genetic data should be in Plink binary format(.bed, .bim, and .fam), and then it should be split into the discovery dataset(ideally 80% of the data ) and the target dataset(the remaining 20% of the data). 
 
-Outcome data, Exposure or Environmental variables, and confounder variables
+Outcome data, Exposure or Environmental variables, and confounder variables are also split with similar proportions as above and compatible with the Plink data format. 
+    #outcome should contain three columns ( FID, IID, and phenotype Value) and the phenotype value for case-control data should be 1 for control and 2 for case and in the target dataset, it should be 0 for controls and 1 for cases.
+    #the exposure should contain at least 19 column (FID, IID, and exposure values, confounder 1 confounder 1 , ...confounder 16)
+    
 
 Depending on the type of outcome variables, the outcome, exposure, and confounder variable or other covariate data should be split into the discovery dataset(ideally 80% of the data ) and the target dataset(the remaining 20% of the data). 
 
