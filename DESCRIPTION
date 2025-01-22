@@ -2,7 +2,7 @@ Package: GCIM
 Title: Genetic Causality Inference Model(GCIM) 
 Version: 0.0.1.1
 Authors@R: 
-    person("Zinabu", "Fentaw", , "zfentaw5@gmail.com", role = c("aut", "cre"))
+    person("Zinabu", "Fentaw", , "zfentaw5@gmail.com", role = c("aut", "cre"),person("Dovini", "Jayasinghe", role = c("aut","cph"),email = "dovini.jayasinghe@mymail.unisa.edu.au"), person("Hong", "Lee", role = c("aut","cph"),email = "Hong.Lee@unisa.edu.au"))
 Description: GCIM is a statistical model to decipher the direction of causations.
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
