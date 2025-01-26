@@ -40,10 +40,15 @@ GCIM analysis uses PLink2 to analyze discovery data, and the package is compatib
 1. download the plink2 from the Plink website and specify the executable Plink file path.
    
 ~~~
-plink_path <- "<plink_path>/plink2"
+plink_path <- "plink_path>/plink2"
 ~~~
-2. Set the working directory and run the following R functions 
-3. Check the combination of the outcome and exposure variable types
+2. Set the working directory and run the following R functions
+
+  ~~~
+output_dir <- "output_path>/output_dir"
+ ~~~
+
+4. Check the combination of the outcome and exposure variable types
    
    3.1. Binary outcome with binary exposure variable any confounder for the proposed direction of causation.
    
