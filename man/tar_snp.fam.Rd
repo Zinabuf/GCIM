@@ -3,7 +3,7 @@
 \docType{data}
 \name{tar_snp.fam}
 \alias{tar_snp.fam}
-\title{PLINK .fam File for Family and Phenotype Information}
+\title{PLINK .fam file for family and phenotype information}
 \format{
 A data frame with 6 columns:
 \describe{

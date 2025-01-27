@@ -13,7 +13,7 @@ A data frame with 800 rows and 3 columns:
 #' }
 }
 \usage{
-data(b_dis_phen)
+data(bp_dis_phen)
 }
 \description{
 This dataset contains phenotype for the outcome information for individuals in the discovery dataset,

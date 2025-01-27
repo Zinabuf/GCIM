@@ -3,7 +3,7 @@
 \docType{data}
 \name{tar_snp.bim}
 \alias{tar_snp.bim}
-\title{PLINK .bim File for SNP Information}
+\title{PLINK .bim file for SNP information}
 \format{
 A data frame with 6 columns:
 \describe{

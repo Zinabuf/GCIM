@@ -3,7 +3,7 @@
 \docType{data}
 \name{tar_snp.map}
 \alias{tar_snp.map}
-\title{PLINK .map File for SNP Information}
+\title{PLINK .map file for SNP information}
 \format{
 A data frame with 4 columns:
 \describe{

@@ -2,34 +2,25 @@
 % Please edit documentation in R/bqr_gweis.R
 \name{bqr_gweis}
 \alias{bqr_gweis}
-\title{Perform GWEIS, GWAS, PRS computation, and regression analysis for the reverse direction of causations in binary outcome and quantitative exposure variable.}
+\title{Perform GWEIS for binary outcome and quantitative exposure variables.}
 \usage{
-bqr_gweis()
+bqr_gweis(plink_path, dis_snp, qr_dis_cov, br_dis_phen, output_dir)
 }
 \arguments{
 \item{plink_path}{Path to the PLINK executable application.}
 
-\item{dis_snp}{Prefix for binary files for the discovery dataset (common prefix for .fam, .bim, .bed files).}
+\item{dis_snp}{Prefix for binary files for the discovery dataset.}
 
-\item{tar_snp}{Prefix for binary files for the target dataset (common prefix for .fam, .bim, .bed files).}
+\item{qr_dis_cov}{File path for covariate data in the discovery dataset.}
 
-\item{br_dis_phen}{File path for the phenotype data of the binary exposure in the discovery dataset for the reverse direction.}
+\item{br_dis_phen}{File path for the phenotype data in the discovery dataset.}
 
-\item{br_tar_phen}{File path for the phenotype data of the binary exposure in the target dataset for the reverse direction.}
-
-\item{qr_dis_cov}{File path for phenotype data in the discovery dataset for binary exposure as an outcome in the reverse direction.}
-
-\item{qr_tar_cov}{File path for phenotype data in the target dataset for binary exposure as an outcome in the reverse direction.}
-
-\item{output_dir}{Directory for saving output files.}
-
-\item{confounders}{Covariates to include as confounders in the regression model.}
+\item{output_dir}{Directory to save output files.}
 }
 \value{
-Summary of the regression model.
+None. Results are saved to files.
 }
 \description{
-This function performs genome-wide interaction studies (GWEIS), genome-wide association studies (GWAS),
-polygenic risk score (PRS) computation, and regression analysis to determine causal directions
-for binary outcomes and quatitative exposure variables.
+This function performs genome-wide interaction studies (GWEIS) and processes the results
+to generate files for downstream analysis.
 }

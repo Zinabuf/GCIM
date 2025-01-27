@@ -16,7 +16,7 @@ A data frame with 800 rows and 19 columns:
 }
 }
 \usage{
-data(b_tar_cov)
+data(bp_tar_cov)
 }
 \description{
 This dataset contains covariate information for individuals in the target dataset,
