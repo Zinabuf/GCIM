@@ -40,12 +40,12 @@ GCIM analysis uses PLink2 to analyze discovery data, and the package is compatib
 1. download the plink2 from the Plink website and specify the executable Plink file path.
    
 ~~~
-plink_path <- "plink_path>/plink2"
+plink_path <- "<plink_path>/plink2"
 ~~~
 2. Set the working directory and run the following R functions
 
   ~~~
-output_dir <- "output_path>/output_dir"
+output_dir <- "<output_path>/output_dir"
  ~~~
 
 4. Check the combination of the outcome and exposure variable types
@@ -60,20 +60,22 @@ directions for binary outcomes and binary exposure variables in the proposed dir
    3.1.1. Performing GWEIS
 
    ~~~
-   bbp_gweis(plink_path, dis_snp, bp_dis_phen, bp_dis_cov, output_dir)
+  a <- bbp_gweis(plink_path, dis_snp, bp_dis_phen, bp_dis_cov, output_dir)
    ~~~
 
 
    3.1.2. Performing GWAS
 
    ~~~
-   bp_gwas(plink_path, dis_snp, bp_dis_cov, output_dir)
+  b <- bp_gwas(plink_path, dis_snp, bp_dis_cov, output_dir)
    ~~~
 
   3.1.3. Compute Polygenic Risk Scores (PRS) for bbp
 
    ~~~
-  bbp_prs(plink_path, tar_snp, output_dir)
+  c1 <- bbp_prs(plink_path, tar_snp, addbbp, output_dir)
+  c2 <- bbp_prs(plink_path, tar_snp, intbbp, output_dir)
+  c3 <- bbp_prs(plink_path, tar_snp, covaddbbp, output_dir)
    ~~~
 
    3.1.4. GCIM analysis for the proposed direction with binary outcomes and exposures.
