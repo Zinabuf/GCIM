@@ -10,7 +10,7 @@
 #'   \item{Binary outcome}{A binary outcome (0=controls, 1=cases)}
 #'   #' }
 #'
-#' @usage data(b_tar_phen)
+#' @usage data(bp_tar_phen)
 #' @docType data
 #' @keywords datasets
 #' @name bp_tar_phen

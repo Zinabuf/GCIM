@@ -13,7 +13,7 @@
 #'   \item{Confounder 16}{Confounder 16 description}
 #' }
 #'
-#' @usage data(b_dis_cov)
+#' @usage data(bp_dis_cov)
 #' @docType data
 #' @keywords datasets
 #' @name bp_dis_cov

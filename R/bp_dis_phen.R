@@ -11,7 +11,7 @@
 #'   \item{Binary outcome}{A binary outcome (1=controls, 2=cases)}
 #'   #' }
 #'
-#' @usage data(b_dis_phen)
+#' @usage data(bp_dis_phen)
 #' @docType data
 #' @keywords datasets
 #' @name bp_dis_phen
