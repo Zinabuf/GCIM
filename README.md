@@ -73,9 +73,7 @@ directions for binary outcomes and binary exposure variables in the proposed dir
   3.1.3. Compute Polygenic Risk Scores (PRS) for bbp
 
    ~~~
-  c1 <- bbp_prs(plink_path, tar_snp, phenadd_bbp.txt, output_dir)
-  c2 <- bbp_prs(plink_path, tar_snp, int_bbp.txt, output_dir)
-  c3 <- bbp_prs(plink_path, tar_snp, covadd_bp.txt, output_dir)
+  c <- bbp_prs(plink_path, tar_snp, output_dir)
    ~~~
 
    3.1.4. GCIM analysis for the proposed direction with binary outcomes and exposures.
