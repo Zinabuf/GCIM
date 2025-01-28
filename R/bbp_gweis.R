@@ -98,9 +98,9 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
   prs_cov <- scale(read.table(file.path(output_dir, "covadd_bp.sscore"))$SCORE1_AVG)
 
   # Save scaled PRS values
-  write.table(prs_add, file.path(output_dir, "add_bbp_scaled.txt"), row.names = FALSE, col.names = FALSE)
-  write.table(prs_int, file.path(output_dir, "int_bbp_scaled.txt"), row.names = FALSE, col.names = FALSE)
-  write.table(prs_cov, file.path(output_dir, "covadd_bp_scaled.txt"), row.names = FALSE, col.names = FALSE)
+  #write.table(prs_add, file.path(output_dir, "add_bbp_scaled.txt"), row.names = FALSE, col.names = FALSE)
+  #write.table(prs_int, file.path(output_dir, "int_bbp_scaled.txt"), row.names = FALSE, col.names = FALSE)
+  #write.table(prs_cov, file.path(output_dir, "covadd_bp_scaled.txt"), row.names = FALSE, col.names = FALSE)
 
   return(list(Additive = prs_add, Interaction = prs_int, Covariate = prs_cov))
 }
@@ -114,13 +114,13 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
 #' @param confounders Data frame of additional confounders.
 #' @return Summary of the regression model.
 #' @export
-gcim_bbp <- function(bp_tar_phen, bp_tar_cov, prs_add_scaled, prs_int_scaled, prs_cov_scaled, confounders) {
+gcim_bbp <- function(bp_tar_phen, bp_tar_cov, prs_add, prs_int, prs_cov, confounders) {
   # Prepare regression data
   regression_data <- data.frame(
     Outcome = read.table(bp_tar_phen)$V3,
-    Additive_PRS = prs_add_scaled,
-    Interaction_PRS = prs_int_scaled,
-    Cov_PRS = prs_cov_scaled,
+    Additive_PRS = prs_add,
+    Interaction_PRS = prs_int,
+    Cov_PRS = prs_cov,
     Covariate_Pheno = read.table(bp_tar_cov)$V3,
     Confounders = confounders
   )

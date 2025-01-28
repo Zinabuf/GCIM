@@ -1,4 +1,3 @@
-
 #' PLINK .bim File for SNP Information
 #'
 #' This dataset follows the standard PLINK .bim format and contains SNP-related information

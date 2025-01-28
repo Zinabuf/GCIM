@@ -14,9 +14,6 @@ bbr_gweis <- function(plink_path, dis_snp, br_dis_cov, br_dis_phen, output_dir) 
   # Create output directory if it doesn't exist
   if (!dir.exists(output_dir)) dir.create(output_dir, recursive = TRUE)
 
-  # Extract the third column name from the phenotype file
-  outcome_name <- colnames(read.table(br_dis_phen, header = TRUE, nrows = 1))[3]
-
   # Run PLINK for GWEIS
   system(paste(
     plink_path, "--bfile", dis_snp,
@@ -26,16 +23,10 @@ bbr_gweis <- function(plink_path, dis_snp, br_dis_cov, br_dis_phen, output_dir) 
     "--out", file.path(output_dir, "bbr_gweis"), "&> plink.log"
   ))
 
-  # Dynamically construct the output filename
-  output_filename <- file.path(output_dir, paste0("bbr_gweis.", outcome_name, ".glm.logistic.hybrid"))
-
   # Process GWEIS results
-  if (file.exists(output_filename)) {
-    gweis_result <- read.table(output_filename, header = TRUE, stringsAsFactors = FALSE, comment.char = "")
-    return(gweis_result)
-  } else {
-    stop("Output file not found: ", output_filename)
-  }
+  gweis_result <- read.table(file.path(output_dir, "bbr_gweis.PHENO1.glm.logistic.hybrid"),
+                             header = TRUE, stringsAsFactors = FALSE, comment.char = "")
+
   # Save additive and interaction results
   additive_outcome <- gweis_result[gweis_result$TEST == "ADD", ]
   additive_outcome$BETA <- log(as.numeric(as.character(additive_outcome$OR)))
