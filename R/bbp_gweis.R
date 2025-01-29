@@ -97,20 +97,15 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
   prs_int <- scale(read.table(file.path(output_dir, "int_bbp.sscore"))$SCORE1_AVG)
   prs_cov <- scale(read.table(file.path(output_dir, "covadd_bp.sscore"))$SCORE1_AVG)
 
-  # Save scaled PRS values
-  #write.table(prs_add, file.path(output_dir, "add_bbp_scaled.txt"), row.names = FALSE, col.names = FALSE)
-  #write.table(prs_int, file.path(output_dir, "int_bbp_scaled.txt"), row.names = FALSE, col.names = FALSE)
-  #write.table(prs_cov, file.path(output_dir, "covadd_bp_scaled.txt"), row.names = FALSE, col.names = FALSE)
-
   return(list(Additive = prs_add, Interaction = prs_int, Covariate = prs_cov))
 }
 #' Perform Regression Analysis for GCIM.
 #'
 #' @param bp_tar_phen File path for the target phenotype data.
 #' @param bp_tar_cov File path for the target covariate data.
-#' @param prs_add_scaled Scaled additive PRS values.
-#' @param prs_int_scaled Scaled interaction PRS values.
-#' @param prs_cov_scaled Scaled covariate PRS values.
+#' @param prs_add Scaled additive PRS values.
+#' @param prs_int Scaled interaction PRS values.
+#' @param prs_cov Scaled covariate PRS values.
 #' @param confounders Data frame of additional confounders.
 #' @return Summary of the regression model.
 #' @export
