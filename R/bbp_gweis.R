@@ -20,7 +20,7 @@ bbp_gweis <- function(plink_path, dis_snp, bp_dis_phen, bp_dis_cov, output_dir) 
     "--glm interaction --pheno", bp_dis_phen,
     "--covar", bp_dis_cov, "--parameters 1,2,3,4-19",
     "--allow-no-sex --covar-variance-standardize",
-    "--out", file.path(output_dir, "bbp_gweis"), "&> plink.log"
+    "--out", file.path(output_dir, "bbp_gweis"), "&> gweis.log"
   ))
 
   # Process GWEIS results
@@ -59,7 +59,7 @@ bp_gwas <- function(plink_path, dis_snp, bp_dis_cov, output_dir) {
     plink_path, "--bfile", dis_snp,
     "--pheno", bp_dis_cov, "--glm",
     "--covar-col-nums 4-19 --allow-no-sex --covar-variance-standardize",
-    "--out", file.path(output_dir, "bp_gwas"), "&> plink.log"
+    "--out", file.path(output_dir, "bp_gwas"), "&> gwas.log"
   ))
 
   covariate_result <- read.table(file.path(output_dir, "bp_gwas.PHENO1.glm.logistic.hybrid"),
@@ -86,11 +86,11 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
 
   # Compute PRS for additive, interaction, and covariate scores
   system(paste(plink_path, "--bfile", tar_snp, "--score", file.path(output_dir, "phenadd_bbp.txt"),
-               "--out", file.path(output_dir, "add_bbp")))
+               "--out", file.path(output_dir, "add_bbp"), "&> add_bbp.log"))
   system(paste(plink_path, "--bfile", tar_snp, "--score", file.path(output_dir, "int_bbp.txt"),
-               "--out", file.path(output_dir, "int_bbp")))
+               "--out", file.path(output_dir, "int_bbp"), "&> int_bbp.log"))
   system(paste(plink_path, "--bfile", tar_snp, "--score", file.path(output_dir, "covadd_bp.txt"),
-               "--out", file.path(output_dir, "covadd_bp")))
+               "--out", file.path(output_dir, "covadd_bp"), "&> covadd_bbp.log"))
 
   # Read and scale PRS values, ensuring correct column selection
   prs_add <- file.path(output_dir, "add_bbp.sscore")
@@ -114,6 +114,10 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
   } else {
     stop("Error: PRS covariate file not found.")
   }
+  # Save scaled PRS values
+  write.table(prs_add, file.path(output_dir, "prs_add"), row.names = FALSE, col.names = FALSE)
+  write.table(prs_int, file.path(output_dir, "prs_int"), row.names = FALSE, col.names = FALSE)
+  write.table(prs_cov, file.path(output_dir, "prs_cov"), row.names = FALSE, col.names = FALSE)
 
   return(list(Additive = prs_add, Interaction = prs_int, Covariate = prs_cov))
 }
