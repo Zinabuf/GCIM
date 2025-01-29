@@ -24,11 +24,11 @@ The data preparation follows: All data files should be split into two files for 
 
 Genetic data 
 
-The genetic data should be in Plink binary format(.bed, .bim, and .fam), and then it should be split into the discovery dataset(ideally 80% of the data ) and the target dataset(the remaining 20% of the data). 
+The genetic data should be in Plink binary format(.bed, .bim, and .fam). Then it should be split into the discovery dataset(ideally 80% of the data ) and the target dataset(the remaining 20% of the data). 
 
 Outcome data, Exposure or Environmental variables, and confounder variables are also split with similar proportions as above and compatible with the Plink data format. 
     #outcome should contain three columns ( FID, IID, and phenotype Value) and the phenotype value for case-control data should be 1 for control and 2 for case and in the target dataset, it should be 0 for controls and 1 for cases.
-    #the exposure should contain at least 19 column (FID, IID, and exposure values, confounder 1 confounder 1 , ...confounder 16)
+    #the exposure should contain at least 19 columns (FID, IID, and exposure values, confounder 1 confounder1, ...confounder16)
     
 
 Depending on the type of outcome variables, the outcome, exposure, and confounder variable or other covariate data should be split into the discovery dataset(ideally 80% of the data ) and the target dataset(the remaining 20% of the data). 
@@ -79,7 +79,7 @@ directions for binary outcomes and binary exposure variables in the proposed dir
    3.1.4. GCIM analysis for the proposed direction with binary outcomes and exposures.
 
    ~~~
-  d <- gcim_bbp(bp_tar_phen, bp_tar_cov, prs_add_scaled, prs_int_scaled, prs_cov_scaled, confounders)
+  d <- gcim_bbp(bp_tar_phen, bp_tar_cov, prs_add, prs_int, prs_cov, confounders)
   ~~~
  
  3.2. Binary outcome with binary exposure variable any confounder for the reverse direction of causation.
