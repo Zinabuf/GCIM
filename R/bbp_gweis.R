@@ -93,9 +93,9 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
                "--out", file.path(output_dir, "covadd_bp")))
 
   # Scale PRS values
-  prs_add <- scale(read.table(file.path(output_dir, "add_bbp.sscore"))$SCORE1_AVG)
-  prs_int <- scale(read.table(file.path(output_dir, "int_bbp.sscore"))$SCORE1_AVG)
-  prs_cov <- scale(read.table(file.path(output_dir, "covadd_bp.sscore"))$SCORE1_AVG)
+  prs_add <- scale(read.table(file.path(output_dir, "add_bbp.sscore"))[, 5])
+  prs_int <- scale(read.table(file.path(output_dir, "int_bbp.sscore"))[, 5])
+  prs_cov <- scale(read.table(file.path(output_dir, "covadd_bp.sscore"))[, 5])
 
   return(list(Additive = prs_add, Interaction = prs_int, Covariate = prs_cov))
 }
