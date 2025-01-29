@@ -79,7 +79,7 @@ directions for binary outcomes and binary exposure variables in the proposed dir
    3.1.4. GCIM analysis for the proposed direction with binary outcomes and exposures.
 
    ~~~
-   gcim_bbp(bp_tar_phen, bp_tar_cov, prs_add_scaled, prs_int_scaled, prs_cov_scaled, confounders)
+  b <- gcim_bbp(bp_tar_phen, bp_tar_cov, prs_add_scaled, prs_int_scaled, prs_cov_scaled, confounders)
   ~~~
  
  3.2. Binary outcome with binary exposure variable any confounder for the reverse direction of causation.
