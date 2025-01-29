@@ -33,7 +33,7 @@ bbp_gweis <- function(plink_path, dis_snp, bp_dis_phen, bp_dis_cov, output_dir) 
   write.table(
     additive_outcome[, c("ID", "A1", "BETA")],
     file.path(output_dir, "phenadd_bbp.txt"),
-    row.names = FALSE, sep = " ", quote = FALSE
+    row.names = FALSE, col.names = FALSE, sep = " ", quote = FALSE
   )
 
   interaction_outcome <- gweis_result[gweis_result$TEST == "ADDxCOVAR1", ]
@@ -41,7 +41,7 @@ bbp_gweis <- function(plink_path, dis_snp, bp_dis_phen, bp_dis_cov, output_dir) 
   write.table(
     interaction_outcome[, c("ID", "A1", "BETA")],
     file.path(output_dir, "int_bbp.txt"),
-    row.names = FALSE, sep = " ", quote = FALSE
+    row.names = FALSE, col.names = FALSE, sep = " ", quote = FALSE
   )
 }
 #' Perform GWAS for covariates.
@@ -70,7 +70,7 @@ bp_gwas <- function(plink_path, dis_snp, bp_dis_cov, output_dir) {
   write.table(
     covariate_additive[, c("ID", "A1", "BETA")],
     file.path(output_dir, "covadd_bp.txt"),
-    row.names = FALSE, sep = " ", quote = FALSE
+    row.names = FALSE, col.names = FALSE, sep = " ", quote = FALSE
   )
 }
 #' Compute Polygenic Risk Scores (PRS).
@@ -109,20 +109,20 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
 #' @param confounders Data frame of additional confounders.
 #' @return Summary of the regression model.
 #' @export
-gcim_bbp <- function(bp_tar_phen, bp_tar_cov, Additive, Interaction, Covariate, confounders) {
+gcim_bbp <- function(bp_tar_phen, bp_tar_cov, Additive, Interaction, Covariate, Confounders) {
   # Prepare regression data
   regression_data <- data.frame(
-    Outcome = read.table(bp_tar_phen)$V3,
+    Outcome = as.numeric(read.table(bp_tar_phen)[, 3]),
     Additive_PRS = prs_add,
     Interaction_PRS = prs_int,
     Cov_PRS = prs_cov,
-    Covariate_Pheno = read.table(bp_tar_cov)$V3,
+    Covariate_Pheno =as.numeric(read.table(bp_tar_cov)[, 3]),
     Confounders = confounders
   )
 
   # Fit the regression model
   model <- glm(Outcome ~ Additive + Interaction + Covariate_Pheno +
-                 Interaction_PRS:Covariate,
+                 Interaction_PRS:Covariate, Confounders, 
                family = "binomial", data = regression_data)
   
   # Return model summary
