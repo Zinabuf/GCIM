@@ -109,7 +109,7 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
 #' @param confounders Data frame of additional confounders.
 #' @return Summary of the regression model.
 #' @export
-gcim_bbp <- function(bp_tar_phen, bp_tar_cov, prs_add, prs_int, prs_cov, confounders) {
+gcim_bbp <- function(bp_tar_phen, bp_tar_cov, Additive, Interaction, Covariate, confounders) {
   # Prepare regression data
   regression_data <- data.frame(
     Outcome = read.table(bp_tar_phen)$V3,
@@ -121,8 +121,8 @@ gcim_bbp <- function(bp_tar_phen, bp_tar_cov, prs_add, prs_int, prs_cov, confoun
   )
 
   # Fit the regression model
-  model <- glm(Outcome ~ Additive_PRS + Interaction_PRS + Cov_PRS +
-                 Interaction_PRS:Cov_PRS + Confounders,
+  model <- glm(Outcome ~ Additive + Interaction + Covariate_Pheno +
+                 Interaction_PRS:Covariate,
                family = "binomial", data = regression_data)
   
   # Return model summary
