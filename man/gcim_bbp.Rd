@@ -10,7 +10,7 @@ gcim_bbp(
   Additive,
   Interaction,
   Covariate,
-  confounders
+  Confounders
 )
 }
 \arguments{
@@ -18,13 +18,13 @@ gcim_bbp(
 
 \item{bp_tar_cov}{File path for the target covariate data.}
 
-\item{confounders}{Data frame of additional confounders.}
-
 \item{prs_add}{Scaled additive PRS values.}
 
 \item{prs_int}{Scaled interaction PRS values.}
 
 \item{prs_cov}{Scaled covariate PRS values.}
+
+\item{confounders}{Data frame of additional confounders.}
 }
 \value{
 Summary of the regression model.
