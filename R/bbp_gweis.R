@@ -129,12 +129,14 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
 #' @return Summary of the regression model.
 #' @export
 gcim_bbp <- function(bp_tar_phen, bp_tar_cov, Additive, Interaction, Covariate, Confounders) {
-  # Read phenotype and covariate data
-  phenotype_data <- read.table(bp_tar_phen, header = TRUE)
-  covariate_data <- read.table(bp_tar_cov, header = TRUE)
-
-  if (ncol(phenotype_data) < 3) stop("Error: Phenotype file must have at least 3 columns.")
-  if (ncol(covariate_data) < 3) stop("Error: Covariate file must have at least 3 columns.")
+  # Load phenotype and covariate data
+  phenotype_data <- read.table(bp_tar_phen, header = FALSE, stringsAsFactors = FALSE)
+  covariate_data <- read.table(bp_tar_cov, header = FALSE, stringsAsFactors = FALSE)
+  
+  # Ensure required columns exist
+  if (ncol(phenotype_data) < 3 || ncol(covariate_data) < 3) {
+    stop("Error: Input files do not have the expected number of columns.")
+  }
 
   # Prepare regression data
   regression_data <- data.frame(
@@ -142,19 +144,14 @@ gcim_bbp <- function(bp_tar_phen, bp_tar_cov, Additive, Interaction, Covariate, 
     Additive_PRS = Additive,
     Interaction_PRS = Interaction,
     Cov_PRS = Covariate,
-    Covariate_Pheno = as.numeric(covariate_data[, 3])
+    Covariate_Pheno = as.numeric(covariate_data[, 3]),
+    Confounders = Confounders
   )
 
-  # Ensure confounders are correctly merged
-  if (!is.null(Confounders)) {
-    regression_data <- cbind(regression_data, Confounders)
-  }
-
   # Fit the regression model
-  model <- glm(Outcome ~ Additive_PRS + Interaction_PRS + Covariate_Pheno +
-                 Interaction_PRS:Covariate_Pheno, 
+  model <- glm(Outcome ~ Additive_PRS + Interaction_PRS + Covariate_Pheno + 
+                 Interaction_PRS:Covariate_Pheno + Confounders, 
                family = "binomial", data = regression_data)
   
-  # Return model summary
   return(summary(model))
 }
