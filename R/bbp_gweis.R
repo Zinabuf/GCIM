@@ -92,37 +92,67 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
   system(paste(plink_path, "--bfile", tar_snp, "--score", file.path(output_dir, "covadd_bp.txt"),
                "--out", file.path(output_dir, "covadd_bp")))
 
-  # Scale PRS values
-  prs_add <- scale(read.table(file.path(output_dir, "add_bbp.sscore"))[, 5])
-  prs_int <- scale(read.table(file.path(output_dir, "int_bbp.sscore"))[, 5])
-  prs_cov <- scale(read.table(file.path(output_dir, "covadd_bp.sscore"))[, 5])
+  # Read and scale PRS values, ensuring correct column selection
+  prs_add_file <- file.path(output_dir, "add_bbp.sscore")
+  prs_int_file <- file.path(output_dir, "int_bbp.sscore")
+  prs_cov_file <- file.path(output_dir, "covadd_bp.sscore")
+
+  if (file.exists(prs_add_file)) {
+    prs_add <- scale(read.table(prs_add_file, header = TRUE)[, 5])
+  } else {
+    stop("Error: PRS additive file not found.")
+  }
+
+  if (file.exists(prs_int_file)) {
+    prs_int <- scale(read.table(prs_int_file, header = TRUE)[, 5])
+  } else {
+    stop("Error: PRS interaction file not found.")
+  }
+
+  if (file.exists(prs_cov_file)) {
+    prs_cov <- scale(read.table(prs_cov_file, header = TRUE)[, 5])
+  } else {
+    stop("Error: PRS covariate file not found.")
+  }
 
   return(list(Additive = prs_add, Interaction = prs_int, Covariate = prs_cov))
 }
+
 #' Perform Regression Analysis for GCIM.
 #'
 #' @param bp_tar_phen File path for the target phenotype data.
 #' @param bp_tar_cov File path for the target covariate data.
-#' @param prs_add Scaled additive PRS values.
-#' @param prs_int Scaled interaction PRS values.
-#' @param prs_cov Scaled covariate PRS values.
-#' @param confounders Data frame of additional confounders.
+#' @param Additive Scaled additive PRS values.
+#' @param Interaction Scaled interaction PRS values.
+#' @param Covariate Scaled covariate PRS values.
+#' @param Confounders Data frame of additional confounders.
 #' @return Summary of the regression model.
 #' @export
 gcim_bbp <- function(bp_tar_phen, bp_tar_cov, Additive, Interaction, Covariate, Confounders) {
+  # Read phenotype and covariate data
+  phenotype_data <- read.table(bp_tar_phen, header = TRUE)
+  covariate_data <- read.table(bp_tar_cov, header = TRUE)
+
+  if (ncol(phenotype_data) < 3) stop("Error: Phenotype file must have at least 3 columns.")
+  if (ncol(covariate_data) < 3) stop("Error: Covariate file must have at least 3 columns.")
+
   # Prepare regression data
   regression_data <- data.frame(
-    Outcome = as.numeric(read.table(bp_tar_phen)[, 3]),
-    Additive_PRS = prs_add,
-    Interaction_PRS = prs_int,
-    Cov_PRS = prs_cov,
-    Covariate_Pheno =as.numeric(read.table(bp_tar_cov)[, 3]),
-    Confounders = confounders
+    Outcome = as.numeric(phenotype_data[, 3]),
+    Additive_PRS = Additive,
+    Interaction_PRS = Interaction,
+    Cov_PRS = Covariate,
+    Covariate_Pheno = as.numeric(covariate_data[, 3])
   )
 
+  # Ensure confounders are correctly merged
+  if (!is.null(Confounders)) {
+    regression_data <- cbind(regression_data, Confounders)
+  }
+
   # Fit the regression model
-  model <- glm(Outcome ~ Additive + Interaction + Covariate_Pheno +
-                 Interaction_PRS:Covariate, Confounders, 
+  model <- glm(Outcome ~ Additive_PRS + Interaction_PRS + Covariate_Pheno +
+                 Interaction_PRS:Covariate_Pheno, 
                family = "binomial", data = regression_data)
   
   # Return model summary
