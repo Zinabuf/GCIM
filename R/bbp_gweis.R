@@ -97,26 +97,25 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
   prs_int <- file.path(output_dir, "int_bbp.sscore")
   prs_cov <- file.path(output_dir, "covadd_bp.sscore")
 
-  if (file.exists(prs_add_file)) {
+  if (file.exists(prs_add)) {
     prs_add <- scale(read.table(prs_add, header = TRUE)[, 5])
   } else {
     stop("Error: PRS additive file not found.")
   }
 
-  if (file.exists(prs_int_file)) {
+  if (file.exists(prs_int)) {
     prs_int <- scale(read.table(prs_int, header = TRUE)[, 5])
   } else {
     stop("Error: PRS interaction file not found.")
   }
 
-  if (file.exists(prs_cov_file)) {
+  if (file.exists(prs_cov)) {
     prs_cov <- scale(read.table(prs_cov, header = TRUE)[, 5])
   } else {
     stop("Error: PRS covariate file not found.")
   }
   # Read scores from PLINK output
   Additive <- prs_add[, 1] 
-
   Interaction <- prs_int[, 1]
   Covariate <- prs_cov[, 1]
 
@@ -146,16 +145,16 @@ gcim_bbp <- function(bp_tar_phen, bp_tar_cov, Additive, Interaction, Covariate, 
   # Prepare regression data
   regression_data <- data.frame(
     Outcome = as.numeric(phenotype_data[, 3]),
-    Additive_PRS = Additive,
-    Interaction_PRS = Interaction,
-    Cov_PRS = Covariate,
+    prs_add = Additive,
+    prs_int = Interaction,
+    prs_cov = Covariate,
     Covariate_Pheno = as.numeric(covariate_data[, 3]),
     Confounders = Confounders
   )
 
   # Fit the regression model
-  model <- glm(Outcome ~ Additive_PRS + Interaction_PRS + Covariate_Pheno + 
-                 Interaction_PRS:Covariate_Pheno + Confounders, 
+  model <- glm(Outcome ~ prs_add + prs_int + Covariate_Pheno + 
+                 prs_int:prs_cov + Confounders, 
                family = "binomial", data = regression_data)
   
   return(summary(model))
