@@ -145,9 +145,9 @@ gcim_bbp <- function(bp_tar_phen, bp_tar_cov, Additive, Interaction, Covariate, 
   # Prepare regression data
   regression_data <- data.frame(
     Outcome = as.numeric(phenotype_data[, 3]),
-    prs_add = Additive,
-    prs_int = Interaction,
-    prs_cov = Covariate,
+    Additive = Additive,
+    Interaction = Interaction,
+    Covariate = Covariate,
     Covariate_Pheno = as.numeric(covariate_data[, 3]),
     Confounders = Confounders
   )
