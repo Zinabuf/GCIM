@@ -98,19 +98,19 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
   prs_cov <- file.path(output_dir, "covadd_bp.sscore")
 
   if (file.exists(prs_add)) {
-    prs_add <- scale(read.table(prs_add, header = TRUE)[, 5])
+    prs_add <- scale(read.table(prs_add, header = F)[, 5])
   } else {
     stop("Error: PRS additive file not found.")
   }
 
   if (file.exists(prs_int)) {
-    prs_int <- scale(read.table(prs_int, header = TRUE)[, 5])
+    prs_int <- scale(read.table(prs_int, header = F)[, 5])
   } else {
     stop("Error: PRS interaction file not found.")
   }
 
   if (file.exists(prs_cov)) {
-    prs_cov <- scale(read.table(prs_cov, header = TRUE)[, 5])
+    prs_cov <- scale(read.table(prs_cov, header = F)[, 5])
   } else {
     stop("Error: PRS covariate file not found.")
   }
