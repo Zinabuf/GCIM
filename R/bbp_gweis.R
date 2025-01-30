@@ -114,10 +114,11 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
   } else {
     stop("Error: PRS covariate file not found.")
   }
-  # Save scaled PRS values
-  write.table(prs_add, file.path(output_dir, "prs_add"), row.names = FALSE, col.names = FALSE)
-  write.table(prs_int, file.path(output_dir, "prs_int"), row.names = FALSE, col.names = FALSE)
-  write.table(prs_cov, file.path(output_dir, "prs_cov"), row.names = FALSE, col.names = FALSE)
+  # Read scores from PLINK output
+  Additive <- prs_add[, 1] 
+
+  Interaction <- prs_int[, 1]
+  Covariate <- prs_cov[, 1]
 
   return(list(Additive = prs_add, Interaction = prs_int, Covariate = prs_cov))
 }
