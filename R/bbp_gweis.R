@@ -114,12 +114,12 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
   } else {
     stop("Error: PRS covariate file not found.")
   }
-  # Read scores from PLINK output
-  Additive <- prs_add[, 1] 
-  Interaction <- prs_int[, 1]
-  Covariate <- prs_cov[, 1]
+  # Save scaled PRS values
+  write.table(prs_add, file.path(output_dir, "prs_add.txt"), row.names = FALSE, col.names = FALSE)
+  write.table(prs_int, file.path(output_dir, "prs_int.txt"), row.names = FALSE, col.names = FALSE)
+  write.table(prs_cov, file.path(output_dir, "prs_cov.txt"), row.names = FALSE, col.names = FALSE)
 
-  return(list(Additive = prs_add, Interaction = prs_int, Covariate = prs_cov))
+  return(list(Additive = prs_add.txt, Interaction = prs_int.txt, Covariate = prs_cov.txt))
 }
 
 #' Perform Regression Analysis for GCIM.
