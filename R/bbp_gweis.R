@@ -102,7 +102,7 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
   prs_values <- list()
   for (name in names(prs_files)) {
     if (file.exists(prs_files[[name]])) {
-      prs_data <- read.table(prs_files[[name]], header = TRUE)
+      prs_data <- read.table(prs_files[[name]], header = FALSE)
       prs_values[[name]] <- scale(prs_data[, ncol(prs_data)])  # Ensure correct column selection
     } else {
       warning(paste("Warning: PRS file missing -", prs_files[[name]]))
