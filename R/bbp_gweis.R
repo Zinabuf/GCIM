@@ -92,34 +92,25 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
   system(paste(plink_path, "--bfile", tar_snp, "--score", file.path(output_dir, "covadd_bp.txt"),
                "--out", file.path(output_dir, "covadd_bp"), "&> covadd_bbp.log"))
 
-  # Read and scale PRS values, ensuring correct column selection
-  prs_add <- file.path(output_dir, "add_bbp.sscore")
-  prs_int <- file.path(output_dir, "int_bbp.sscore")
-  prs_cov <- file.path(output_dir, "covadd_bp.sscore")
+  # Check if PRS files exist before reading
+  prs_files <- list(
+    Additive = file.path(output_dir, "add_bbp.sscore"),
+    Interaction = file.path(output_dir, "int_bbp.sscore"),
+    Covariate = file.path(output_dir, "covadd_bp.sscore")
+  )
 
-  if (file.exists(prs_add)) {
-    prs_add <- scale(read.table(prs_add, header = T)[, 5])
-  } else {
-    stop("Error: PRS additive file not found.")
+  prs_values <- list()
+  for (name in names(prs_files)) {
+    if (file.exists(prs_files[[name]])) {
+      prs_data <- read.table(prs_files[[name]], header = TRUE)
+      prs_values[[name]] <- scale(prs_data[, ncol(prs_data)])  # Ensure correct column selection
+    } else {
+      warning(paste("Warning: PRS file missing -", prs_files[[name]]))
+      prs_values[[name]] <- NULL
+    }
   }
 
-  if (file.exists(prs_int)) {
-    prs_int <- scale(read.table(prs_int, header = T)[, 5])
-  } else {
-    stop("Error: PRS interaction file not found.")
-  }
-
-  if (file.exists(prs_cov)) {
-    prs_cov <- scale(read.table(prs_cov, header = T)[, 5])
-  } else {
-    stop("Error: PRS covariate file not found.")
-  }
-# Load results for Additive and Interaction
-Additive <- read.table(file.path(output_dir, "add_bbp.sscore"), header = TRUE)
-Interaction <- read.table(file.path(output_dir, "int_bbp.sscore"), header = TRUE)
-Covariate <- read.table(file.path(output_dir, "covadd_bp.sscore"), header = TRUE)
-
-  return(list(Additive = prs_add.txt, Interaction = prs_int.txt, Covariate = prs_cov.txt))
+  return(prs_values)
 }
 
 #' Perform Regression Analysis for GCIM.
