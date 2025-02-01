@@ -132,7 +132,7 @@ gcim_bbp <- function(bp_tar_phen, bp_tar_cov, Additive, Interaction, Covariate, 
   Additive_data <- read.table(Additive_scaled.txt, header = FALSE, stringsAsFactors = FALSE)
   Additive_data <- read.table(file.path(output_dir, "Additive_scaled.txt"), 
                             header = FALSE, stringsAsFactors = FALSE)
-Interaction_data <- read.table(file.path(output_dir, "Additive_scaled.txt"), 
+Interaction_data <- read.table(file.path(output_dir, "Interaction_scaled.txt"), 
                             header = FALSE, stringsAsFactors = FALSE)
 Covariate_prs <- read.table(file.path(output_dir, "Covariate_scaled.txt"), 
                             header = FALSE, stringsAsFactors = FALSE)  
