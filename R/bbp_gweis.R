@@ -130,9 +130,12 @@ gcim_bbp <- function(bp_tar_phen, bp_tar_cov, Additive, Interaction, Covariate, 
   phenotype_data <- read.table(bp_tar_phen, header = FALSE, stringsAsFactors = FALSE)
   covariate_data <- read.table(bp_tar_cov, header = FALSE, stringsAsFactors = FALSE)
   Additive_data <- read.table(Additive_scaled.txt, header = FALSE, stringsAsFactors = FALSE)
-  Interaction_data <- read.table(Interaction_scaled.txt, header = FALSE, stringsAsFactors = FALSE)
-  Covariate_prs <- read.table(Covariate_scaled.txt, header = FALSE, stringsAsFactors = FALSE)
-  
+  Additive_data <- read.table(file.path(output_dir, "Additive_scaled.txt"), 
+                            header = FALSE, stringsAsFactors = FALSE)
+Interaction_data <- read.table(file.path(output_dir, "Additive_scaled.txt"), 
+                            header = FALSE, stringsAsFactors = FALSE)
+Covariate_prs <- read.table(file.path(output_dir, "Covariate_scaled.txt"), 
+                            header = FALSE, stringsAsFactors = FALSE)  
 if (ncol(phenotype_data) < 3 || 
     ncol(covariate_data) < 3 || 
     ncol(Additive_data) < 3 || 
