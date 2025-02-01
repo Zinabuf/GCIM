@@ -117,6 +117,7 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
   return(prs_values)
 }
 
+
 #' Perform Regression Analysis for GCIM.
 #'
 #' @param bp_tar_phen File path for the target phenotype data.
