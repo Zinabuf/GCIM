@@ -114,10 +114,10 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
   } else {
     stop("Error: PRS covariate file not found.")
   }
-  # Save scaled PRS values
-  write.table(prs_add, file.path(output_dir, "prs_add.txt"), row.names = FALSE, col.names = FALSE)
-  write.table(prs_int, file.path(output_dir, "prs_int.txt"), row.names = FALSE, col.names = FALSE)
-  write.table(prs_cov, file.path(output_dir, "prs_cov.txt"), row.names = FALSE, col.names = FALSE)
+# Load results for Additive and Interaction
+Additive <- read.table(file.path(output_dir, "prs_add"), header = FALSE)
+Interaction <- read.table(file.path(output_dir, "prs_int"), header = FALSE)
+Covariate <- read.table(file.path(output_dir, "prs_cov"), header = FALSE)
 
   return(list(Additive = prs_add.txt, Interaction = prs_int.txt, Covariate = prs_cov.txt))
 }
