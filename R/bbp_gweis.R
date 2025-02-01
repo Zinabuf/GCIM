@@ -98,26 +98,26 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
   prs_cov <- file.path(output_dir, "covadd_bp.sscore")
 
   if (file.exists(prs_add)) {
-    prs_add <- scale(read.table(add_bbp, header = T)[, 5])
+    prs_add <- scale(read.table(prs_add, header = T)[, 5])
   } else {
     stop("Error: PRS additive file not found.")
   }
 
   if (file.exists(prs_int)) {
-    prs_int <- scale(read.table(int_bbp, header = T)[, 5])
+    prs_int <- scale(read.table(prs_int, header = T)[, 5])
   } else {
     stop("Error: PRS interaction file not found.")
   }
 
   if (file.exists(prs_cov)) {
-    prs_cov <- scale(read.table(covadd_bp, header = T)[, 5])
+    prs_cov <- scale(read.table(prs_cov, header = T)[, 5])
   } else {
     stop("Error: PRS covariate file not found.")
   }
 # Load results for Additive and Interaction
-Additive <- read.table(file.path(output_dir, "prs_add"), header = FALSE)
-Interaction <- read.table(file.path(output_dir, "prs_int"), header = FALSE)
-Covariate <- read.table(file.path(output_dir, "prs_cov"), header = FALSE)
+Additive <- read.table(file.path(output_dir, "add_bbp.sscore"), header = TRUE)
+Interaction <- read.table(file.path(output_dir, "int_bbp.sscore"), header = TRUE)
+Covariate <- read.table(file.path(output_dir, "covadd_bp.sscore"), header = TRUE)
 
   return(list(Additive = prs_add.txt, Interaction = prs_int.txt, Covariate = prs_cov.txt))
 }
