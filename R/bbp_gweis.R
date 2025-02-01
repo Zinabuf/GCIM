@@ -132,9 +132,9 @@ gcim_bbp <- function(bp_tar_phen, bp_tar_cov, Additive, Interaction, Covariate, 
   # Load phenotype and covariate data
   phenotype_data <- read.table(bp_tar_phen, header = FALSE, stringsAsFactors = FALSE)
   covariate_data <- read.table(bp_tar_cov, header = FALSE, stringsAsFactors = FALSE)
-  Additive <- read.table(Additive_scaled.txt, header = FALSE, stringsAsFactors = FALSE)
-  Interaction <- read.table(Interaction_scaled.txt, header = FALSE, stringsAsFactors = FALSE)
-  Covariate <- read.table(Covariate_scaled.txt, header = FALSE, stringsAsFactors = FALSE)
+  Additive_data <- read.table(Additive_scaled.txt, header = FALSE, stringsAsFactors = FALSE)
+  Interaction_data <- read.table(Interaction_scaled.txt, header = FALSE, stringsAsFactors = FALSE)
+  Covariate_data <- read.table(Covariate_scaled.txt, header = FALSE, stringsAsFactors = FALSE)
   
   # Ensure required columns exist
   if (ncol(phenotype_data) < 3 || ncol(covariate_data) < 3) {
@@ -144,9 +144,9 @@ gcim_bbp <- function(bp_tar_phen, bp_tar_cov, Additive, Interaction, Covariate, 
   # Prepare regression data
   regression_data <- data.frame(
     Outcome = as.numeric(phenotype_data[, 3]),
-    Additive = Additive,
-    Interaction = Interaction,
-    Covariate = Covariate,
+    Additive = as.numeric(Additive_data[, 3]),
+    Interaction = as.numeric(Interaction_data[, 3]),
+    Covariate = as.numeric(Covariate_data[, 3]),
     Covariate_Pheno = as.numeric(covariate_data[, 3]),
     Confounders = Confounders
   )
