@@ -165,4 +165,3 @@ gcim_bbp <- function(bp_tar_phen, bp_tar_cov, output_dir, Confounders) {
   
   return(summary(model))
 }
-
