@@ -129,13 +129,14 @@ gcim_bbp <- function(bp_tar_phen, bp_tar_cov, output_dir, Confounders) {
   # Load phenotype and covariate data
   phenotype_data <- read.table(bp_tar_phen, header = FALSE, stringsAsFactors = FALSE)
   covariate_data <- read.table(bp_tar_cov, header = FALSE, stringsAsFactors = FALSE)
+  Confounders <- read.table(Confounders, header = FALSE, stringsAsFactors = FALSE)
   
   # Load PRS data using correct file paths
   Additive_data <- read.table(file.path(output_dir, "Additive_scaled.txt"), 
                               header = TRUE, stringsAsFactors = FALSE)
   Interaction_data <- read.table(file.path(output_dir, "Interaction_scaled.txt"), 
                                  header = TRUE, stringsAsFactors = FALSE)
-  Covariate_prs <- read.table(file.path(output_dir, "Covariate_scaled.txt"), 
+ Covariate_prs <- read.table(file.path(output_dir, "Covariate_scaled.txt"), 
                               header = TRUE, stringsAsFactors = FALSE)  
   
   # Ensure required columns exist
@@ -154,7 +155,7 @@ gcim_bbp <- function(bp_tar_phen, bp_tar_cov, output_dir, Confounders) {
     Interaction = as.numeric(Interaction_data[, 3]),
     Covariate = as.numeric(Covariate_prs[, 3]),
     Covariate_Pheno = as.numeric(covariate_data[, 3]),
-    Confounders = Confounders
+    Confounders = as.numeric(covariate_data[, 3:18])
   )
 
   # Fit the regression model
