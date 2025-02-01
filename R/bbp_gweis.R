@@ -106,7 +106,7 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
       prs_data[, 5] <- scale(prs_data[, 5])  # Scale only column 5
       prs_extracted <- prs_data[, c(1, 2, 5)]  # Extract columns 1, 2, and 5
       write.table(prs_extracted, file.path(output_dir, paste0(name, "_scaled.txt")), 
-                  row.names = FALSE, sep = "\t", quote = FALSE)
+                  row.names = FALSE, col.names = FALSE, sep = "\t", quote = FALSE)
       prs_values[[name]] <- prs_extracted
     } else {
       warning(paste("Warning: PRS file missing -", prs_files[[name]]))
