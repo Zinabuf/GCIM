@@ -117,7 +117,6 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
   return(prs_values)
 }
 
-
 #' Perform Regression Analysis for GCIM.
 #'
 #' @param bp_tar_phen File path for the target phenotype data.
@@ -136,13 +135,14 @@ gcim_bbp <- function(bp_tar_phen, bp_tar_cov, Additive, Interaction, Covariate, 
   Interaction_data <- read.table(Interaction_scaled.txt, header = FALSE, stringsAsFactors = FALSE)
   Covariate_prs <- read.table(Covariate_scaled.txt, header = FALSE, stringsAsFactors = FALSE)
   
-  # Ensure required columns exist
-  if (ncol(phenotype_data) < 3 || ncol(covariate_data) < 3) || ncol( Additive_data) < 3) || ncol(Interaction_data) < 3) 
-    || ncol(Covariate_prs) < 3) {
+if (ncol(phenotype_data) < 3 || 
+    ncol(covariate_data) < 3 || 
+    ncol(Additive_data) < 3 || 
+    ncol(Interaction_data) < 3 || 
+    ncol(Covariate_prs) < 3) {
     stop("Error: Input files do not have the expected number of columns.")
-  }
-
-  # Prepare regression data
+}
+# Ensure required columns exist
   regression_data <- data.frame(
     Outcome = as.numeric(phenotype_data[, 3]),
     Additive = as.numeric(Additive_data[, 3]),
@@ -151,7 +151,6 @@ gcim_bbp <- function(bp_tar_phen, bp_tar_cov, Additive, Interaction, Covariate, 
     Covariate_Pheno = as.numeric(covariate_data[, 3]),
     Confounders = Confounders
   )
-
   # Fit the regression model
   model <- glm(Outcome ~ Additive + Interaction + Covariate_Pheno + 
                  Interaction:Covariate + Confounders, 
