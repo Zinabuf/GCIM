@@ -98,7 +98,6 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
     Interaction = file.path(output_dir, "int_bbp.sscore"),
     Covariate = file.path(output_dir, "covadd_bp.sscore")
   )
-
   prs_values <- list()
   for (name in names(prs_files)) {
     if (file.exists(prs_files[[name]])) {
@@ -107,16 +106,15 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
       prs_extracted <- prs_data[, c(1, 2, 5)]  # Extract columns 1, 2, and 5
       write.table(prs_extracted, file.path(output_dir, paste0(name, "_scaled.txt")), 
                   row.names = FALSE, col.names = TRUE, sep = "\t", quote = FALSE)
+       colnames(prs_extracted) = c("FID", "IID", "PRS")
       prs_values[[name]] <- prs_extracted
     } else {
       warning(paste("Warning: PRS file missing -", prs_files[[name]]))
       prs_values[[name]] <- NULL
     }
   }
-
   return(prs_values)
 }
-
 #' Perform Regression Analysis for GCIM.
 #'
 #' @param bp_tar_phen File path for the target phenotype data.
