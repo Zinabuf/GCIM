@@ -125,25 +125,29 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
 #' @param Confounders Data frame of additional confounders.
 #' @return Summary of the regression model.
 #' @export
-gcim_bbp <- function(bp_tar_phen, bp_tar_cov, Additive, Interaction, Covariate, Confounders) {
+gcim_bbp <- function(bp_tar_phen, bp_tar_cov, output_dir, Confounders) {
   # Load phenotype and covariate data
   phenotype_data <- read.table(bp_tar_phen, header = FALSE, stringsAsFactors = FALSE)
   covariate_data <- read.table(bp_tar_cov, header = FALSE, stringsAsFactors = FALSE)
-  Additive_data <- read.table(Additive_scaled.txt, header = FALSE, stringsAsFactors = FALSE)
+  
+  # Load PRS data using correct file paths
   Additive_data <- read.table(file.path(output_dir, "Additive_scaled.txt"), 
-                            header = FALSE, stringsAsFactors = FALSE)
-Interaction_data <- read.table(file.path(output_dir, "Interaction_scaled.txt"), 
-                            header = FALSE, stringsAsFactors = FALSE)
-Covariate_prs <- read.table(file.path(output_dir, "Covariate_scaled.txt"), 
-                            header = FALSE, stringsAsFactors = FALSE)  
-if (ncol(phenotype_data) < 3 || 
-    ncol(covariate_data) < 3 || 
-    ncol(Additive_data) < 3 || 
-    ncol(Interaction_data) < 3 || 
-    ncol(Covariate_prs) < 3) {
+                              header = TRUE, stringsAsFactors = FALSE)
+  Interaction_data <- read.table(file.path(output_dir, "Interaction_scaled.txt"), 
+                                 header = TRUE, stringsAsFactors = FALSE)
+  Covariate_prs <- read.table(file.path(output_dir, "Covariate_scaled.txt"), 
+                              header = TRUE, stringsAsFactors = FALSE)  
+  
+  # Ensure required columns exist
+  if (ncol(phenotype_data) < 3 || 
+      ncol(covariate_data) < 3 || 
+      ncol(Additive_data) < 3 || 
+      ncol(Interaction_data) < 3 || 
+      ncol(Covariate_prs) < 3) {
     stop("Error: Input files do not have the expected number of columns.")
-}
-# Ensure required columns exist
+  }
+
+  # Prepare regression data
   regression_data <- data.frame(
     Outcome = as.numeric(phenotype_data[, 3]),
     Additive = as.numeric(Additive_data[, 3]),
@@ -152,6 +156,7 @@ if (ncol(phenotype_data) < 3 ||
     Covariate_Pheno = as.numeric(covariate_data[, 3]),
     Confounders = Confounders
   )
+
   # Fit the regression model
   model <- glm(Outcome ~ Additive + Interaction + Covariate_Pheno + 
                  Interaction:Covariate + Confounders, 
@@ -159,3 +164,4 @@ if (ncol(phenotype_data) < 3 ||
   
   return(summary(model))
 }
+
