@@ -94,7 +94,7 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
 
   # Check if PRS files exist before reading
   prs_files <- list(
-    Additive = file.path(output_dir, "add_bbp.sscore"),
+    prs_add = file.path(output_dir, "add_bbp.sscore"),
     prs_int = file.path(output_dir, "int_bbp.sscore"),
     prs_cov = file.path(output_dir, "covadd_bp.sscore")
   )
@@ -132,12 +132,12 @@ gcim_bbp <- function(bp_tar_phen, bp_tar_cov, output_dir, Confounders) {
   Confounders <- read.table(Confounders, header = FALSE, stringsAsFactors = FALSE)
   
   # Load PRS data using correct file paths
-  Additive_data <- read.table(file.path(output_dir, "Additive_scaled.txt"), 
+  Additive_data <- read.table(file.path(output_dir, "prs_add_scaled.txt"), 
                               header = TRUE, stringsAsFactors = FALSE)
-  Interaction_data <- read.table(file.path(output_dir, "Interaction_scaled.txt"), 
+  Interaction_data <- read.table(file.path(output_dir, "prs_int_scaled.txtt"), 
                                  header = TRUE, stringsAsFactors = FALSE)
- Covariate_prs <- read.table(file.path(output_dir, "Covariate_scaled.txt"), 
-                              header = TRUE, stringsAsFactors = FALSE)  
+ Covariate_prs <- read.table(file.path(output_dir, "prs_cov_scaled.txt"), 
+                              header = FALSE, stringsAsFactors = FALSE)  
   
   # Ensure required columns exist
   if (ncol(phenotype_data) < 3 || 
@@ -151,16 +151,16 @@ gcim_bbp <- function(bp_tar_phen, bp_tar_cov, output_dir, Confounders) {
   # Prepare regression data
   regression_data <- data.frame(
     Outcome = as.numeric(phenotype_data[, 3]),
-    Additive = as.numeric(Additive_data[, 3]),
-    Interaction = as.numeric(Interaction_data[, 3]),
-    Covariate = as.numeric(Covariate_prs[, 3]),
+    Add_prs = as.numeric(Additive_data[, 3]),
+    Int_prs = as.numeric(Interaction_data[, 3]),
+    Cov_prs = as.numeric(Covariate_prs[, 3]),
     Covariate_Pheno = as.numeric(covariate_data[, 3]),
     Confounders = as.numeric(covariate_data[, 3:18])
   )
 
   # Fit the regression model
-  model <- glm(Outcome ~ Additive + Interaction + Covariate_Pheno + 
-                 Interaction:Covariate + Confounders, 
+  model <- glm(Outcome ~ Add_prs + Int_prs + Covariate_Pheno + 
+                 Int_prs:Cov_prs + Confounders, 
                family = "binomial", data = regression_data)
   
   return(summary(model))
