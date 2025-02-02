@@ -94,8 +94,8 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
 
   # Check if PRS files exist before reading
   prs_files <- list(
-    Additive = file.path(output_dir, "add_bbp.sscore", header =F),
-    prs_int = file.path(output_dir, "int_bbp.sscore",  header =F),
+    Additive = file.path(output_dir, "add_bbp.sscore"),
+    prs_int = file.path(output_dir, "int_bbp.sscore"),
     prs_cov = file.path(output_dir, "covadd_bp.sscore")
   )
   prs_values <- list()
