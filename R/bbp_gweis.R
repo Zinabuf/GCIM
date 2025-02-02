@@ -101,7 +101,7 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
   prs_values <- list()
   for (name in names(prs_files)) {
     if (file.exists(prs_files[[name]])) {
-      prs_data <- read.table(prs_files[[name]], header = TRUE)
+      prs_data <- read.table(prs_files[[name]], header = FALSE)
       prs_data[, 5] <- scale(prs_data[, 5])  # Scale only column 5
       prs_extracted <- prs_data[, c(1, 2, 5)]  # Extract columns 1, 2, and 5
       write.table(prs_extracted, file.path(output_dir, paste0(name, "_scaled.txt")), 
