@@ -129,7 +129,7 @@ gcim_bbp <- function(bp_tar_phen, bp_tar_cov, output_dir, Confounders, Additive_
   # Load phenotype and covariate data
   phenotype_data <- read.table(bp_tar_phen, header = FALSE, stringsAsFactors = FALSE)
   covariate_data <- read.table(bp_tar_cov, header = FALSE, stringsAsFactors = FALSE)
-  Confounders <- read.table(Confounders, header = FALSE, stringsAsFactors = FALSE)
+  Confounders <- read.table(confounders, header = FALSE, stringsAsFactors = FALSE)
   
   # Load PRS data using correct file paths
   Additive_data <- read.table(file.path(output_dir, "prs_add_scaled.txt"), 
