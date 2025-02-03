@@ -125,7 +125,7 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
 #' @param Confounders Data frame of additional confounders.
 #' @return Summary of the regression model.
 #' @export
-gcim_bbp <- function(bp_tar_phen, bp_tar_cov, output_dir, Confounders) {
+gcim_bbp <- function(bp_tar_phen, bp_tar_cov, output_dir, Confounders, Additive_data, Interaction_data, Covariate_prs) {
   # Load phenotype and covariate data
   phenotype_data <- read.table(bp_tar_phen, header = FALSE, stringsAsFactors = FALSE)
   covariate_data <- read.table(bp_tar_cov, header = FALSE, stringsAsFactors = FALSE)
