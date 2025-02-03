@@ -132,9 +132,9 @@ gcim_bbp <- function(bp_tar_phen, bp_tar_cov, output_dir, Confounders, Additive_
   Confounders <- read.table(confounders, header = FALSE, stringsAsFactors = FALSE)
   
   # Load PRS data using correct file paths
-  Additive_data <- read.table(file.path(output_dir, "prs_add_scaled.txt"), 
+  Additive_data <- read.table(file.path(output_dir, "prs_add_scaled.txt"), prs_cov_scaled.txt
                               header = TRUE, stringsAsFactors = FALSE)
-  Interaction_data <- read.table(file.path(output_dir, "prs_int_scaled.txtt"), 
+  Interaction_data <- read.table(file.path(output_dir, "prs_int_scaled.txt"), 
                                  header = TRUE, stringsAsFactors = FALSE)
  Covariate_prs <- read.table(file.path(output_dir, "prs_cov_scaled.txt"), 
                               header = FALSE, stringsAsFactors = FALSE)  
