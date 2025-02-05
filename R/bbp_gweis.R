@@ -159,7 +159,7 @@ gcim_bbp <- function(bp_tar_phen, bp_tar_cov, output_dir, Confounders, Additive_
   )
 
   # Fit the regression model
-  model <- glm(Outcome ~ Add_prs + Int_prs + Covariate_Pheno + 
+  model <- glm(Outcome ~ Additive + Int_prs + Covariate_Pheno + 
                  Int_prs:Cov_prs + Confounders, 
                family = "binomial", data = regression_data)
   
