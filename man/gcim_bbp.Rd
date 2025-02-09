@@ -4,28 +4,20 @@
 \alias{gcim_bbp}
 \title{Perform Regression Analysis for GCIM.}
 \usage{
-gcim_bbp(
-  bp_tar_phen,
-  bp_tar_cov,
-  output_dir,
-  Confounders,
-  Additive_data,
-  Interaction_data,
-  Covariate_prs
-)
+gcim_bbp(bp_tar_phen, bp_tar_cov, Add_PRS, Int_PRS, Cov_PRS, confounders)
 }
 \arguments{
 \item{bp_tar_phen}{File path for the target phenotype data.}
 
 \item{bp_tar_cov}{File path for the target covariate data.}
 
-\item{Confounders}{Data frame of additional confounders.}
-
 \item{Additive}{Scaled additive PRS values.}
 
 \item{Interaction}{Scaled interaction PRS values.}
 
 \item{Covariate}{Scaled covariate PRS values.}
+
+\item{Confounders}{Data frame of additional confounders.}
 }
 \value{
 Summary of the regression model.

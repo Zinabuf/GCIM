@@ -5,12 +5,15 @@
 \alias{br_tar_cov}
 \title{A phenotype data file from the target dataset, containing the binary exposure treated as an oucome for the reverse direction of causation}
 \format{
-A data frame with 800 rows and 3 columns:
+A data frame with 800 rows and 19 columns:
 \describe{
 \item{Family ID}{Family identification number}
 \item{Individual ID}{Individual identification number}
-\item{Binary outcome}{A binary outcome (0=controls, 1=cases)}
-#' }
+\item{Binary Covariate}{A binary covariate}
+\item{Confounder 1}{Confounder 1 description}
+...
+\item{Confounder 16}{Confounder 16 description}
+}
 }
 \usage{
 data(br_tar_cov)

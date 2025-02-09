@@ -4,27 +4,20 @@
 \alias{gcim_qqr}
 \title{Perform Regression Analysis for GCIM.}
 \usage{
-gcim_qqr(
-  qr_tar_cov,
-  qr_tar_phen,
-  prs_add_scaled,
-  prs_int_scaled,
-  prs_cov_scaled,
-  confounders
-)
+gcim_qqr(qr_tar_cov, qr_tar_phen, Add_PRS, Int_PRS, Cov_PRS, confounders)
 }
 \arguments{
 \item{qr_tar_cov}{File path for the target covariate data.}
 
 \item{qr_tar_phen}{File path for the target phenotype data.}
 
+\item{confounders}{Data frame of additional confounders.}
+
 \item{prs_add_scaled}{Scaled additive PRS values.}
 
 \item{prs_int_scaled}{Scaled interaction PRS values.}
 
 \item{prs_cov_scaled}{Scaled covariate PRS values.}
-
-\item{confounders}{Data frame of additional confounders.}
 }
 \value{
 Summary of the regression model.
