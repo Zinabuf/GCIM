@@ -4,12 +4,15 @@
 #' This dataset contains phenotype data for the outcome information for individuals in the target dataset,
 #'  for a binary outcome as a binary outcome in the reverse directions of causations. 
 #'
-#' @format A data frame with 800 rows and 3 columns:
+#' @format A data frame with 800 rows and 19 columns:
 #' \describe{
 #'   \item{Family ID}{Family identification number}
 #'   \item{Individual ID}{Individual identification number}
-#'   \item{Binary outcome}{A binary outcome (0=controls, 1=cases)}
-#'   #' }
+#'   \item{Binary Covariate}{A binary covariate}
+#'   \item{Confounder 1}{Confounder 1 description}
+#'   ...
+#'   \item{Confounder 16}{Confounder 16 description}
+#' }
 #'
 #' @usage data(br_tar_cov)
 #' @docType data

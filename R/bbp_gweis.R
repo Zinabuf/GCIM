@@ -125,43 +125,34 @@ bbp_prs <- function(plink_path, tar_snp, output_dir) {
 #' @param Confounders Data frame of additional confounders.
 #' @return Summary of the regression model.
 #' @export
-gcim_bbp <- function(bp_tar_phen, bp_tar_cov, output_dir, Confounders, Additive_data, Interaction_data, Covariate_prs) {
+gcim_bbp <- function(bp_tar_phen, bp_tar_cov, Add_PRS, Int_PRS, Cov_PRS, confounders ) {
   # Load phenotype and covariate data
-  phenotype_data <- read.table(bp_tar_phen, header = FALSE, stringsAsFactors = FALSE)
-  covariate_data <- read.table(bp_tar_cov, header = FALSE, stringsAsFactors = FALSE)
-   Confounders <- read.table(bp_tar_cov, header = FALSE, stringsAsFactors = FALSE)
-  # Load PRS data using correct file paths
-  Additive_data <- read.table(file.path(output_dir, "prs_add_scaled.txt"),
-                              header = TRUE, stringsAsFactors = FALSE)
-  Interaction_data <- read.table(file.path(output_dir, "prs_int_scaled.txt"), 
-                                 header = TRUE, stringsAsFactors = FALSE)
- Covariate_prs <- read.table(file.path(output_dir, "prs_cov_scaled.txt"), 
-                              header = FALSE, stringsAsFactors = FALSE)  
-  
-  # Ensure required columns exist
-  if (ncol(phenotype_data) < 3 || 
-      ncol(covariate_data) < 3 ||
-      ncol(Confounders) < 4:19 ||
-      ncol(Additive_data) < 3 || 
-      ncol(Interaction_data) < 3 || 
-      ncol(Covariate_prs) < 3) {
-    stop("Error: Input files do not have the expected number of columns.")
-  }
+  outcome_bp_data <- read.table("bp_tar_phen", header = TRUE, stringsAsFactors = FALSE)
+  prs_add <- read.table("prs_add_scaled.txt", header = TRUE, stringsAsFactors = FALSE)
+  prs_int <- read.table("prs_int_scaled.txt", header = TRUE, stringsAsFactors = FALSE)
+  prs_cov <- read.table("prs_cov_scaled.txt", header = TRUE, stringsAsFactors = FALSE)
+  covariate_bp_data <- read.table("bp_tar_cov", header = TRUE, stringsAsFactors = FALSE, fill = TRUE)
 
   # Prepare regression data
   regression_data <- data.frame(
-    Outcome = as.numeric(phenotype_data[, 3]),
-    Additive = as.numeric(Additive_data[, 3]),
-    Int_prs = as.numeric(Interaction_data[, 3]),
-    Cov_prs = as.numeric(Covariate_prs[, 3]),
-    Covariate_Pheno = as.numeric(covariate_data[, 3]),
-    Confounders = as.numeric(covariate_data[, 4:19])
+    Outcome = outcome_bp_data[, 3],  # Assuming 3rd column is the outcome
+    Add_PRS = prs_add[, 3],   # Adjust column index if necessary
+    Int_PRS = prs_int[, 3],
+    Cov_PRS = prs_cov[, 3],
+    Covariate_Pheno = covariate_bp_data[, 3] # Adjust column index as needed
   )
 
-  # Fit the regression model
-  model <- glm(Outcome ~ Additive + Int_prs + Covariate_Pheno + 
-                 Int_prs:Cov_prs + Confounders, 
-               family = "binomial", data = regression_data)
-  
+  # Add confounders dynamically based on the input `conf_`
+  confounders <- covariate_bp_data[, 4:19]
+  colnames(confounders) <- paste0("Conf_", seq_along(confounders))  # Rename confounders
+
+  # Combine confounders with regression data
+  regression_data <- cbind(regression_data, confounders)
+
+  # Fit the regression model using all variables
+  model_formula <- as.formula(paste("Outcome ~ Add_PRS + Int_PRS + Cov_PRS + Int_PRS:Cov_PRS +", paste(names(confounders), collapse = " + ")))
+  model <- glm(model_formula, family = binomial(), data = regression_data)
+
+  # Return model summary
   return(summary(model))
 }

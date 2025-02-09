@@ -83,23 +83,34 @@ qqr_prs <- function(plink_path, tar_snp, output_dir) {
 
   # Compute PRS for additive, interaction, and covariate scores
   system(paste(plink_path, "--bfile", tar_snp, "--score", file.path(output_dir, "phenadd_qqr.txt"),
-               "--out", file.path(output_dir, "add_qqr")))
+               "--out", file.path(output_dir, "add_qqr"), "&> add_qqr.log"))
   system(paste(plink_path, "--bfile", tar_snp, "--score", file.path(output_dir, "int_qqr.txt"),
-               "--out", file.path(output_dir, "int_qqr")))
+               "--out", file.path(output_dir, "int_qqr"), "&> int_qqr.log"))
   system(paste(plink_path, "--bfile", tar_snp, "--score", file.path(output_dir, "covadd_qr.txt"),
-               "--out", file.path(output_dir, "covadd_qr")))
+               "--out", file.path(output_dir, "covadd_qr"), "&> covadd_qr.log"))
 
-  # Scale PRS values
-  prs_add <- scale(read.table(file.path(output_dir, "add_qqr.sscore"))$SCORE1_AVG)
-  prs_int <- scale(read.table(file.path(output_dir, "int_qqr.sscore"))$SCORE1_AVG)
-  prs_cov <- scale(read.table(file.path(output_dir, "covadd_qr.sscore"))$SCORE1_AVG)
-
-  # Save scaled PRS values
-  write.table(prs_add, file.path(output_dir, "add_qqr_scaled.txt"), row.names = FALSE, col.names = FALSE)
-  write.table(prs_int, file.path(output_dir, "int_qqr_scaled.txt"), row.names = FALSE, col.names = FALSE)
-  write.table(prs_cov, file.path(output_dir, "covadd_qr_scaled.txt"), row.names = FALSE, col.names = FALSE)
-
-  return(list(Additive = prs_add, Interaction = prs_int, Covariate = prs_cov))
+  # Check if PRS files exist before reading
+  prs_files <- list(
+    prs_add = file.path(output_dir, "add_qqr.sscore"),
+    prs_int = file.path(output_dir, "int_qqr.sscore"),
+    prs_cov = file.path(output_dir, "covadd_qr.sscore")
+  )
+  prs_values <- list()
+  for (name in names(prs_files)) {
+    if (file.exists(prs_files[[name]])) {
+      prs_data <- read.table(prs_files[[name]], header = FALSE)
+      prs_data[, 5] <- scale(prs_data[, 5])  # Scale only column 5
+      prs_extracted <- prs_data[, c(1, 2, 5)]  # Extract columns 1, 2, and 5
+      write.table(prs_extracted, file.path(output_dir, paste0(name, "_scaled.txt")), 
+                  row.names = FALSE, col.names = TRUE, sep = "\t", quote = FALSE)
+       colnames(prs_extracted) = c("FID", "IID", "PRS")
+      prs_values[[name]] <- prs_extracted
+    } else {
+      warning(paste("Warning: PRS file missing -", prs_files[[name]]))
+      prs_values[[name]] <- NULL
+    }
+  }
+  return(prs_values)
 }
 #' Perform Regression Analysis for GCIM.
 #'
@@ -111,22 +122,34 @@ qqr_prs <- function(plink_path, tar_snp, output_dir) {
 #' @param confounders Data frame of additional confounders.
 #' @return Summary of the regression model.
 #' @export
-gcim_qqr <- function(qr_tar_cov, qr_tar_phen, prs_add_scaled, prs_int_scaled, prs_cov_scaled, confounders) {
+gcim_qqr <- function(qr_tar_cov, qr_tar_phen, Add_PRS, Int_PRS, Cov_PRS, confounders ) {
+  # Load phenotype and covariate data
+  covariate_qr_data <- read.table("qr_tar_cov", header = TRUE, stringsAsFactors = FALSE)
+  prs_add <- read.table("prs_add_scaled.txt", header = TRUE, stringsAsFactors = FALSE)
+  prs_int <- read.table("prs_int_scaled.txt", header = TRUE, stringsAsFactors = FALSE)
+  prs_cov <- read.table("prs_cov_scaled.txt", header = TRUE, stringsAsFactors = FALSE)
+  outcome_qr_data <- read.table("qr_tar_phen", header = TRUE, stringsAsFactors = FALSE, fill = TRUE)
+
   # Prepare regression data
   regression_data <- data.frame(
-    Outcome = read.table(qr_tar_cov)$V3,
-    Additive_PRS = prs_add_scaled,
-    Interaction_PRS = prs_int_scaled,
-    Cov_PRS = prs_cov_scaled,
-    Covariate_Pheno = read.table(qr_tar_phen)$V3,
-    Confounders = confounders
+    Outcome = covariate_qr_data[, 3],  # Assuming 3rd column is the outcome
+    Add_PRS = prs_add[, 3],   # Adjust column index if necessary
+    Int_PRS = prs_int[, 3],
+    Cov_PRS = prs_cov[, 3],
+    Covariate_Pheno = outcome_qr_data[, 3] # Adjust column index as needed
   )
 
-  # Fit the regression model
-  model <- glm(Outcome ~ Additive_PRS + Interaction_PRS + Cov_PRS +
-                 Interaction_PRS:Cov_PRS + Confounders,
-               family = "binomial", data = regression_data)
-  
+  # Add confounders dynamically based on the input `conf_`
+  confounders <- outcome_qr_data[, 4:19]
+  colnames(confounders) <- paste0("Conf_", seq_along(confounders))  # Rename confounders
+
+  # Combine confounders with regression data
+  regression_data <- cbind(regression_data, confounders)
+
+  # Fit the regression model using all variables
+  model_formula <- as.formula(paste("Outcome ~ Add_PRS + Int_PRS + Cov_PRS + Int_PRS:Cov_PRS +", paste(names(confounders), collapse = " + ")))
+  model <- lm(model_formula, data = regression_data)
+
   # Return model summary
   return(summary(model))
 }
