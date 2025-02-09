@@ -25,7 +25,7 @@ Genetic data
 
 The genetic data should be in Plink binary format(.bed, .bim, and .fam). Then it should be split into the discovery dataset(ideally 80% of the data ) and the target dataset(the remaining 20% of the data). 
 
-Outcome data, Exposure or Environmental variables, and confounder variables are also split with similar proportions as above and compatible with the Plink data format. 
+Outcome data, exposure or environmental variables, and confounder variables are also split in proportions similar to those above and are compatible with the Plink data format. 
     #outcome should contain three columns ( FID, IID, and phenotype Value) and the phenotype value for case-control data should be 1 for control and 2 for case and in the target dataset, it should be 0 for controls and 1 for cases.
     #the exposure should contain at least 19 columns (FID, IID, and exposure values, confounder 1 confounder1, ...confounder16)
     
@@ -91,24 +91,24 @@ directions for binary outcomes and binary exposure variables in the reverse dire
   3.2.1. Performing GWEIS
 
    ~~~
-   bbr_gweis(plink_path, dis_snp, br_dis_cov, br_dis_phen, output_dir)
+   e <-  bbr_gweis(plink_path, dis_snp, br_dis_cov, br_dis_phen, output_dir)
    ~~~
 
    3.2.2. Performing GWAS
    
    ~~~
-   br_gwas(plink_path, dis_snp, br_dis_phen, output_dir)
+   f <- br_gwas(plink_path, dis_snp, br_dis_phen, output_dir)
    ~~~
   3.2.3. Compute Polygenic Risk Scores (PRS) for bbr
 
 ~~~
-bbr_prs(plink_path, tar_snp, output_dir)
+  g <- bbr_prs(plink_path, tar_snp, output_dir)
 ~~~~
 
    3.2.4. GCIM analysis for the reverse direction with binary outcomes and exposures.
 
    ~~~
-gcim_bbr(br_tar_cov, bp_tar_cov, prs_add_scaled, prs_int_scaled, prs_cov_scaled, confounders)
+  h <- gcim_bbr(br_tar_cov, br_tar_phen, Add_PRS, Int_PRS, Cov_PRS, confounders)
    ~~~
 
 3.3. Binary outcome with quantitative exposure variable any type of confounder for the proposed direction of causation.
