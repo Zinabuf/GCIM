@@ -80,7 +80,13 @@ directions for binary outcomes and binary exposure variables in the proposed dir
    ~~~
   d <- gcim_bbp(bp_tar_phen, bp_tar_cov, Add_PRS, Int_PRS, Cov_PRS, confounders)
   ~~~
- 
+
+ Open model output as 
+
+ ~~~
+  print(d)
+ ~~~
+
  3.2. Binary outcome with binary exposure variable any confounder for the reverse direction of causation.
 
 
