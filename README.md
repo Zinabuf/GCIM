@@ -107,14 +107,14 @@ directions for binary outcomes and binary exposure variables in the reverse dire
    ~~~
   3.2.3. Compute Polygenic Risk Scores (PRS) for bbr
 
-~~~
-  g <- bbr_prs(plink_path, tar_snp, output_dir)
-~~~~
+  ~~~
+   g <- bbr_prs(plink_path, tar_snp, output_dir)
+  ~~~~
 
    3.2.4. GCIM analysis for the reverse direction with binary outcomes and exposures.
 
    ~~~
-  h <- gcim_bbr(br_tar_cov, br_tar_phen, Add_PRS, Int_PRS, Cov_PRS, confounders)
+    h <- gcim_bbr(br_tar_cov, br_tar_phen, Add_PRS, Int_PRS, Cov_PRS, confounders)
    ~~~
 
 3.3. Binary outcome with quantitative exposure variable any type of confounder for the proposed direction of causation.
@@ -137,9 +137,9 @@ directions for binary outcomes and quantitative exposure variables in the propos
 
   3.3.3. Compute Polygenic Risk Scores (PRS) for bqp
 
-~~~
-bqp_prs(plink_path, tar_snp, output_dir)
-~~~~
+  ~~~
+  bqp_prs(plink_path, tar_snp, output_dir)
+  ~~~~
 
 
    3.3.4. GCIM analysis for the proposed direction with binary outcomes and quantitative exposures.
