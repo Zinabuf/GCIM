@@ -25,7 +25,7 @@ system(paste(
   covariate_additive$BETA <- log(as.numeric(as.character(covariate_additive$OR)))
   write.table(
     covariate_additive[, c("ID", "A1", "BETA")],
-    file.path(temp_dir, "covadd_bp.txt"),
+    file.path(temp_dir, "covadd.txt"),
     row.names = FALSE, col.names = FALSE, sep = " ", quote = FALSE
   )
 }

@@ -11,11 +11,11 @@
 gcim_b <- function(bp_tar_phen, bp_tar_cov, Add_PRS, Int_PRS, Cov_PRS, confounders) {
   temp_dir <- tempdir()  
   # Load phenotype and covariate data
-  outcome_bp_data <- read.table("bp_tar_phen", header = TRUE, stringsAsFactors = FALSE)
+  outcome_bp_data <- read.table(bp_tar_phen, header = FALSE, stringsAsFactors = FALSE)
   prs_add <- read.table(file.path(temp_dir, "prs_add_scaled.txt"), header = TRUE, stringsAsFactors = FALSE)
   prs_int <- read.table(file.path(temp_dir, "prs_int_scaled.txt"), header = TRUE, stringsAsFactors = FALSE)
   prs_cov <- read.table(file.path(temp_dir, "prs_cov_scaled.txt"), header = TRUE, stringsAsFactors = FALSE)
-  covariate_bp_data <- read.table("bp_tar_cov", header = TRUE, stringsAsFactors = FALSE, fill = TRUE)
+  covariate_bp_data <- read.table(bp_tar_cov, header = FALSE, stringsAsFactors = FALSE, fill = TRUE)
 
   # Prepare regression data
   regression_data <- data.frame(

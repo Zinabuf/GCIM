@@ -9,18 +9,18 @@ prs_scores <- function(plink_path, tar_snp) {
   # Create temporary directory if it doesn't exist
   temp_dir <- tempdir()
   # Compute PRS for additive, interaction, and covariate scores
-  system(paste(plink_path, "--bfile", tar_snp, "--score", file.path(temp_dir, "phenadd_bbp.txt"),
-               "--out", file.path(temp_dir, "add_bbp"), "&> add_bbp.log"))
-  system(paste(plink_path, "--bfile", tar_snp, "--score", file.path(temp_dir, "int_bbp.txt"),
-               "--out", file.path(temp_dir, "int_bbp"), "&> int_bbp.log"))
-  system(paste(plink_path, "--bfile", tar_snp, "--score", file.path(temp_dir, "covadd_bp.txt"),
-               "--out", file.path(temp_dir, "covadd_bp"), "&> covadd_bbp.log"))
+  system(paste(plink_path, "--bfile", tar_snp, "--score", file.path(temp_dir, "phenadd.txt"),
+               "--out", file.path(temp_dir, "add"), "&> add_bbp.log"))
+  system(paste(plink_path, "--bfile", tar_snp, "--score", file.path(temp_dir, "int.txt"),
+               "--out", file.path(temp_dir, "int"), "&> int_bbp.log"))
+  system(paste(plink_path, "--bfile", tar_snp, "--score", file.path(temp_dir, "covadd.txt"),
+               "--out", file.path(temp_dir, "covadd"), "&> covadd_bbp.log"))
 
   # Check if PRS files exist before reading
   prs_files <- list(
-    prs_add = file.path(temp_dir, "add_bbp.sscore"),
-    prs_int = file.path(temp_dir, "int_bbp.sscore"),
-    prs_cov = file.path(temp_dir, "covadd_bp.sscore")
+    prs_add = file.path(temp_dir, "add.sscore"),
+    prs_int = file.path(temp_dir, "int.sscore"),
+    prs_cov = file.path(temp_dir, "covadd.sscore")
   )
   prs_values <- list()
   for (name in names(prs_files)) {

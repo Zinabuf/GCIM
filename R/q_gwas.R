@@ -24,7 +24,7 @@ system(paste(
   covariate_additive <- covariate_result[covariate_result$TEST == "ADD", ]
   write.table(
     covariate_additive[, c("ID", "A1", "BETA")],
-    file.path(temp_dir, "covadd_qp.txt"),
+    file.path(temp_dir, "covadd.txt"),
     row.names = FALSE, sep = " ", quote = FALSE
   )
 }

@@ -29,14 +29,14 @@ temp_dir <- tempdir()
   additive_outcome <- gweis_result[gweis_result$TEST == "ADD", ]
   write.table(
     additive_outcome[, c("ID", "A1", "BETA")],
-    file.path(temp_dir, "phenadd_qqp.txt"),
+    file.path(temp_dir, "phenadd.txt"),
     row.names = FALSE, sep = " ", quote = FALSE
   )
 
   interaction_outcome <- gweis_result[gweis_result$TEST == "ADDxCOVAR1", ]
   write.table(
     interaction_outcome[, c("ID", "A1", "BETA")],
-    file.path(temp_dir, "int_qqp.txt"),
+    file.path(temp_dir, "int.txt"),
     row.names = FALSE, sep = " ", quote = FALSE
   )
 }

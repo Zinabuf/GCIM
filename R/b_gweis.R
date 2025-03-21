@@ -30,7 +30,7 @@ b_gweis <- function(plink_path, dis_snp, bp_dis_phen, bp_dis_cov) {
   additive_outcome$BETA <- log(as.numeric(as.character(additive_outcome$OR)))
   write.table(
     additive_outcome[, c("ID", "A1", "BETA")],
-    file.path(temp_dir, "phenadd_bbp.txt"),
+    file.path(temp_dir, "phenadd.txt"),
     row.names = FALSE, col.names = FALSE, sep = " ", quote = FALSE
   )
 
@@ -38,7 +38,7 @@ b_gweis <- function(plink_path, dis_snp, bp_dis_phen, bp_dis_cov) {
   interaction_outcome$BETA <- log(as.numeric(as.character(interaction_outcome$OR)))
   write.table(
     interaction_outcome[, c("ID", "A1", "BETA")],
-    file.path(temp_dir, "int_bbp.txt"),
+    file.path(temp_dir, "int.txt"),
     row.names = FALSE, col.names = FALSE, sep = " ", quote = FALSE
   )
 }
