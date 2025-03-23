@@ -402,11 +402,16 @@ PRS values
  e <- prs_scores(plink_path, tar_snp)
  ~~~
 Compute GWEIS
-   ~~~
+
+ ~~~
 f <- gcim_b(bp_tar_phen, qp_tar_cov, Add_PRS, Int_PRS, Cov_PRS, confounders)
 ~~~
-print(f)
 
+~~~
+print(f)
+~~~
+
+~~~
 Call:
 glm(formula = model_formula, family = binomial(), data = regression_data)
 
