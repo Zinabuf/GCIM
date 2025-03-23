@@ -413,7 +413,6 @@ glm(formula = model_formula, family = binomial(), data = regression_data)
 Deviance Residuals:
     Min       1Q   Median       3Q      Max
 -0.9335  -0.4161  -0.2977  -0.1791   2.6932
-
 Coefficients:
                   Estimate Std. Error z value Pr(>|z|)
 (Intercept)      1.407e+02  3.079e+02   0.457  0.64762
@@ -437,7 +436,7 @@ Conf_14          2.101e-01  7.784e-02   2.699  0.00695 **
 Conf_15         -1.312e-02  2.798e-02  -0.469  0.63925
 Conf_16          4.972e-05  1.652e-04   0.301  0.76349
 Int_PRS:Cov_PRS  1.604e-01  2.324e-01   0.690  0.49012
----
+
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 (Dispersion parameter for binomial family taken to be 1)
