@@ -49,7 +49,7 @@ Inst files are available in the directories
 
 ~~~
 inst_path <- system.file(package = "GCIM") 
-bp_dis_cov <- paste0(inst_path, "bp_dis_cov.txt")
+bp_dis_cov <- paste0(inst_path, "/bp_dis_cov.txt")
 bp_dis_phen <- paste0(inst_path, "/bp_dis_phen.txt")
 bp_tar_cov <- paste0(inst_path, "/bp_tar_cov.txt")
 bp_tar_phen <- paste0(inst_path, "/bp_tar_phen.txt")
