@@ -85,9 +85,17 @@ for instance, if you have a binary outcome with a quantitative exposure variable
 - Step 3: Compute prs_score
 - Step 4: Compute a regression using gcim_q
 Compare the statistical test results between the proposed and reverse causal directions and declare the correct directions.
-Input data
+
+**Input data**
 
 All the input data should be prepared with the following data dimensions
+**Discovery dataset**
+The outcome variable in the discovery dataset should be structured with at least three columns: **FID**, **IID**, and **Phenotype**. For binary traits, controls and cases must be coded as **1** and **2**, respectively, while exposure and covariate values should be assigned according to their respective distributions. The corresponding genotype data for the discovery dataset should be formatted in **PLINK binary format** (.bed, .bim, .fam) to ensure compatibility with genome-wide-by-environmentinteraction analyses.
+**Target dataset** 
+The outcome variable in the target dataset should be structured with at least three columns: **FID**, **IID**, and **Phenotype**. For binary traits, controls and cases must be coded as **0** and **1**, respectively, while exposure and covariate values should be assigned according to their respective distributions. The corresponding genotype data for the target dataset should be formatted in **PLINK binary format** (.bed, .bim, .fam) to ensure compatibility with genome-wide-by-environmentinteraction analyses.
+
+Example of 
+THe outcome
 
 **Start analysis**
 
@@ -136,6 +144,6 @@ print(f)
 ~~~
 print(g)
 ~~~
-
+**
 
 
