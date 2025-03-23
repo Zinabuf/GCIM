@@ -21,7 +21,7 @@ library(GCIM)
 ~~~
 
 **Data preparations**
-The dataset is divided into **discovery (80%)** and **target (20%)** subsets, ensuring consistency across genetic, outcome, exposure, and confounder data. Genetic data, stored in **PLINK binary format** (`.bed`, `.bim`, `.fam`). The outcome variable should include **FID, IID, and phenotype values**, where case-control labels follow PLINK conventions: **1 = Control, 2 = Case** in the discovery dataset and **0 = Control, 1 = Case** in the target dataset. Exposure and confounder variables are formatted into at least **19 columns** (**FID, IID, exposure, confounder1–16**) and partitioned in the same proportions. This structured approach ensures compatibility across all data types, maintaining alignment to accurately estimate GxE interactions.
+The dataset is divided into **discovery (80%)** and **target (20%)** subsets, ensuring consistency across genetic, outcome, exposure, and confounder data. Genetic data, stored in **PLINK binary format** (`.bed`, `.bim`, `.fam`). The outcome variable should include **FID, IID, and phenotype values**, where case-control labels follow PLINK conventions: **1 = Control, 2 = Case** in the discovery dataset, and **0 = Control, 1 = Case** in the target dataset. Exposure and confounder variables are formatted into at least **19 columns** (**FID, IID, exposure, confounder1–16**) and partitioned in the same proportions. This structured approach ensures compatibility across all data types, maintaining alignment to estimate GxE interactions accurately.
 
 
 A quick guide
@@ -69,7 +69,7 @@ dis_snp <- paste0(inst_path, "/dis_snp")
 tar_snp <- paste0(inst_path, "/dis_snp")
 ~~~
 Set the proposed directions and the reverse direction based on the type of outcome variables. Depending on the type of outcome variable, whether binary or quantitative, step-by-step tests can be conducted as a one-time process for one-direction tests.
-for instance, if you have a binary outcome with a quantitative exposure variable do the following steps.
+For instance, if you have a binary outcome with a quantitative exposure variable, follow these steps.
 
 **A. Proposed causal directions**
 
@@ -90,12 +90,9 @@ Compare the statistical test results between the proposed and reverse causal dir
 
 All the input data should be prepared with the following data dimensions
 **Discovery dataset**
-The outcome variable in the discovery dataset should be structured with at least three columns: **FID**, **IID**, and **Phenotype**. For binary traits, controls and cases must be coded as **1** and **2**, respectively, while exposure and covariate values should be assigned according to their respective distributions. The corresponding genotype data for the discovery dataset should be formatted in **PLINK binary format** (.bed, .bim, .fam) to ensure compatibility with genome-wide-by-environmentinteraction analyses.
+The outcome variable in the discovery dataset should be structured with at least three columns: **FID**, **IID**, and **Phenotype**. For binary traits, controls and cases must be coded as **1** and **2**, respectively, while exposure and covariate values should be assigned according to their respective distributions. The corresponding genotype data for the discovery dataset should be formatted in **PLINK binary format** (.bed, .bim, .fam) to ensure compatibility with genome-wide-by-environment interaction analyses.
 **Target dataset** 
-The outcome variable in the target dataset should be structured with at least three columns: **FID**, **IID**, and **Phenotype**. For binary traits, controls and cases must be coded as **0** and **1**, respectively, while exposure and covariate values should be assigned according to their respective distributions. The corresponding genotype data for the target dataset should be formatted in **PLINK binary format** (.bed, .bim, .fam) to ensure compatibility with genome-wide-by-environmentinteraction analyses.
-
-Example of 
-THe outcome
+The outcome variable in the target dataset should be structured with at least three columns: **FID**, **IID**, and **Phenotype**. For binary traits, controls and cases must be coded as **0** and **1**, respectively, while exposure and covariate values should be assigned according to their respective distributions. The corresponding genotype data for the target dataset should be formatted in **PLINK binary format** (.bed, .bim, .fam) to ensure compatibility with Polygenic risk score estimation.
 
 **Start analysis**
 
@@ -135,7 +132,7 @@ f <- gcim_b(bp_tar_phen, bp_tar_cov, Add_PRS, Int_PRS, Cov_PRS, confounders)
 g <- gcim_q(qp_tar_phen, qp_tar_cov, Add_PRS, Int_PRS, Cov_PRS, confounders)
    ~~~
 
-The regression outputs will be 
+**Tsee regression outputs**
 
 ~~~
 print(f)
@@ -144,6 +141,11 @@ print(f)
 ~~~
 print(g)
 ~~~
-**
+
+**Example of the analysis from the data in the package**
+Quantitative outcome and quantitative exposure in testing in two different causal directions. 
+**Proposed causal directions**
+Quantitative outcome ~~~qp_dis_phen~~~, quantitative exposure ~~~qp_dis_cov~~~ and genotype data for the discovery dataset, while in the target dataset,
+Quantitative outcome ~~~qp_tar_phen~~~, quantitative exposure ~~~qp_tar_cov~~~. 
 
 
