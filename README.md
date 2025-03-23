@@ -1,7 +1,6 @@
 ---
 # <h1 align="center">GCIM</h1>
 ---
-<h1 align="center">Material Bread</h1>
 
 The genetic causality inference model(GCIM) is a statistical method for detecting the direction of causation in GxE interaction studies. 
 
@@ -151,12 +150,14 @@ print(g)
 **1.1.** **Proposed causal directions**
 The quantitative outcome "qp_dis_phen", quantitative exposure "qp_dis_cov" and genotype data for the discovery dataset, while in the target dataset,
 The quantitative outcome is "qp_tar_phen", quantitative exposure is "qp_tar_cov". 
-In the discovery dataset used to compute GWEIS using b and GWAS for Exposure using d then use e to compute PRS then g in the proposed causal directions. 
-finally, the result from this direction is displayed as: 
+In the discovery dataset used to compute GWEIS using *b* and GWAS for exposure using "d" then use "e" to compute PRS then *g* in the proposed causal directions. 
+Finally, the result from this direction is displayed as: 
 
 ~~~
  print(g)
+~~~
 
+~~~
 Call:
 lm(formula = model_formula, data = regression_data)
 
@@ -196,31 +197,40 @@ F-statistic:  2.75 on 20 and 779 DF,  p-value: 6.311e-05
 ~~~
 
 **1.2.** **reverse causal directions**
-The quantitative outcome "qr_dis_phen", quantitative exposure "qr_dis_cov" and genotype data for the target dataset, while in the target dataset,
-The quantitative outcome is "qr_tar_phen", quantitative exposure is "qr_tar_cov". 
-In the target dataset used to compute GWEIS using b and GWAS for Exposure using d then use e to compute PRS then g in the proposed causal directions. 
-finally, the result from this direction is displayed as: 
+The quantitative outcome "qr_dis_cov", quantitative exposure "qr_dis_phen" and genotype data for the target dataset, while in the target dataset,
+The quantitative outcome is "qr_tar_cov", quantitative exposure is "qr_tar_phen". 
+In the target dataset used to compute GWEIS using *b* and GWAS for exposure using *d* then use *e* to compute PRS then *g* in the reverse causal directions. 
+Finally, the result from this direction is displayed as: 
 
 GWEIS
+
 ~~~
  b <- q_gweis(plink_path, dis_snp, qr_dis_cov, qr_dis_phen)
 ~~~
+
 GWAS
+
 ~~~
  d <- q_gwas(plink_path, dis_snp, qr_dis_phen)
 ~~~
+
 PRS values
- ~~~
+
+~~~
  e <- prs_scores(plink_path, tar_snp)
- ~~~
+~~~
+
 Compute GWEIS
-   ~~~
+ 
+~~~
 g <- gcim_q(qr_tar_cov, qr_tar_phen, Add_PRS, Int_PRS, Cov_PRS, confounders)
-   ~~~
+~~~
 
 ~~~
  print(g)
+~~~
 
+~~~
 Call:
 lm(formula = model_formula, data = regression_data)
 
@@ -261,66 +271,72 @@ F-statistic: 2.041 on 20 and 779 DF,  p-value: 0.004647
 
 **2**. Quantitative outcome and Binary exposure in testing in two different causal directions. 
 **2.1.** **Proposed causal directions**
-The quantitative outcome "qp_dis_phen", quantitative exposure "bp_dis_cov" and genotype data for the discovery dataset, while in the target dataset,
-The quantitative outcome is "qp_tar_phen", quantitative exposure is "bp_tar_cov". 
-In the discovery dataset used to compute GWEIS using *"b"* and GWAS for Exposure using *"c"* then use *"e"* to compute PRS then *"g"* in the proposed causal directions. 
+The quantitative outcome "qp_dis_phen", binary exposure "bp_dis_cov" and genotype data for the discovery dataset, while in the target dataset,
+The quantitative outcome is "qp_tar_phen", and the binary exposure is "bp_tar_cov". 
+In the discovery dataset used to compute GWEIS using *"b"* and GWAS for exposure using *"c"* then use *"e"* to compute PRS then *"g"* in the proposed causal directions. 
 finally, the result from this direction is displayed as: 
 The analysis will be in the following steps. 
 
 GWEIS
 ~~~
- b <- q_gweis(plink_path, dis_snp, qp_dis_cov, bp_dis_phen)
+ b <- q_gweis(plink_path, dis_snp, qp_dis_phen, bp_dis_cov)
 ~~~
 GWAS
 ~~~
- d <- q_gwas(plink_path, dis_snp, bp_dis_phen)
+ c <- b_gwas(plink_path, dis_snp, bp_dis_cov)
 ~~~
 PRS values
  ~~~
  e <- prs_scores(plink_path, tar_snp)
  ~~~
 Compute GWEIS
-   ~~~
+~~~
 g <- gcim_q(qp_tar_phen, bp_tar_cov, Add_PRS, Int_PRS, Cov_PRS, confounders)
-   ~~~
+~~~
+
+~~~
+print(g)
+~~~
+
 ~~~
 Call:
 lm(formula = model_formula, data = regression_data)
 
 Residuals:
     Min      1Q  Median      3Q     Max
--9.2722 -3.1755 -0.7632  2.5459 18.4426
+-9.2337 -3.1713 -0.8026  2.4789 18.2299
 
 Coefficients:
                   Estimate Std. Error t value Pr(>|t|)
-(Intercept)     -4.373e+02  3.451e+02  -1.267 0.205504
-Add_PRS         -5.271e-02  1.698e-01  -0.310 0.756371
-Int_PRS         -1.038e-01  1.660e-01  -0.626 0.531692
-Covariate_Pheno -1.003e-02  5.457e-01  -0.018 0.985347
-Conf_1           1.014e-02  3.562e-02   0.285 0.776012
-Conf_2          -9.634e-02  5.882e-02  -1.638 0.101851
-Conf_3          -2.639e-02  2.115e-02  -1.248 0.212498
-Conf_4          -1.225e-01  3.447e-01  -0.355 0.722423
-Conf_5          -1.778e-01  1.030e-01  -1.727 0.084593 .
-Conf_6           6.941e-02  1.261e-01   0.550 0.582193
-Conf_7           2.790e-01  1.157e-01   2.413 0.016070 *
-Conf_8           1.044e-01  8.890e-02   1.174 0.240587
-Conf_9          -4.232e-02  3.774e-02  -1.121 0.262446
-Conf_10         -4.072e-01  1.134e-01  -3.590 0.000352 ***
-Conf_11          6.269e-02  1.041e-01   0.602 0.547297
-Conf_12          2.331e-01  1.043e-01   2.235 0.025707 *
-Conf_13         -5.891e-02  3.743e-02  -1.574 0.115930
-Conf_14          1.627e-01  8.226e-02   1.978 0.048309 *
-Conf_15          4.206e-02  3.135e-02   1.341 0.180164
-Conf_16          5.884e-04  1.808e-04   3.255 0.001184 **
-Int_PRS:Cov_PRS -3.183e-02  1.677e-01  -0.190 0.849531
+(Intercept)     -4.121e+02  3.454e+02  -1.193 0.233150
+Add_PRS          3.063e-01  1.316e+00   0.233 0.816025
+Int_PRS          2.633e-01  1.313e+00   0.201 0.841079
+Covariate_Pheno  1.503e-02  5.461e-01   0.028 0.978048
+Conf_1           1.123e-02  3.563e-02   0.315 0.752684
+Conf_2          -9.922e-02  5.886e-02  -1.686 0.092237 .
+Conf_3          -2.559e-02  2.112e-02  -1.212 0.225983
+Conf_4          -1.165e-01  3.443e-01  -0.338 0.735290
+Conf_5          -1.780e-01  1.028e-01  -1.731 0.083931 .
+Conf_6           6.787e-02  1.260e-01   0.539 0.590346
+Conf_7           2.886e-01  1.154e-01   2.501 0.012592 *
+Conf_8           1.093e-01  8.877e-02   1.231 0.218788
+Conf_9          -4.168e-02  3.776e-02  -1.104 0.270067
+Conf_10         -4.011e-01  1.135e-01  -3.532 0.000436 ***
+Conf_11          6.117e-02  1.041e-01   0.588 0.557014
+Conf_12          2.343e-01  1.043e-01   2.246 0.024980 *
+Conf_13         -5.936e-02  3.747e-02  -1.584 0.113585
+Conf_14          1.639e-01  8.221e-02   1.994 0.046547 *
+Conf_15          3.977e-02  3.138e-02   1.267 0.205393
+Conf_16          5.882e-04  1.809e-04   3.250 0.001202 **
+Int_PRS:Cov_PRS  2.049e-01  2.103e-01   0.975 0.330106
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 4.646 on 779 degrees of freedom
-Multiple R-squared:  0.06571,   Adjusted R-squared:  0.04172
-F-statistic: 2.739 on 20 and 779 DF,  p-value: 6.733e-05
+Residual standard error: 4.644 on 779 degrees of freedom
+Multiple R-squared:  0.06666,   Adjusted R-squared:  0.0427
+F-statistic: 2.782 on 20 and 779 DF,  p-value: 5.124e-05
 ~~~
+
 **2.2.** **reverse causal directions**
 The binary outcome "br_dis_cov", quantitative exposure "qr_dis_cov" and genotype data for the target dataset, while in the target dataset,
 The binary outcome is "br_tar_phen", and quantitative exposure is "qr_tar_phen". 
