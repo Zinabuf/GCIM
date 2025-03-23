@@ -145,7 +145,7 @@ print(g)
 **Example of the analysis from the data in the package**
 Quantitative outcome and quantitative exposure in testing in two different causal directions. 
 **Proposed causal directions**
-Quantitative outcome ~~~qp_dis_phen~~~, quantitative exposure ~~~qp_dis_cov~~~ and genotype data for the discovery dataset, while in the target dataset,
-Quantitative outcome ~~~qp_tar_phen~~~, quantitative exposure ~~~qp_tar_cov~~~. 
+The quantitative outcome "qp_dis_phen", quantitative exposure "qp_dis_cov" and genotype data for the discovery dataset, while in the target dataset,
+The quantitative outcome is "qp_tar_phen", quantitative exposure is "qp_tar_cov". 
 
 
