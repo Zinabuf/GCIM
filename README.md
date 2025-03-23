@@ -146,7 +146,9 @@ print(g)
 ~~~
 
 **Example of the analysis from the data in the package**
-**1**  Quantitative outcome and quantitative exposure in testing in two different causal directions. 
+
+**1**  **Quantitative outcome and quantitative exposure** in testing in two different causal directions.
+
 **1.1.** **Proposed causal directions**
 The quantitative outcome "qp_dis_phen", quantitative exposure "qp_dis_cov" and genotype data for the discovery dataset, while in the target dataset,
 The quantitative outcome is "qp_tar_phen", quantitative exposure is "qp_tar_cov". 
@@ -269,7 +271,8 @@ Multiple R-squared:  0.0498,    Adjusted R-squared:  0.0254
 F-statistic: 2.041 on 20 and 779 DF,  p-value: 0.004647
 ~~~~
 
-**2**. Quantitative outcome and Binary exposure in testing in two different causal directions. 
+**2**. **Quantitative outcome and Binary exposure** in testing in two different causal directions.
+
 **2.1.** **Proposed causal directions**
 The quantitative outcome "qp_dis_phen", binary exposure "bp_dis_cov" and genotype data for the discovery dataset, while in the target dataset,
 The quantitative outcome is "qp_tar_phen", and the binary exposure is "bp_tar_cov". 
@@ -338,27 +341,38 @@ F-statistic: 2.782 on 20 and 779 DF,  p-value: 5.124e-05
 ~~~
 
 **2.2.** **reverse causal directions**
-The binary outcome "br_dis_cov", quantitative exposure "qr_dis_cov" and genotype data for the target dataset, while in the target dataset,
-The binary outcome is "br_tar_phen", and quantitative exposure is "qr_tar_phen". 
-In the target dataset used to compute GWEIS using b and GWAS for Exposure using d then use e to compute PRS then g in the proposed causal directions. 
-finally, the result from this direction is displayed as: 
+The binary outcome "br_dis_cov", quantitative exposure "qr_dis_phen" and genotype data for the discovery dataset, while in the target dataset,
+the binary outcome is "br_tar_cov", and quantitative exposure is "qr_tar_phen". 
+In the discovery dataset used to compute GWEIS using *a* and GWAS for exposure using *d* then use *e* to compute PRS then *f* in the reverse causal directions. 
+Finally, the result from this direction is displayed as: 
 
 GWEIS
+
 ~~~
- b <- b_gweis(plink_path, dis_snp, br_dis_cov, qr_dis_phen)
+ a <- b_gweis(plink_path, dis_snp, br_dis_cov, qr_dis_phen)
 ~~~
+
 GWAS
+
 ~~~
  d <- q_gwas(plink_path, dis_snp, qr_dis_phen)
 ~~~
+
 PRS values
+
  ~~~
  e <- prs_scores(plink_path, tar_snp)
  ~~~
+
 Compute GWEIS
-   ~~~
-g <- gcim_b(br_tar_cov, qr_tar_phen, Add_PRS, Int_PRS, Cov_PRS, confounders)
-   ~~~
+
+~~~
+f <- gcim_b(br_tar_cov, qr_tar_phen, Add_PRS, Int_PRS, Cov_PRS, confounders)
+~~~
+
+~~~
+print(f)
+~~~
 
 ~~~
 Call:
@@ -403,13 +417,14 @@ AIC: 406.65
 Number of Fisher Scoring iterations: 7
 ~~~
 
-**3**  **Binary outcome** and quantitative exposure in testing in two different causal directions. 
+**3**  **Binary outcome and quantitative exposure** in testing in two different causal directions. 
 
 **3.1.** **Proposed causal directions**
 The Binary outcome "bp_dis_phen", quantitative exposure "qp_dis_cov" and genotype data for the discovery dataset, while in the target dataset,
-The binary outcome is "bp_tar_phen", and quantitative exposure is "qp_tar_cov". 
-In the discovery dataset used to compute GWEIS using b and GWAS for Exposure using d then use e to compute PRS then g in the proposed causal directions. 
-finally, the result from this direction is displayed as: 
+the binary outcome is "bp_tar_phen", and quantitative exposure is "qp_tar_cov". 
+In the discovery dataset used to compute GWEIS using *a* and GWAS for exposure using *d* then use *e* to compute PRS then *f* in the proposed causal directions. 
+Finally, the result from this direction is displayed as: 
+
 GWEIS
 
 ~~~
@@ -480,9 +495,9 @@ Number of Fisher Scoring iterations: 6
 ~~~
 
 **3.2.** **Reverse causal directions**
-The quantitative outcome "qr_dis_cov", binary exposure "br_dis_cov" and genotype data for the discovery dataset, while in the target dataset,
-The quantitative outcome is "qr_tar_cov", and binary exposure is "br_tar_cov". 
-In the discovery dataset used to compute GWEIS using *"b"* and GWAS for exposure using *"c"* then use *"e"* to compute PRS then *"g"* in the proposed causal directions. 
+The quantitative outcome "qr_dis_cov", binary exposure "br_dis_phen" and genotype data for the discovery dataset, while in the target dataset,
+the quantitative outcome is "qr_tar_cov", and the binary exposure is "br_tar_phen". 
+In the discovery dataset used to compute GWEIS using *b* and GWAS for exposure using *c* then use *e* to compute PRS then *g* in the reverse causal directions. 
 finally, the result from this direction is displayed as: 
 GWEIS
 
@@ -550,4 +565,40 @@ Residual standard error: 0.09284 on 779 degrees of freedom
 Multiple R-squared:  0.05242,   Adjusted R-squared:  0.02809
 F-statistic: 2.155 on 20 and 779 DF,  p-value: 0.002433
 
+~~~
+
+**3**  **Binary outcome and Binary exposure** in testing in two different causal directions. 
+
+**3.1.** **Proposed causal directions**
+The Binary outcome "bp_dis_phen", binary exposure "bp_dis_cov" and genotype data for the discovery dataset, while in the target dataset,
+the binary outcome is "bp_tar_phen", and binary exposure is "bp_tar_cov". 
+In the discovery dataset used to compute GWEIS using *a* and GWAS for exposure using *c* then use *e* to compute PRS then *f* in the proposed causal directions. 
+Finally, the result from this direction is displayed as: 
+
+GWEIS
+
+~~~
+ b <- b_gweis(plink_path, dis_snp, bp_dis_phen, bp_dis_cov)
+~~~
+
+GWAS
+
+~~~
+ c <- b_gwas(plink_path, dis_snp, bp_dis_cov)
+~~~
+
+PRS values
+
+ ~~~
+ e <- prs_scores(plink_path, tar_snp)
+ ~~~
+
+Compute regression
+
+ ~~~
+f <- gcim_b(bp_tar_phen, bp_tar_cov, Add_PRS, Int_PRS, Cov_PRS, confounders)
+~~~
+
+~~~
+print(f)
 ~~~
