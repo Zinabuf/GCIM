@@ -1,5 +1,5 @@
 ---
-# GCIM
+# <h1 align="center">GCIM</h1>
 ---
 <h1 align="center">Material Bread</h1>
 
