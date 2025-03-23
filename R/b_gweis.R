@@ -37,8 +37,8 @@ b_gweis <- function(plink_path, dis_snp, bp_dis_phen, bp_dis_cov) {
   interaction_outcome <- gweis_result[gweis_result$TEST == "ADDxCOVAR1", ]
   interaction_outcome$BETA <- log(as.numeric(as.character(interaction_outcome$OR)))
   write.table(
-    interaction_outcome[, c("ID", "A1", "BETA")],
-    file.path(temp_dir, "int.txt"),
+    additive_outcome[, c("ID", "A1", "BETA")],
+    file.path(temp_dir, "phenadd.txt"),
     row.names = FALSE, sep = " ", quote = FALSE
   )
 }
