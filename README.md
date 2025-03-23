@@ -404,7 +404,7 @@ PRS values
 Compute GWEIS
    ~~~
 f <- gcim_b(bp_tar_phen, qp_tar_cov, Add_PRS, Int_PRS, Cov_PRS, confounders)
-   ~~~
+~~~
 print(f)
 
 Call:
@@ -445,5 +445,6 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
     Null deviance: 405.82  on 799  degrees of freedom
 Residual deviance: 359.71  on 779  degrees of freedom
 AIC: 401.71
-
 Number of Fisher Scoring iterations: 6
+~~~
+
