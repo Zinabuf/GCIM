@@ -382,3 +382,68 @@ AIC: 406.65
 
 Number of Fisher Scoring iterations: 7
 ~~~
+
+**3**  **Binary outcome** and quantitative exposure in testing in two different causal directions. 
+**3.1.** **Proposed causal directions**
+The quantitative outcome "bp_dis_phen", quantitative exposure "qp_dis_cov" and genotype data for the discovery dataset, while in the target dataset,
+The quantitative outcome is "bp_tar_phen", quantitative exposure is "qp_tar_cov". 
+In the discovery dataset used to compute GWEIS using b and GWAS for Exposure using d then use e to compute PRS then g in the proposed causal directions. 
+finally, the result from this direction is displayed as: 
+GWEIS
+~~~
+ b <- b_gweis(plink_path, dis_snp, bp_dis_phen, qp_dis_cov)
+~~~
+GWAS
+~~~
+ d <- q_gwas(plink_path, dis_snp, qp_dis_phen)
+~~~
+PRS values
+ ~~~
+ e <- prs_scores(plink_path, tar_snp)
+ ~~~
+Compute GWEIS
+   ~~~
+f <- gcim_b(bp_tar_phen, qp_tar_cov, Add_PRS, Int_PRS, Cov_PRS, confounders)
+   ~~~
+print(f)
+
+Call:
+glm(formula = model_formula, family = binomial(), data = regression_data)
+
+Deviance Residuals:
+    Min       1Q   Median       3Q      Max
+-0.9335  -0.4161  -0.2977  -0.1791   2.6932
+
+Coefficients:
+                  Estimate Std. Error z value Pr(>|z|)
+(Intercept)      1.407e+02  3.079e+02   0.457  0.64762
+Add_PRS         -8.051e-03  1.140e+00  -0.007  0.99436
+Int_PRS         -1.336e-01  1.134e+00  -0.118  0.90617
+Covariate_Pheno  4.390e-01  1.484e-01   2.959  0.00309 **
+Conf_1          -2.408e-02  3.152e-02  -0.764  0.44499
+Conf_2           7.504e-02  5.035e-02   1.490  0.13611
+Conf_3           7.859e-03  1.930e-02   0.407  0.68393
+Conf_4          -1.259e-01  3.081e-01  -0.409  0.68279
+Conf_5           3.426e-02  9.506e-02   0.360  0.71853
+Conf_6           2.083e-01  1.068e-01   1.951  0.05109 .
+Conf_7          -3.741e-01  1.172e-01  -3.192  0.00141 **
+Conf_8          -1.351e-01  8.041e-02  -1.680  0.09292 .
+Conf_9           4.360e-02  3.341e-02   1.305  0.19198
+Conf_10          1.427e-01  9.655e-02   1.478  0.13954
+Conf_11          2.227e-01  1.016e-01   2.191  0.02847 *
+Conf_12          2.638e-01  9.851e-02   2.678  0.00741 **
+Conf_13         -2.797e-02  2.982e-02  -0.938  0.34821
+Conf_14          2.101e-01  7.784e-02   2.699  0.00695 **
+Conf_15         -1.312e-02  2.798e-02  -0.469  0.63925
+Conf_16          4.972e-05  1.652e-04   0.301  0.76349
+Int_PRS:Cov_PRS  1.604e-01  2.324e-01   0.690  0.49012
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 405.82  on 799  degrees of freedom
+Residual deviance: 359.71  on 779  degrees of freedom
+AIC: 401.71
+
+Number of Fisher Scoring iterations: 6
