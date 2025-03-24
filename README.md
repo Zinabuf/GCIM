@@ -30,7 +30,7 @@ The dataset is divided into **discovery (80%)** and **target (20%)** subsets, en
 A quick guide
 
 GCIM analysis uses PLink2 to analyze discovery data, and the package is compatible with the Linux operating system. 
-1. download the plink2 from the [Plink](https://www.cog-genomics.org/plink/2.0/) website and specify the executable Plink file path.
+1. Download plink2 software from the [Plink](https://www.cog-genomics.org/plink/2.0/) website and then specify the executable Plink file path.
    
 ~~~
 plink_path <- "<plink_path>/plink2"
