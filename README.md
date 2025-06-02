@@ -379,42 +379,42 @@ Call:
 glm(formula = model_formula, family = binomial(), data = regression_data)
 
 Deviance Residuals:
-     Min        1Q    Median        3Q       Max
--1.77908  -0.37183  -0.19751  -0.09162   2.91473
+    Min       1Q   Median       3Q      Max
+-1.3233  -0.4885  -0.3860  -0.2777   2.7542
 
 Coefficients:
                   Estimate Std. Error z value Pr(>|z|)
-(Intercept)     -7.482e+02  3.043e+02  -2.458 0.013954 *
-Add_PRS         -1.502e-01  3.021e-01  -0.497 0.619070
-Int_PRS         -2.790e-02  3.210e-01  -0.087 0.930740
-Covariate_Pheno  3.078e-01  3.354e-02   9.177  < 2e-16 ***
-Conf_1          -1.289e-01  3.442e-02  -3.744 0.000181 ***
-Conf_2           1.840e-01  4.857e-02   3.788 0.000152 ***
-Conf_3          -1.606e-02  1.776e-02  -0.904 0.365887
-Conf_4           1.130e+00  3.027e-01   3.733 0.000189 ***
-Conf_5           5.163e-02  8.248e-02   0.626 0.531349
-Conf_6           3.380e-01  1.061e-01   3.186 0.001443 **
-Conf_7           6.287e-02  9.882e-02   0.636 0.524633
-Conf_8          -4.486e-02  7.325e-02  -0.612 0.540224
-Conf_9           2.509e-03  3.066e-02   0.082 0.934788
-Conf_10          4.608e-02  1.005e-01   0.458 0.646707
-Conf_11          2.183e-01  9.395e-02   2.323 0.020155 *
-Conf_12          1.393e-01  9.060e-02   1.537 0.124250
-Conf_13          4.842e-02  3.452e-02   1.403 0.160695
-Conf_14          2.603e-01  7.483e-02   3.479 0.000503 ***
-Conf_15          6.703e-02  2.763e-02   2.425 0.015290 *
-Conf_16          3.228e-04  1.737e-04   1.859 0.063048 .
-Int_PRS:Cov_PRS  2.563e-01  1.396e-01   1.835 0.066451 .
+(Intercept)     -5.867e+02  2.563e+02  -2.290   0.0220 *
+Add_PRS         -7.340e-02  1.312e-01  -0.559   0.5759
+Int_PRS          2.461e-01  1.305e-01   1.885   0.0594 .
+Covariate_Pheno  3.773e-03  2.254e-02   0.167   0.8671
+Conf_1          -3.237e-02  2.634e-02  -1.229   0.2191
+Conf_2           3.452e-02  4.465e-02   0.773   0.4394
+Conf_3           9.559e-03  1.604e-02   0.596   0.5511
+Conf_4           1.999e-01  2.553e-01   0.783   0.4336
+Conf_5          -1.693e-01  7.943e-02  -2.131   0.0331 *
+Conf_6          -1.470e-02  9.835e-02  -0.149   0.8812
+Conf_7          -1.050e-01  8.957e-02  -1.172   0.2412
+Conf_8          -1.739e-02  7.243e-02  -0.240   0.8102
+Conf_9          -3.244e-02  2.986e-02  -1.086   0.2773
+Conf_10         -2.584e-02  8.463e-02  -0.305   0.7601
+Conf_11          2.534e-02  8.102e-02   0.313   0.7544
+Conf_12         -1.081e-01  7.822e-02  -1.383   0.1668
+Conf_13         -3.873e-02  2.851e-02  -1.359   0.1743
+Conf_14         -2.551e-01  6.136e-02  -4.158 3.22e-05 ***
+Conf_15          5.283e-02  2.326e-02   2.271   0.0231 *
+Conf_16          9.654e-05  1.399e-04   0.690   0.4901
+Int_PRS:Cov_PRS -1.035e-02  1.106e-01  -0.094   0.9254
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
-    Null deviance: 554.42  on 799  degrees of freedom
-Residual deviance: 364.65  on 779  degrees of freedom
-AIC: 406.65
+    Null deviance: 520.13  on 799  degrees of freedom
+Residual deviance: 477.60  on 779  degrees of freedom
+AIC: 519.6
 
-Number of Fisher Scoring iterations: 7
+Number of Fisher Scoring iterations: 5
 ~~~
 
 **3**  **Binary outcome and quantitative exposure** in testing in two different causal directions. 
