@@ -636,3 +636,45 @@ f <- gcim_b(br_tar_cov, br_tar_phen, Add_PRS, Int_PRS, Cov_PRS, confounders)
 print(f)
 ~~~
 Finally, the result from this direction is displayed as: 
+~~~
+Call:
+glm(formula = model_formula, family = binomial(), data = regression_data)
+
+Deviance Residuals:
+    Min       1Q   Median       3Q      Max
+-1.3883  -0.4707  -0.3543  -0.2403   2.4512
+
+Coefficients:
+                  Estimate Std. Error z value Pr(>|z|)
+(Intercept)     -7.458e+02  2.672e+02  -2.791  0.00526 **
+Add_PRS         -8.492e-02  1.334e-01  -0.637  0.52438
+Int_PRS          3.214e-02  1.358e-01   0.237  0.81299
+Covariate_Pheno  1.418e+00  2.990e-01   4.743 2.10e-06 ***
+Conf_1          -3.053e-02  2.697e-02  -1.132  0.25767
+Conf_2           5.925e-02  4.572e-02   1.296  0.19503
+Conf_3           8.024e-03  1.616e-02   0.497  0.61946
+Conf_4           1.779e-01  2.570e-01   0.692  0.48868
+Conf_5          -2.054e-01  8.117e-02  -2.530  0.01141 *
+Conf_6          -1.404e-02  1.030e-01  -0.136  0.89166
+Conf_7          -4.385e-02  8.766e-02  -0.500  0.61690
+Conf_8           3.308e-02  7.581e-02   0.436  0.66262
+Conf_9          -4.693e-02  3.036e-02  -1.546  0.12214
+Conf_10          3.002e-02  8.769e-02   0.342  0.73210
+Conf_11          5.073e-02  7.851e-02   0.646  0.51819
+Conf_12         -1.447e-01  7.970e-02  -1.816  0.06935 .
+Conf_13         -2.721e-02  2.995e-02  -0.908  0.36365
+Conf_14         -2.839e-01  6.298e-02  -4.507 6.57e-06 ***
+Conf_15          6.724e-02  2.427e-02   2.771  0.00559 **
+Conf_16          3.650e-05  1.422e-04   0.257  0.79739
+Int_PRS:Cov_PRS  1.219e-01  9.980e-02   1.221  0.22194
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 520.13  on 799  degrees of freedom
+Residual deviance: 460.29  on 779  degrees of freedom
+AIC: 502.29
+
+Number of Fisher Scoring iterations: 6
+~~~
