@@ -14,13 +14,17 @@ Package installation
 
 ~~~
 library(devtools)
-install_github("zinabuf/GCIM")
+install_github("DoviniJ/GxEprs") 
+~~~
+Or the CRAN version via
+~~~
+install.packages("GxEprs") 
 ~~~
 
 Load the library
 
 ~~~
-library(GCIM)
+library(GxEprs)
 ~~~
 
 **Data preparations**
