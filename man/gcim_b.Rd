@@ -4,23 +4,23 @@
 \alias{gcim_b}
 \title{Perform regression analysis for GCIM with binary outcome.}
 \usage{
-gcim_b(bp_tar_phen, bp_tar_cov, Add_PRS, Int_PRS, Cov_PRS, confounders)
+gcim_b(bp_tar_phen, bp_tar_cov, Add_PRS, Int_PRS, Cov_PRS, confounders = NULL)
 }
 \arguments{
 \item{bp_tar_phen}{File path for the target phenotype data.}
 
 \item{bp_tar_cov}{File path for the target covariate data.}
 
-\item{Additive}{Scaled additive PRS values.}
+\item{Add_PRS}{File path for scaled additive PRS values.}
 
-\item{Interaction}{Scaled interaction PRS values.}
+\item{Int_PRS}{File path for scaled interaction PRS values.}
 
-\item{Covariate}{Scaled covariate PRS values.}
+\item{Cov_PRS}{File path for scaled covariate PRS values.}
 
-\item{Confounders}{Data frame of additional confounders.}
+\item{confounders}{Optional data frame of additional confounders (not used if covariates file contains confounders).}
 }
 \value{
-Summary of the regression model.
+Summary of the logistic regression model.
 }
 \description{
 Perform regression analysis for GCIM with binary outcome.
