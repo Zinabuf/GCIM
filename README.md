@@ -8,7 +8,7 @@ The genetic causality inference model(GCIM) is a statistical method for detectin
  Authors: Zinabu Fentaw, Dovini Jayasinghe, S.Hong Lee
 -
 
-NB: The proposed direction of causation refers to the causal directions of GxE interactions that are the primary focus of the researcher's interest, while the reverse direction of causation examines the opposite directions of GxE interactions to test its proper causal directions.
+NB: The proposed direction of causation refers to the causal directions of GxE interactions that are the primary focus of the researcher's interest, while the reverse direction of causation examines the opposite directions of GxE interactions to test their proper causal directions.
    
 Package installation
 
@@ -80,5 +80,27 @@ y$summary
 
 **Binary output**
 
+~~~
+a <- GWAS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
+trd <- a[c("ID", "A1", "BETA")]
+~~~
 
+~~~
+b <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
+add <- b[c("ID", "A1", "ADD_BETA")]
+gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
+~~~
 
+~~~
+p <- PRS_binary(plink_path, "mydata", summary_input = trd)
+q <- PRS_binary(plink_path, "mydata", summary_input = add)
+r <- PRS_binary(plink_path, "mydata", summary_input = gxe)
+~~~
+
+~~~
+z <- summary_regular_binary("Bpt.txt", "add_score = p", add_score = q, gxe_score = r, Model = 5)
+~~~
+
+~~~
+z$summary
+~~~
