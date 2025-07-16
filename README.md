@@ -57,7 +57,7 @@ Conduct a GWAS for the exposure adjusted by covariates, and then compute the PRS
 
 ~~~
 # Conduct GWEIS based on the assigned outcome variables, exposure with confounders.
-b <- GWEIS_quantitative(plink_path, "DummyData", "Qphe_discovery.txtt", "Qcov_discovery.txt")
+b <- GWEIS_quantitative(plink_path, "DummyData", "Qphe_discovery.txt", "Qcov_discovery.txt")
 add <- b[c("ID", "A1", "ADD_BETA")]
 gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
 ~~~
