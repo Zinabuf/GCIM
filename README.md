@@ -32,7 +32,7 @@ The dataset is divided into **discovery (80%)** and **target (20%)** subsets, en
 
 A Guide for GCIM analyses
 
-GCIM analyses uses PLink2 to analyze discovery data, and the package is compatible with the Linux operating system. 
+GCIM analyses use PLink2 to analyze discovery data, and the package is compatible with the Linux operating system. 
 1. Download plink2 software from the [Plink](https://www.cog-genomics.org/plink/2.0/) website and then specify the executable Plink file path.
    
 ~~~
@@ -55,7 +55,6 @@ Conduct a GWAS for the exposure adjusted by covariates, and then compute the PRS
 
 ~~~
 # Conduct GWEIS based on the assigned outcome variables, exposure with confounders.
-#PRS of the exposure(PRS_exp) variables should be the third column, and include the constant values for the fourth column, and then add the  number of covariates for the adjustment. 
 b <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "PRS_exp")
 add <- b[c("ID", "A1", "ADD_BETA")]
 gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
@@ -63,25 +62,27 @@ gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
 
 ~~~
 # Compute the PRS of each summary 
-p <- PRS_binary(plink_path, "mydata", summary_input = trd)
-q <- PRS_binary(plink_path, "mydata", summary_input = add)
-r <- PRS_binary(plink_path, "mydata", summary_input = gxe)
+q <- PRS_quantitative(plink_path, "mydata", summary_input = add)
+r <- PRS_quantitative(plink_path, "mydata", summary_input = gxe)
 ~~~
 
 ~~~
 # Conduct regression analyses for GCIM
-y <- summary_regular_binary("Bpt.txt", add_score = p, add_score = q, gxe_score = r, Model = 4)
+#PRS of the exposure(PRS_exp) variables should be the third column, and include the constant values for the fourth column, and then add the  number of covariates for the adjustment. 
+y <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 4)
 ~~~
 
 ~~~
 y$summary
 ~~~
+Perform the reverse analyses by changing the roles of exposure and outcome variables. 
 
 **Binary output**
 
 ~~~
-a <- GWAS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
-trd <- a[c("ID", "A1", "BETA")]
+# Compute PRS of exposure variables
+Conduct a GWAS for the exposure adjusted by covariates, and then compute the PRS for the exposure.
+Conduct a log transformation of the OR if the exposure variable is binary.  Then, compute the PRS of the exposure variables using PRS score values. 
 ~~~
 
 ~~~
@@ -91,7 +92,6 @@ gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
 ~~~
 
 ~~~
-p <- PRS_binary(plink_path, "mydata", summary_input = trd)
 q <- PRS_binary(plink_path, "mydata", summary_input = add)
 r <- PRS_binary(plink_path, "mydata", summary_input = gxe)
 ~~~
