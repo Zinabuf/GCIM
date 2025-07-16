@@ -97,7 +97,7 @@ r <- PRS_binary(plink_path, "mydata", summary_input = gxe)
 ~~~
 
 ~~~
-z <- summary_regular_binary("Bpt.txt", "add_score = p", add_score = q, gxe_score = r, Model = 5)
+z <- summary_regular_binary("Bpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 5)
 ~~~
 
 ~~~
