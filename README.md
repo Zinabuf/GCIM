@@ -31,9 +31,9 @@ library(GxEprs)
 The dataset is divided into **discovery (80%)** and **target (20%)** subsets, ensuring consistency across genetic, outcome, exposure, and confounder data. Genetic data, stored in **PLINK binary format** (`.bed`, `.bim`, `.fam`). The outcome variable should include **FID, IID, and phenotype values**, where case-control labels follow PLINK conventions: **1 = Control, 2 = Case** in the discovery dataset, and **0 = Control, 1 = Case** in the target dataset. Exposure and confounder variables are formatted into at least **19 columns** (**FID, IID, exposure, confounder1-n **) and partitioned in the same proportions. This structured approach ensures compatibility across all data types, thereby maintaining accurate alignment to estimate GxE interactions.
 
 
-A quick guide
+A Guide for GCIM analyses
 
-GCIM analysis uses PLink2 to analyze discovery data, and the package is compatible with the Linux operating system. 
+GCIM analyses uses PLink2 to analyze discovery data, and the package is compatible with the Linux operating system. 
 1. Download plink2 software from the [Plink](https://www.cog-genomics.org/plink/2.0/) website and then specify the executable Plink file path.
    
 ~~~
