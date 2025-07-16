@@ -48,19 +48,31 @@ discovery dataset:
 2. Conduct GWAS
 3. Estimate the PRS of the exposure
 4. Conduct linear regression
-   a <- GWAS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
+
+~~~
+# Compute PRS of exposure variables
+   a <- GWAS_binary(plink_path, "mydata", "E", "confounders")
 trd <- a[c("ID", "A1", "BETA")]
+~~~
+
+~~~
+# Conduct GWEIS based on the assigned outcome variables, exposure with confounders. 
 b <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
 add <- b[c("ID", "A1", "ADD_BETA")]
 gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
+~~~
+
+~~~
+# Compute the PRS of each summary 
 p <- PRS_binary(plink_path, "mydata", summary_input = trd)
 q <- PRS_binary(plink_path, "mydata", summary_input = add)
 r <- PRS_binary(plink_path, "mydata", summary_input = gxe)
+~~~
 
-u <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = p, gxe_score = r, Model = 0) #see section IMPORTANT for details
-v <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = p, Model = 1)
-w <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, Model = 2)
-x <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, Model = 3)
-y <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, Model = 4)
-z <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, Model = 5)
+~~~
+# Conduct regression analyses for GCIM
+y <- summary_regular_binary("Bpt.txt", add_score = p, add_score = q, gxe_score = r, Model = 4)
+~~~
+y$summary
+
 
