@@ -49,7 +49,7 @@ discovery dataset:
 3. Estimate the PRS of the exposure
 4. Conduct linear regression
 
-# quantitative outcome 
+# Quantitative outcome 
 ~~~
 # Compute PRS of exposure variables
 Conduct a GWAS for the exposure adjusted by covariates, and then compute the PRS for the exposure. 
