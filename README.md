@@ -64,8 +64,8 @@ gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
 
 ~~~
 # Compute the PRS of each summary 
-q <- PRS_quantitative(plink_path, "mydata", summary_input = add)
-r <- PRS_quantitative(plink_path, "mydata", summary_input = gxe)
+q <- PRS_quantitative(plink_path, "DummyData", summary_input = add)
+r <- PRS_quantitative(plink_path, "DummyData", summary_input = gxe)
 ~~~
 
 ~~~
@@ -86,14 +86,14 @@ Conduct a GWAS for the exposure adjusted by covariates, and then compute the PRS
 Conduct a log transformation of the OR if the exposure variable is binary.  Then, compute the PRS of the exposure variables using PRS score values for the target sample. 
 
 ~~~
-b <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
+b <- GWEIS_binary(plink_path, "DummyData", "Bpd.txt", "Bcd.txt")
 add <- b[c("ID", "A1", "ADD_BETA")]
 gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
 ~~~
 
 ~~~
-q <- PRS_binary(plink_path, "mydata", summary_input = add)
-r <- PRS_binary(plink_path, "mydata", summary_input = gxe)
+q <- PRS_binary(plink_path, "DummyData", summary_input = add)
+r <- PRS_binary(plink_path, "DummyData", summary_input = gxe)
 ~~~
 
 ~~~
