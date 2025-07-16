@@ -48,6 +48,7 @@ discovery dataset:
 3. Estimate the PRS of the exposure
 4. Conduct linear regression
 
+# quantitative outcome 
 ~~~
 # Compute PRS of exposure variables
 Conduct a GWAS for the exposure adjusted by covariates, and then compute the PRS for the exposure. 
@@ -77,9 +78,9 @@ y$summary
 ~~~
 Perform the reverse analyses by changing the roles of exposure and outcome variables. 
 
-**Binary output**
+# Binary outcome
 
-# Compute PRS of exposure variables
+**Compute PRS of exposure variables**
 Conduct a GWAS for the exposure adjusted by covariates, and then compute the PRS for the exposure.
 Conduct a log transformation of the OR if the exposure variable is binary.  Then, compute the PRS of the exposure variables using PRS score values. 
 
