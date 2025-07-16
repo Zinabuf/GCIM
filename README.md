@@ -40,7 +40,7 @@ GCIM analysis uses PLink2 to analyze discovery data, and the package is compatib
 plink_path <- "<plink_path>/plink2"
 ~~~
 **Discovery dataset**: In the discovery dataset, please use the data input from the GxEprs data input format, except the value of e(exposure variable)-squared, which should be prepared as constant values to remove its effect from the model. Compute the PRS of the exposure using [Plink](https://www.cog-genomics.org/plink/2.0/) based on the GWAS from the discovery dataset for the PRS of the target samples. Use input and data preparation from GxEprs.
-**Target dataset**: The target dataset for the model is also similar in data format, except, the use of PRS of the exposure variable(PRS of E) rather than the use of entire exposure values, and also includes the constant values for the fourth column, which is the square of the third column in the GxEprs model.  
+**Target dataset**: The target dataset for the model is also similar in data format, except, the use of PRS of the exposure variable(PRS of E) rather than the use of entire exposure values, and also includes the constant values for the fourth column, which is the square of the third column in the GxEprs model. Do the same approach for both proposed and reverse directions. 
 Example data:
 Quantitative outcome with Quantitative exposure:
 discovery dataset: 
@@ -73,6 +73,12 @@ r <- PRS_binary(plink_path, "mydata", summary_input = gxe)
 # Conduct regression analyses for GCIM
 y <- summary_regular_binary("Bpt.txt", add_score = p, add_score = q, gxe_score = r, Model = 4)
 ~~~
+
+~~~
 y$summary
+~~~
+
+**Binary output**
+
 
 
