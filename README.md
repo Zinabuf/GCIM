@@ -136,7 +136,7 @@ r <- PRS_quantitative(plink_path, "DummyData", summary_input = gxe)
 ~~~
 # Conduct regression analyses for GCIM
 #PRS of the exposure(PRS_exp) variables should be the third column, and include the constant values for the fourth column, and then add the  number of covariates for the adjustment. 
-y <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 4)
+y <- summary_regular_quantitative("Qpt.txt", "PRS_exp_cov.txt", add_score = q, gxe_score = r, Model = 4)
 ~~~
 
 ~~~
@@ -162,7 +162,7 @@ r <- PRS_binary(plink_path, "DummyData", summary_input = gxe)
 ~~~
 
 ~~~
-z <- summary_regular_binary("Bpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 5)
+z <- summary_regular_binary("Bpt.txt", "PRS_exp_cov.txt", add_score = q, gxe_score = r, Model = 5)
 ~~~
 
 ~~~
