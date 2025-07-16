@@ -51,13 +51,13 @@ discovery dataset:
 
 ~~~
 # Compute PRS of exposure variables
-   a <- GWAS_binary(plink_path, "mydata", "E", "confounders")
-trd <- a[c("ID", "A1", "BETA")]
+Conduct a GWAS for the exposure adjusted by covariates, and then compute the PRS for the exposure. 
 ~~~
 
 ~~~
-# Conduct GWEIS based on the assigned outcome variables, exposure with confounders. 
-b <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
+# Conduct GWEIS based on the assigned outcome variables, exposure with confounders.
+#PRS of the exposure(PRS_exp) variables should be the third column, and include the constant values for the fourth column, and then add the  number of covariates for the adjustment. 
+b <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "PRS_exp")
 add <- b[c("ID", "A1", "ADD_BETA")]
 gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
 ~~~
