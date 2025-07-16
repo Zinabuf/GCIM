@@ -83,7 +83,7 @@ Perform the reverse analyses by changing the roles of exposure and outcome varia
 
 **Compute PRS of exposure variables**
 Conduct a GWAS for the exposure adjusted by covariates, and then compute the PRS for the exposure.
-Conduct a log transformation of the OR if the exposure variable is binary.  Then, compute the PRS of the exposure variables using PRS score values. 
+Conduct a log transformation of the OR if the exposure variable is binary.  Then, compute the PRS of the exposure variables using PRS score values for the target sample. 
 
 ~~~
 b <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
