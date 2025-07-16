@@ -7,9 +7,10 @@ The genetic causality inference model(GCIM) is a statistical method for detectin
  Authors: Zinabu Fentaw, Dovini Jayasinghe, S.Hong Lee
 -
 
-NB: The proposed direction of causation refers to the causal directions of GxE interactions that are the primary focus of the researcher's interest, while the reverse direction of causation examines the opposite directions of GxE interactions to test their proper causal directions.
+NB: The proposed direction of causation refers to the causal directions of GxE interactions that are the primary focus of the researcher's interest, while the reverse direction of causation examines the opposite directions(changing the role of outcome and exposure variables) of GxE interactions to test their proper causal directions.
    
-Package installation
+Package installation 
+From GitHub 
 
 ~~~
 library(devtools)
@@ -39,7 +40,7 @@ GCIM analyses use PLink2 to analyze discovery data, and the package is compatibl
 plink_path <- "<plink_path>/plink2"
 ~~~
 **Discovery dataset**: In the discovery dataset, please use the data input from the GxEprs data input format, except the value of e(exposure variable)-squared, which should be prepared as constant values to remove its effect from the model. Compute the PRS of the exposure using [Plink](https://www.cog-genomics.org/plink/2.0/) based on the GWAS from the discovery dataset for the PRS of the target samples. Use input and data preparation from GxEprs.
-**Target dataset**: The target dataset for the model is also similar in data format, except, the use of PRS of the exposure variable(PRS of E) rather than the use of entire exposure values, and also includes the constant values for the fourth column, which is the square of the third column in the GxEprs model. Do the same approach for both proposed and reverse directions. 
+**Target dataset**: The target dataset for the model is also similar in data format, except, the use of PRS of the exposure variable(PRS of E) rather than the use of entire exposure values, and also includes the constant values for the fourth column, which is the square of the third column in the GxEprs model. The same approach will be applied for the reverse direction test.
 Example data:
 Quantitative outcome with Quantitative exposure:
 discovery dataset: 
