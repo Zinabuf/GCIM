@@ -28,7 +28,7 @@ library(GxEprs)
 ~~~
 
 **Data preparations**
-The dataset is divided into **discovery (80%)** and **target (20%)** subsets, ensuring consistency across genetic, outcome, exposure, and confounder data. Genetic data, stored in **PLINK binary format** (`.bed`, `.bim`, `.fam`). The outcome variable should include **FID, IID, and phenotype values**, where case-control labels follow PLINK conventions: **1 = Control, 2 = Case** in the discovery dataset, and **0 = Control, 1 = Case** in the target dataset. Exposure and confounder variables are formatted into at least **19 columns** (**FID, IID, exposure, confounder1-n **) and partitioned in the same proportions. This structured approach ensures compatibility across all data types, thereby maintaining accurate alignment to estimate GxE interactions.
+The dataset is divided into **discovery (80%)** and **target (20%)** datasets, ensuring consistency across genetic, outcome, exposure, and confounder data. Genetic data, stored in **PLINK binary format** (`.bed`, `.bim`, `.fam`). The outcome variable should include **FID, IID, and phenotype values**, where case-control labels follow PLINK conventions: **1 = Control, 2 = Case** in the discovery dataset, and **0 = Control, 1 = Case** in the target dataset. Exposure and confounder variables are formatted into at least **m columns** (**FID, IID, exposure, exposure_sqaure, confounder1-m **) and partitioned in the same proportions. For a binary outcome, the fourth column (exposure_sqaure) should be constant values(zero variance) such as 2,2,2, ... 2  for all observations. This structured approach ensures compatibility across all data types, thereby maintaining accurate alignment to estimate GxE interactions.
 
 
 A Guide for GCIM analyses
@@ -39,9 +39,8 @@ GCIM analyses use PLink2 to analyze discovery data, and the package is compatibl
 ~~~
 plink_path <- "<plink_path>/plink2"
 ~~~
-**Discovery dataset**: In the discovery dataset, please use the data input from the GxEprs data input format, except the value of e(exposure variable)-squared, which should be prepared as constant values to remove its effect from the model. Compute the PRS of the exposure using [Plink](https://www.cog-genomics.org/plink/2.0/) based on the GWAS from the discovery dataset for the PRS of the target samples. Use input and data preparation from GxEprs.
+**Discovery dataset**: In the discovery dataset, please use the data input from the GxEprs data input format, then construct the PRS of the exposure using [Plink](https://www.cog-genomics.org/plink/2.0/) based on the GWAS summary statistics for the PRS of the target samples.
 **Target dataset**: The target dataset for the model is also similar in data format, except, the use of PRS of the exposure variable(PRS of E) rather than the use of entire exposure values, and also includes the constant values for the fourth column, which is the square of the third column in the GxEprs model. 
-GWAS inputs for the covariate from the discovery dataset as 
 
 ~~~
 ID_1 ID_1 -0.644020461494502 0.414762354823591 -3.83142 64 -14.0364 5.51742 0.0714337 5.66263 0.865562 -2.26957 -0.0965859 -2.35497 1.05889 0.195302 0 7
