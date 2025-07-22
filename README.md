@@ -14,7 +14,8 @@ From GitHub
 
 ~~~
 library(devtools)
-install_github("DoviniJ/GxEprs") 
+install_github("DoviniJ/GxEprs")
+install_github("Zinabuf/GCIM")
 ~~~
 Or the CRAN version via
 ~~~
