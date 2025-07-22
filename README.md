@@ -110,6 +110,38 @@ F-statistic: 1.083 on 16 and 183 DF,  p-value: 0.3737
 1.2. Binary exposure variables
 
 ~~~
+## For Continuous Outcomes
+# Load required libraries
+library(GxEprs)
+library(GCIM)
+# Set plink path
+plink_path <- "/data/alh-admzw/plink2"
+
+# For quantitative traits, use corresponding functions
+a <- GWAS_ PRS_binary(plink_path, "DummyData", "Bexp_disc.txt", "Bcov_disc.txt")
+b <- GWEIS_quantitative(plink_path, "DummyData", "Qphe_discovery.txt", "Qcov_discovery.txt")
+
+# Extract and compute PRS
+trd <- a[c("ID", "A1", "BETA")]
+add <- b[c("ID", "A1", "ADD_BETA")]
+gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
+
+q <- PRS_quantitative(plink_path, "DummyData", summary_input = add)
+r <- PRS_quantitative(plink_path, "DummyData", summary_input = gxe) 
+p <-  PRS_binary(plink_path, "DummyData", summary_input = trd)
+
+# Run GCIM for continuous outcome
+result_qnt <- gcim_q("Qphe_target.txt", "Bexp_target.txt",
+  Add_PRS = q,
+  Int_PRS = r,
+  Cov_PRS = p
+)
+print(result_qnt$model_summary)
+~~~
+
+Results
+
+~~~
 Coefficients:
                   Estimate Std. Error t value Pr(>|t|)
 (Intercept)      2.777e+01  3.599e+00   7.715 7.54e-13 ***
@@ -140,7 +172,42 @@ F-statistic: 1.083 on 16 and 183 DF,  p-value: 0.3737
  2. Binary outcome
     2.1. Quantitative exposure
 
-    ~~~
+~~~
+## Complete Workflow Example
+# Load required libraries
+library(GxEprs)
+library(GCIM)
+# Set plink path
+plink_path <- "/data/alh-admzw/plink2"
+# Step 1: Run GxEprs analysis for binary traits
+a <- GWAS_quantitative(plink_path, "DummyData", "Qphe_discovery.txt", "Qcov_disc.txt")
+b <- GWEIS_binary(plink_path, "DummyData", "Bphe_discovery.txt", "Bcov_discovery.txt")
+
+# Step 2: Extract summary statistics
+trd <- a[c("ID", "A1", "BETA")]
+add <- b[c("ID", "A1", "ADD_BETA")]
+gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
+
+# Step 3: Compute PRS for each component
+q <- PRS_binary(plink_path, "DummyData", summary_input = add)  # Additive PRS
+r <- PRS_binary(plink_path, "DummyData", summary_input = gxe)  # Interaction PRS
+p <- PRS_quantitative(plink_path, "DummyData", summary_input = trd)  # Covariate PRS
+
+# Step 4: Run GCIM analysis using the convenience function
+result <- gcim_b("Bphe_target.txt", "Bcov_target.txt", 
+  Add_PRS,
+  Int_PRS,
+  Cov_PRS,
+  verbose = TRUE
+)
+
+# Step 5: Examine results
+print(result$model_summary)
+~~~
+
+Results
+
+~~~
     Coefficients:
                   Estimate Std. Error z value Pr(>|z|)
 (Intercept)      3.499e+00  3.429e+00   1.020   0.3075
@@ -174,6 +241,39 @@ AIC: 125.53
 ~~~
 
 2.2. Binary exposure variables
+
+~~~
+library(GxEprs)
+library(GCIM)
+# Set plink path
+plink_path <- "/data/alh-admzw/plink2"
+# Step 1: Run GxEprs analysis for binary traits
+a <- GWAS_binary(plink_path, "DummyData", "Bexp_disc.txt", "Bcov_discovery.txt")
+b <- GWEIS_binary(plink_path, "DummyData", "Bphe_discovery.txt", "Bcov_discovery.txt")
+
+# Step 2: Extract summary statistics
+trd <- a[c("ID", "A1", "BETA")]
+add <- b[c("ID", "A1", "ADD_BETA")]
+gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
+
+# Step 3: Compute PRS for each component
+q <- PRS_binary(plink_path, "DummyData", summary_input = add)  # Additive PRS
+r <- PRS_binary(plink_path, "DummyData", summary_input = gxe)  # Interaction PRS
+p <- PRS_binary(plink_path, "DummyData", summary_input = trd)  # Covariate PRS
+
+# Step 4: Run GCIM analysis using the convenience function
+result <- gcim_b("Bphe_target.txt", "Bexp_target.txt", 
+  Add_PRS,
+  Int_PRS,
+  Cov_PRS,
+  verbose = TRUE
+)
+
+# Step 5: Examine results
+print(result$model_summary)
+~~~~
+
+Results 
 
 ~~~
 Coefficients:
