@@ -302,4 +302,4 @@ Int_PRS:Cov_PRS  1.830e+03  4.816e+03   0.380    **0.704**
 Residual deviance:  93.325  on 183  degrees of freedom
 AIC: 127.32
 ~~~    
-
+Test the reverse directions by changing 
