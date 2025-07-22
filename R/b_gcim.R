@@ -44,9 +44,9 @@ int_prs <- r
 cov_prs <- p
 
 # Rename 3rd column to standard expected names
-colnames(add_prs)[3] <- "Add_PRS"
-colnames(int_prs)[3] <- "Int_PRS"
-colnames(cov_prs)[3] <- "Cov_PRS"
+colnames(add_prs)[1:3] <- c("FID", "IID", "Add_PRS")
+colnames(int_prs)[1:3] <- c("FID", "IID", "Int_PRS")
+colnames(cov_prs)[1:3] <- c("FID", "IID", "Cov_PRS")
   
   # Load covariate data
   covariate_data <- read.table(bp_tar_cov, header = FALSE, stringsAsFactors = FALSE, fill = TRUE)
@@ -69,9 +69,9 @@ colnames(cov_prs)[3] <- "Cov_PRS"
   if(verbose) cat("Merging data files by FID...\n")
   
   merged_data <- outcome_data
-  merged_data <- merge(merged_data, add_prs_data[, c("FID", "Add_PRS")], by = "FID", all.x = TRUE)
-  merged_data <- merge(merged_data, int_prs_data[, c("FID", "Int_PRS")], by = "FID", all.x = TRUE)  
-  merged_data <- merge(merged_data, cov_prs_data[, c("FID", "Cov_PRS")], by = "FID", all.x = TRUE)
+  merged_data <- merge(merged_data, add_prs[, c("FID", "Add_PRS")], by = "FID", all.x = TRUE)
+  merged_data <- merge(merged_data, int_prs[, c("FID", "Int_PRS")], by = "FID", all.x = TRUE)  
+  merged_data <- merge(merged_data, cov_prs[, c("FID", "Cov_PRS")], by = "FID", all.x = TRUE)
   merged_data <- merge(merged_data, covariate_data, by = "FID", all.x = TRUE)
     
   # Remove rows with missing essential variables

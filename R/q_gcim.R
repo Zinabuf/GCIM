@@ -30,15 +30,15 @@ gcim_q <- function(qp_tar_phen, qp_tar_cov, Add_PRS, Int_PRS, Cov_PRS, verbose =
   outcome_data$Outcome <- as.numeric(outcome_data$Outcome)
   
   # Handle PRS data (could be file paths or data frames)
-# If q, r, p are file paths:
+  # If q, r, p are file paths:
 add_prs <- q
 int_prs <- r
 cov_prs <- p
 
 # Rename 3rd column to standard expected names
-colnames(add_prs)[3] <- "Add_PRS"
-colnames(int_prs)[3] <- "Int_PRS"
-colnames(cov_prs)[3] <- "Cov_PRS"
+colnames(add_prs)[1:3] <- c("FID", "IID", "Add_PRS")
+colnames(int_prs)[1:3] <- c("FID", "IID", "Int_PRS")
+colnames(cov_prs)[1:3] <- c("FID", "IID", "Cov_PRS")
   
   # Load covariate data
   covariate_data <- read.table(qp_tar_cov, header = FALSE, stringsAsFactors = FALSE, fill = TRUE)
