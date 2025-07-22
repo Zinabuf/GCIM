@@ -54,7 +54,7 @@ To conduct a GCIM analysis, we must use the same data format as GxEprs, especial
 library(GxEprs)
 library(GCIM)
 # Set plink path
-plink_path <- "/data/alh-admzw/plink2"
+plink_path <- "<plink_path>/plink2"
 
 # For quantitative traits, use corresponding functions
 a <- GWAS_quantitative(plink_path, "DummyData", "Qexp_disc.txt", "Qcov_disc.txt")
@@ -115,7 +115,7 @@ F-statistic: 1.083 on 16 and 183 DF,  p-value: 0.3737
 library(GxEprs)
 library(GCIM)
 # Set plink path
-plink_path <- "/data/alh-admzw/plink2"
+plink_path <- "<plink_path>/plink2"
 
 # For quantitative traits, use corresponding functions
 a <- GWAS_ PRS_binary(plink_path, "DummyData", "Bexp_disc.txt", "Bcov_disc.txt")
@@ -178,7 +178,7 @@ F-statistic: 1.083 on 16 and 183 DF,  p-value: 0.3737
 library(GxEprs)
 library(GCIM)
 # Set plink path
-plink_path <- "/data/alh-admzw/plink2"
+plink_path <- "<plink_path>/plink2"
 # Step 1: Run GxEprs analysis for binary traits
 a <- GWAS_quantitative(plink_path, "DummyData", "Qphe_discovery.txt", "Qcov_disc.txt")
 b <- GWEIS_binary(plink_path, "DummyData", "Bphe_discovery.txt", "Bcov_discovery.txt")
@@ -246,7 +246,7 @@ AIC: 125.53
 library(GxEprs)
 library(GCIM)
 # Set plink path
-plink_path <- "/data/alh-admzw/plink2"
+plink_path <- "<plink_path>/plink2"
 # Step 1: Run GxEprs analysis for binary traits
 a <- GWAS_binary(plink_path, "DummyData", "Bexp_disc.txt", "Bcov_discovery.txt")
 b <- GWEIS_binary(plink_path, "DummyData", "Bphe_discovery.txt", "Bcov_discovery.txt")
