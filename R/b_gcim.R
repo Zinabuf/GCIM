@@ -2,8 +2,7 @@
 
 #' Perform regression analysis for GCIM with binary outcome
 #'
-#' This function performs logistic regression analysis for Gene-Covariate Interaction 
-#' Modeling (GCIM) with binary outcomes using Polygenic Risk Scores (PRS).
+#' This function performs logistic regression analysis for Genetic causality inference model (GCIM) with binary outcomes using Polygenic Risk Scores (PRS).
 #'
 #' @param bp_tar_phen File path for the target phenotype data (FID, IID, Outcome format)
 #' @param bp_tar_cov File path for the target covariate data (FID, IID, Covariate, Confounders format)
@@ -15,13 +14,9 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' # Using file paths
-#' result <- gcim_b("phenotype.txt", "covariates.txt", 
-#'                      "add_prs.txt", "int_prs.txt", "cov_prs.txt")
-#' 
 #' # Using data frames (from GxEprs output)
 #' result <- gcim_b("phenotype.txt", "covariates.txt", 
-#'                      add_prs_df, int_prs_df, cov_prs_df)
+#'                      Add_PRS, Int_PRS, Cov_PRS)
 #' }
 gcim_b <- function(bp_tar_phen, bp_tar_cov, Add_PRS, Int_PRS, Cov_PRS, verbose = TRUE) {
   
@@ -43,11 +38,37 @@ add_prs <- q
 int_prs <- r
 cov_prs <- p
 
-# Rename 3rd column to standard expected names
-colnames(add_prs)[1:3] <- c("FID", "IID", "Add_PRS")
-colnames(int_prs)[1:3] <- c("FID", "IID", "Int_PRS")
-colnames(cov_prs)[1:3] <- c("FID", "IID", "Cov_PRS")
-  
+# Create completely fresh data frames to avoid any potential reference issues
+Add_PRS <- data.frame(
+  FID = add_prs$FID,
+  IID = add_prs$IID,
+  Add_PRS = add_prs$Add_PRS,
+  stringsAsFactors = FALSE
+)
+
+Int_PRS <- data.frame(
+  FID = int_prs$FID,
+  IID = int_prs$IID,
+  Int_PRS = int_prs$Int_PRS,
+  stringsAsFactors = FALSE
+)
+
+Cov_PRS <- data.frame(
+  FID = cov_prs$FID,
+  IID = cov_prs$IID,
+  Cov_PRS = cov_prs$Cov_PRS,
+  stringsAsFactors = FALSE
+)
+
+# Scale the third column of each data frame
+Add_PRS[,3] <- scale(Add_PRS[,3])
+Int_PRS[,3] <- scale(Int_PRS[,3])
+Cov_PRS[,3] <- scale(Cov_PRS[,3])
+
+# Verify they're proper data frames
+stopifnot(is.data.frame(Add_PRS), ncol(Add_PRS) == 3)
+stopifnot(is.data.frame(Int_PRS), ncol(Int_PRS) == 3)
+stopifnot(is.data.frame(Cov_PRS), ncol(Cov_PRS) == 3)  
   # Load covariate data
   covariate_data <- read.table(bp_tar_cov, header = FALSE, stringsAsFactors = FALSE, fill = TRUE)
   
@@ -114,12 +135,7 @@ colnames(cov_prs)[1:3] <- c("FID", "IID", "Cov_PRS")
   tryCatch({
     model <- glm(model_formula, data = merged_data, family = binomial(link = "logit"))
     model_summary <- summary(model)
-    
-    # Calculate pseudo R-squared (McFadden's R-squared)
-    null_deviance <- model$null.deviance
-    residual_deviance <- model$deviance
-    pseudo_r_squared <- 1 - (residual_deviance / null_deviance)
-    
+       
     return(list(
       model_summary = model_summary,
       merged_data = merged_data,

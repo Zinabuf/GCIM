@@ -16,7 +16,7 @@
 #' @examples
 #' \dontrun{
 #' result <- gcim_q("phenotype.txt", "covariates.txt", 
-#'                          add_prs, int_prs, cov_prs)
+#'                          Add_PRS, Int_PRS, Cov_PRS)
 #' }
 gcim_q <- function(qp_tar_phen, qp_tar_cov, Add_PRS, Int_PRS, Cov_PRS, verbose = TRUE){
   
@@ -35,10 +35,37 @@ add_prs <- q
 int_prs <- r
 cov_prs <- p
 
-# Rename 3rd column to standard expected names
-colnames(add_prs)[1:3] <- c("FID", "IID", "Add_PRS")
-colnames(int_prs)[1:3] <- c("FID", "IID", "Int_PRS")
-colnames(cov_prs)[1:3] <- c("FID", "IID", "Cov_PRS")
+# Create completely fresh data frames to avoid any potential reference issues
+Add_PRS <- data.frame(
+  FID = add_prs$FID,
+  IID = add_prs$IID,
+  Add_PRS = add_prs$Add_PRS,
+  stringsAsFactors = FALSE
+)
+
+Int_PRS <- data.frame(
+  FID = int_prs$FID,
+  IID = int_prs$IID,
+  Int_PRS = int_prs$Int_PRS,
+  stringsAsFactors = FALSE
+)
+
+Cov_PRS <- data.frame(
+  FID = cov_prs$FID,
+  IID = cov_prs$IID,
+  Cov_PRS = cov_prs$Cov_PRS,
+  stringsAsFactors = FALSE
+)
+
+# Scale the third column of each data frame
+Add_PRS[,3] <- scale(Add_PRS[,3])
+Int_PRS[,3] <- scale(Int_PRS[,3])
+Cov_PRS[,3] <- scale(Cov_PRS[,3])
+
+# Verify they're proper data frames
+stopifnot(is.data.frame(Add_PRS), ncol(Add_PRS) == 3)
+stopifnot(is.data.frame(Int_PRS), ncol(Int_PRS) == 3)
+stopifnot(is.data.frame(Cov_PRS), ncol(Cov_PRS) == 3)
   
   # Load covariate data
   covariate_data <- read.table(qp_tar_cov, header = FALSE, stringsAsFactors = FALSE, fill = TRUE)
