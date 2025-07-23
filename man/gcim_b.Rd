@@ -23,17 +23,12 @@ gcim_b(bp_tar_phen, bp_tar_cov, Add_PRS, Int_PRS, Cov_PRS, verbose = TRUE)
 List containing model summary and diagnostic information
 }
 \description{
-This function performs logistic regression analysis for Gene-Covariate Interaction
-Modeling (GCIM) with binary outcomes using Polygenic Risk Scores (PRS).
+This function performs logistic regression analysis for Genetic causality inference model (GCIM) with binary outcomes using Polygenic Risk Scores (PRS).
 }
 \examples{
 \dontrun{
-# Using file paths
-result <- gcim_b("phenotype.txt", "covariates.txt", 
-                     "add_prs.txt", "int_prs.txt", "cov_prs.txt")
-
 # Using data frames (from GxEprs output)
 result <- gcim_b("phenotype.txt", "covariates.txt", 
-                     add_prs_df, int_prs_df, cov_prs_df)
+                     Add_PRS, Int_PRS, Cov_PRS)
 }
 }

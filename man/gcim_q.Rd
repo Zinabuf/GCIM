@@ -29,6 +29,6 @@ Modeling (GCIM) with continuous outcomes using Polygenic Risk Scores (PRS).
 \examples{
 \dontrun{
 result <- gcim_q("phenotype.txt", "covariates.txt", 
-                         add_prs, int_prs, cov_prs)
+                         Add_PRS, Int_PRS, Cov_PRS)
 }
 }
