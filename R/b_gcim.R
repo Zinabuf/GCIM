@@ -6,10 +6,9 @@
 #'
 #' @param bp_tar_phen File path for the target phenotype data (FID, IID, Outcome format)
 #' @param bp_tar_cov File path for the target covariate data (FID, IID, Covariate, Confounders format)
-#' @param Add_PRS Either file path or data frame for additive PRS values
-#' @param Int_PRS Either file path or data frame for interaction PRS values  
-#' @param Cov_PRS Either file path or data frame for covariate PRS values
-#' @param verbose Logical, whether to print progress messages (default: TRUE)
+#' @param Add_PRS  data frame for additive PRS values
+#' @param Int_PRS  data frame for interaction PRS values  
+#' @param Cov_PRS  data frame for covariate PRS values
 #' @return List containing model summary and diagnostic information
 #' @export
 #' @examples
@@ -18,9 +17,9 @@
 #' result <- gcim_b("phenotype.txt", "covariates.txt", 
 #'                      Add_PRS, Int_PRS, Cov_PRS)
 #' }
-gcim_b <- function(bp_tar_phen, bp_tar_cov, Add_PRS, Int_PRS, Cov_PRS, verbose = TRUE) {
+gcim_b <- function(bp_tar_phen, bp_tar_cov, Add_PRS, Int_PRS, Cov_PRS) {
   
-  if(verbose) cat("Loading data files for binary outcome analysis...\n")
+   cat("Loading data files for binary outcome analysis...\n")
   
   # Load phenotype data
   outcome_data <- read.table(bp_tar_phen, header = FALSE, stringsAsFactors = FALSE)
@@ -28,47 +27,33 @@ gcim_b <- function(bp_tar_phen, bp_tar_cov, Add_PRS, Int_PRS, Cov_PRS, verbose =
   
   # Ensure outcome is binary (0/1)
   if(!all(outcome_data$Outcome %in% c(0, 1, NA))) {
-    if(verbose) cat("Warning: Outcome variable contains non-binary values. Converting to binary.\n")
+     cat("Warning: Outcome variable contains non-binary values. Converting to binary.\n")
     outcome_data$Outcome <- as.numeric(as.factor(outcome_data$Outcome)) - 1
   }
   
-  # Handle PRS data (could be file paths or data frames)
-  # If q, r, p are file paths:
-add_prs <- q
-int_prs <- r
-cov_prs <- p
+  # Create Add_PRS from your 'q' data (additive PRS)
+add_prs <- data.frame(
+  FID = q$FID,
+  IID = q$IID,
+  Add_PRS = q[,3])  # Replace [,3] with actual column name if needed
 
-# Create completely fresh data frames to avoid any potential reference issues
-Add_PRS <- data.frame(
-  FID = add_prs$FID,
-  IID = add_prs$IID,
-  Add_PRS = add_prs$Add_PRS,
-  stringsAsFactors = FALSE
-)
+# Create Int_PRS from your 'r' data (interaction PRS)  
+int_prs <- data.frame(
+  FID = r$FID,
+  IID = r$IID,
+  Int_PRS = r[,3])  # Replace [,3] with actual column name if needed
 
-Int_PRS <- data.frame(
-  FID = int_prs$FID,
-  IID = int_prs$IID,
-  Int_PRS = int_prs$Int_PRS,
-  stringsAsFactors = FALSE
-)
+# Create Cov_PRS from your 'p' data (covariate PRS)
+cov_prs <- data.frame(
+  FID = p$FID,
+  IID = p$IID,
+  Cov_PRS = p[,3])  # Replace [,3] with actual column name if needed
 
-Cov_PRS <- data.frame(
-  FID = cov_prs$FID,
-  IID = cov_prs$IID,
-  Cov_PRS = cov_prs$Cov_PRS,
-  stringsAsFactors = FALSE
-)
-
-# Scale the third column of each data frame
-Add_PRS[,3] <- scale(Add_PRS[,3])
-Int_PRS[,3] <- scale(Int_PRS[,3])
-Cov_PRS[,3] <- scale(Cov_PRS[,3])
-
-# Verify they're proper data frames
-stopifnot(is.data.frame(Add_PRS), ncol(Add_PRS) == 3)
-stopifnot(is.data.frame(Int_PRS), ncol(Int_PRS) == 3)
-stopifnot(is.data.frame(Cov_PRS), ncol(Cov_PRS) == 3)  
+# Scale the PRS scores
+add_prs[,3] <- scale(add_prs[,3])
+int_prs[,3] <- scale(int_prs[,3])
+cov_prs[,3] <- scale(cov_prs[,3])
+  
   # Load covariate data
   covariate_data <- read.table(bp_tar_cov, header = FALSE, stringsAsFactors = FALSE, fill = TRUE)
   
@@ -87,32 +72,28 @@ stopifnot(is.data.frame(Cov_PRS), ncol(Cov_PRS) == 3)
   }
   
   # Merge data
-  if(verbose) cat("Merging data files by FID...\n")
+   cat("Merging data files by FID...\n")
   
-  merged_data <- outcome_data
-  merged_data <- merge(merged_data, add_prs[, c("FID", "Add_PRS")], by = "FID", all.x = TRUE)
-  merged_data <- merge(merged_data, int_prs[, c("FID", "Int_PRS")], by = "FID", all.x = TRUE)  
-  merged_data <- merge(merged_data, cov_prs[, c("FID", "Cov_PRS")], by = "FID", all.x = TRUE)
-  merged_data <- merge(merged_data, covariate_data, by = "FID", all.x = TRUE)
-    
-  # Remove rows with missing essential variables
-  essential_vars <- c("Outcome", "Add_PRS", "Int_PRS", "Cov_PRS", "Covariate_Pheno")
-  complete_cases <- complete.cases(merged_data[, essential_vars])
-  merged_data <- merged_data[complete_cases, ]
-  
+# Start with the outcome data
+merged_data <- outcome_data
+
+# Merge everything using both FID and IID
+merged_data <- merge(merged_data, add_prs[, c("FID", "IID", "Add_PRS")], by = c("FID", "IID"), all.x = TRUE)
+merged_data <- merge(merged_data, int_prs[, c("FID", "IID", "Int_PRS")], by = c("FID", "IID"), all.x = TRUE)
+merged_data <- merge(merged_data, cov_prs[, c("FID", "IID", "Cov_PRS")], by = c("FID", "IID"), all.x = TRUE)
+merged_data <- merge(merged_data, covariate_data, by = c("FID", "IID"), all.x = TRUE) 
+      
   # Check if there are both cases and controls
   outcome_table <- table(merged_data$Outcome)
   if(length(outcome_table) < 2) {
     stop("Error: Binary outcome must have both cases (1) and controls (0)")
   }
   
-  if(verbose) {
     cat(sprintf("Final dataset contains %d observations (%d cases, %d controls) with %d variables.\n", 
                 nrow(merged_data), 
                 sum(merged_data$Outcome == 1, na.rm = TRUE),
                 sum(merged_data$Outcome == 0, na.rm = TRUE),
                 ncol(merged_data)))
-  }
   
   # Identify confounder variables (if any)
   confounder_vars <- colnames(merged_data)[grepl("^Conf_", colnames(merged_data))]
@@ -126,33 +107,33 @@ stopifnot(is.data.frame(Cov_PRS), ncol(Cov_PRS) == 3)
 
   model_formula <- as.formula(formula_str)
 
-  if(verbose) {
     cat("Fitting logistic regression model...\n")
     cat("Formula:", deparse(model_formula), "\n")
-  }
 
-  # Fit logistic regression model
-  tryCatch({
-    model <- glm(model_formula, data = merged_data, family = binomial(link = "logit"))
-    model_summary <- summary(model)
-       
-    return(list(
-      model_summary = model_summary,
-      merged_data = merged_data,
-      formula = model_formula,
-      sample_size = nrow(merged_data),
-      variables = colnames(merged_data),
-      pseudo_r_squared = pseudo_r_squared,
-      null_deviance = null_deviance,
-      residual_deviance = residual_deviance,
-      aic = model$aic
-    ))
-  }, error = function(e) {
-    warning("Model fitting failed: ", e$message)
-    return(list(
-      error = e$message,
-      merged_data = merged_data,
-      formula = model_formula
-    ))
-  })
+ # Fit logistic regression model
+tryCatch({
+  model <- glm(model_formula, data = merged_data, family = binomial(link = "logit"))
+  model_summary <- summary(model)
+
+  null_deviance <- model$null.deviance
+  residual_deviance <- model$deviance
+
+  return(list(
+    model_summary = model_summary,
+    merged_data = merged_data,
+    formula = model_formula,
+    sample_size = nrow(merged_data),
+    variables = colnames(merged_data),
+    null_deviance = null_deviance,
+    residual_deviance = residual_deviance,
+    aic = model$aic
+  ))
+}, error = function(e) {
+  warning(paste("Model fitting failed:", e$message))
+  return(list(
+    error = e$message,
+    merged_data = merged_data,
+    formula = model_formula
+  ))
+})
 }

@@ -4,20 +4,18 @@
 \alias{gcim_b}
 \title{Perform regression analysis for GCIM with binary outcome}
 \usage{
-gcim_b(bp_tar_phen, bp_tar_cov, Add_PRS, Int_PRS, Cov_PRS, verbose = TRUE)
+gcim_b(bp_tar_phen, bp_tar_cov, Add_PRS, Int_PRS, Cov_PRS)
 }
 \arguments{
 \item{bp_tar_phen}{File path for the target phenotype data (FID, IID, Outcome format)}
 
 \item{bp_tar_cov}{File path for the target covariate data (FID, IID, Covariate, Confounders format)}
 
-\item{Add_PRS}{Either file path or data frame for additive PRS values}
+\item{Add_PRS}{data frame for additive PRS values}
 
-\item{Int_PRS}{Either file path or data frame for interaction PRS values}
+\item{Int_PRS}{data frame for interaction PRS values}
 
-\item{Cov_PRS}{Either file path or data frame for covariate PRS values}
-
-\item{verbose}{Logical, whether to print progress messages (default: TRUE)}
+\item{Cov_PRS}{data frame for covariate PRS values}
 }
 \value{
 List containing model summary and diagnostic information

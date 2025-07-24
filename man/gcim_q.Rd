@@ -4,7 +4,7 @@
 \alias{gcim_q}
 \title{Perform regression analysis for GCIM with continuous outcome}
 \usage{
-gcim_q(qp_tar_phen, qp_tar_cov, Add_PRS, Int_PRS, Cov_PRS, verbose = TRUE)
+gcim_q(qp_tar_phen, qp_tar_cov, Add_PRS, Int_PRS, Cov_PRS)
 }
 \arguments{
 \item{qp_tar_phen}{File path for the target phenotype data (FID, IID, Outcome format)}
@@ -16,8 +16,6 @@ gcim_q(qp_tar_phen, qp_tar_cov, Add_PRS, Int_PRS, Cov_PRS, verbose = TRUE)
 \item{Int_PRS}{Either file path or data frame for interaction PRS values}
 
 \item{Cov_PRS}{Either file path or data frame for covariate PRS values}
-
-\item{verbose}{Logical, whether to print progress messages (default: TRUE)}
 }
 \value{
 List containing model summary and diagnostic information
