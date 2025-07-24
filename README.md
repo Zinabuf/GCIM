@@ -26,6 +26,7 @@ Load the library
 
 ~~~
 library(GxEprs)
+library(GCIM)
 ~~~
 
 **Data preparations**
