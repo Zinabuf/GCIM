@@ -20,7 +20,6 @@ install_github("Zinabuf/GCIM")
 Or the CRAN version via
 ~~~
 install.packages(GxEprs)
-install.packages(GCIM) 
 ~~~
 
 Load the library
