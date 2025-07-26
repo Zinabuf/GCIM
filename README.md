@@ -15,7 +15,7 @@ _GCIM is a novel statistical method that extends beyond traditional PRS×E appro
     exists in the proposed direction. By explicitly testing both directions, GCIM offers researchers
     data-driven insight into the likely causal directions._
 
-NB: The proposed direction of causation refers to the causal directions of GxE interactions that are the primary focus of the researcher's interest, while the reverse direction of causation examines the opposite directions(changing the role of outcome and exposure variables) of GxE interactions to test their proper causal directions.
+_NB: The proposed direction of causation refers to the hypothesized G×E interaction in which the exposure affects the outcome, aligning with the researcher’s primary interest. In contrast, the reverse direction tests the opposite relationship, switching the roles of exposure and outcome to evaluate whether the assumed causal direction is valid._
    
 Package installation 
 From GitHub 
