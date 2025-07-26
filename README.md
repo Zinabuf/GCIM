@@ -7,6 +7,14 @@ The genetic causality inference model(GCIM) is a statistical method for detectin
  Authors: Zinabu Fentaw, Dovini Jayasinghe, S.Hong Lee
 -
 
+_GCIM is a novel statistical method that extends beyond traditional PRS×E approaches.
+    It systematically evaluates both the proposed and reverse causal directions, rather than relying
+    on the assumptions of prior causal directions. GCIM uses the polygenic risk score (PRS) of the
+    exposure trait rather than its observed phenotype to eliminate spurious covariance between the
+    exposure and the G×E component of the outcome. This helps prevent bias when a true causal effect
+    exists in the proposed direction. By explicitly testing both directions, GCIM offers researchers
+    data-driven insight into the likely causal directions._
+
 NB: The proposed direction of causation refers to the causal directions of GxE interactions that are the primary focus of the researcher's interest, while the reverse direction of causation examines the opposite directions(changing the role of outcome and exposure variables) of GxE interactions to test their proper causal directions.
    
 Package installation 
