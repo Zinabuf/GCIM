@@ -37,8 +37,8 @@ library(GxEprs)
 library(GCIM)
 ~~~
 
-**Data preparations**
-The dataset is divided into **discovery (80%)** and **target (20%)** datasets, ensuring consistency across genetic, outcome, exposure, and confounder data. Genetic data, stored in **PLINK binary format** (`.bed`, `.bim`, `.fam`). The outcome variable should include **FID, IID, and phenotype values**, where case-control labels follow PLINK conventions: **1 = Control, 2 = Case** in the discovery dataset, and **0 = Control, 1 = Case** in the target dataset. Exposure and confounder variables are formatted into at least **m columns** (**FID, IID, exposure, exposure_sqaure, confounder1-m **) and partitioned in the same proportions. For a binary outcome, the fourth column (exposure_square) should contain constant values (zero variance), such as 2, 2, 2, ..., 2,  for all observations. This structured approach ensures compatibility across all data types, thereby maintaining accurate alignment to estimate GxE interactions.
+**Data Preparation:**
+The dataset is split into a **discovery set (80%)** and a **target set (20%)** to ensure consistency across genetic, outcome, exposure, and confounder variables. Genetic data must be provided in **PLINK binary format** (.bed, .bim, .fam). The outcome file should contain **FID, IID, and phenotype values**, with case-control coding as follows: in the discovery dataset, use PLINK's default (**1 = Control, 2 = Case**), and in the target dataset, use binary coding (**0 = Control, 1 = Case**). Exposure and confounder variables should be organized in at least **m columns** with the format: FID, IID, exposure, exposure_square, confounder1 to confounder_m, and partitioned consistently across datasets. For binary outcomes, the exposure_square column should contain constant values (e.g., 2, 2, 2, ..., 2) to ensure zero variance. This standardized structure enables proper alignment across all data types, supporting valid and reliable estimation of G×E interactions.
 
 
 A Guide for GCIM analyses
@@ -53,7 +53,7 @@ plink_path <- "<plink_path>/plink2"
 **Target dataset**: The target dataset for the model is also similar in data format, except, the use of PRS of the exposure variable(PRS of E) rather than the use of entire exposure values, and also includes the constant values for the fourth column, which is the square of the third column in the GxEprs model. 
 
 **Example data**
-To conduct a GCIM analysis, we must use the same data format as GxEprs, especially in the discovery dataset, but there is a slight difference in the target dataset; no need for the square of the exposure variables. Here is an example of analysis using the R script in the exaple directories. 
+To conduct a GCIM analysis, we must use the same data format as GxEprs, especially in the discovery dataset. However, there is a slight difference in the target dataset, as the square of the exposure variables is not required. Here is an example of analysis using the R script in the example directories. 
 1. Quantitative outcome
 1.1. quantitative exposure
    
