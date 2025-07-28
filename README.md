@@ -130,7 +130,7 @@ GWEIS Exposure variables are
 library(GxEprs)
 library(GCIM)
 # Set plink path
-plink_path <- "/data/alh-admzw/plink2"
+plink_path <- "<plink_path>/plink2"
 
 # For quantitative traits, use corresponding functions
 a <- GWAS_quantitative(plink_path, "DummyData", "Qcov_discovery_phen.txt", "Qcov_discovery_exp.txt")
@@ -193,7 +193,7 @@ F-statistic: 1.618 on 18 and 181 DF,  p-value: 0.05934
 library(GxEprs)
 library(GCIM)
 # Set plink path
-plink_path <- "/data/alh-admzw/plink2"
+plink_path <- "<plink_path>/plink2"
 # Step 1: Run GxEprs analysis for binary traits
 a <- GWAS_binary(plink_path, "DummyData", "Bcov_discovery_phen.txt", "Bcov_discovery_exp.txt")
 b <- GWEIS_binary(plink_path, "DummyData", "Bphe_discovery.txt", "Bcov_discovery.txt")
@@ -322,7 +322,7 @@ The exposure variables for GWAS should be
 library(GxEprs)
 library(GCIM)
 # Set plink path
-plink_path <- "/data/alh-admzw/plink2"
+plink_path <- "<plink_path>/plink2"
 
 # For quantitative traits, use corresponding functions
 a <- GWAS_quantitative(plink_path, "DummyData", "Qcov_disc_phen.txt", "Qcov_discovery_exp.txt")
@@ -386,7 +386,7 @@ F-statistic: 0.7393 on 18 and 181 DF,  p-value: 0.7673
 library(GxEprs)
 library(GCIM)
 # Set plink path
-plink_path <- "/data/alh-admzw/plink2"
+plink_path <- "<plink_path>/plink2"
 # Step 1: Run GxEprs analysis for binary traits
 a <- GWAS_binary(plink_path, "DummyData", "Bcov_discovery_phen.txt", "Bcov_discovery_exp.txt")
 b <- GWEIS_binary(plink_path, "DummyData", "Bcov_disc_out1.txt", "Bphe_disc_exp.txt")
