@@ -49,7 +49,7 @@ All GWAS, GWEIS, and polygenic risk score (PRS) construction steps are performed
 
 A Guide for GCIM analyses
 
-GCIM analyses use PLink2 to analyze discovery data, and the package is compatible with the Linux operating system. 
+<div align="justify">GCIM analyses use PLink2 to analyze discovery data, and the package is compatible with the Linux operating system. 
 1. Download plink2 software from the [Plink](https://www.cog-genomics.org/plink/2.0/) website and then specify the executable Plink file path.
    
 ~~~
@@ -57,7 +57,7 @@ plink_path <- "<plink_path>/plink2"
 ~~~ 
 
 **Example data**
-To conduct a GCIM analysis, we must use the same data format as GxEprs, especially in the discovery dataset. However, there is a slight difference in the target dataset, as the square of the exposure variables is not required. Here is an example of analysis using the R script in the example directories.  
+To conduct a GCIM analysis, we must use the same data format as GxEprs, especially in the discovery dataset. However, there is a slight difference in the target dataset, as the square of the exposure variables is not required. Here is an example of analysis using the R script in the example directories.</div>  
 
 Data structure
 To 
@@ -278,7 +278,7 @@ Residual deviance:  86.566  on 181  degrees of freedom
 AIC: 124.57
 ~~~
     
-To evaluate the **reverse direction of causation**, re-analyze the same dataset by switching the roles of the exposure and outcome variables. This means treating the previously defined outcome variable as the new exposure, and the previous exposure variables as the new outcome. Rearrange the data using the same structure and formatting approach used for the proposed causal directions, ensuring consistency across analyses. The only difference should be the reassignment of variable roles. 
+<div align="justify">To evaluate the **reverse direction of causation**, re-analyze the same dataset by switching the roles of the exposure and outcome variables. This means treating the previously defined outcome variable as the new exposure, and the previous exposure variables as the new outcome. Rearrange the data using the same structure and formatting approach used for the proposed causal directions, ensuring consistency across analyses. The only difference should be the reassignment of variable roles.</div>  
 
 For GWAS analyses, the data should be prepared like 
 
