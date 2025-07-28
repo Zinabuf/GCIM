@@ -278,7 +278,7 @@ Residual deviance:  86.566  on 181  degrees of freedom
 AIC: 124.57
 ~~~
     
-To evaluate the **reverse direction of causation**, re-analyze the same dataset by switching the roles of the exposure and outcome variables. This means treating the previously defined outcome variable as the new exposure, and the previous exposure variables as the new outcome. Rearrange the data using the same structure and formatting approach used for the proposed (original) direction of causation, ensuring consistency across analyses. The only difference should be the reassignment of variable roles. Specifically, format the new outcome variable (formerly the exposure) as a binary trait, suitable for use in a GWEIS within the discovery dataset 
+To evaluate the **reverse direction of causation**, re-analyze the same dataset by switching the roles of the exposure and outcome variables. This means treating the previously defined outcome variable as the new exposure, and the previous exposure variables as the new outcome. Rearrange the data using the same structure and formatting approach used for the proposed causal directions, ensuring consistency across analyses. The only difference should be the reassignment of variable roles. 
 
 For GWAS analyses, the data should be prepared like 
 
