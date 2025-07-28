@@ -45,7 +45,7 @@ To ensure consistent and reliable estimation of G×E, the dataset should be spli
 * A covariate file in the format: `FID`, `IID`, `confounder_1`, `constant_value`, `confounder_2`, ..., `confounder_m`
 
 This standardized format ensures that all variables—genetic, exposure, outcome, and confounders—are properly aligned across discovery and target datasets, facilitating valid and replicable G×E interaction analysis.
-
+All GWAS, GWEIS, and polygenic risk score (PRS) construction steps are performed using the GxEprs R package, while the regression analyses for both binary and quantitative outcomes are conducted using the GCIM R package. 
 
 A Guide for GCIM analyses
 
@@ -54,14 +54,13 @@ GCIM analyses use PLink2 to analyze discovery data, and the package is compatibl
    
 ~~~
 plink_path <- "<plink_path>/plink2"
-~~~
-**Discovery dataset**: In the discovery dataset, please use the data input from the GxEprs data input format, then construct the PRS of the exposure using [Plink](https://www.cog-genomics.org/plink/2.0/) based on the GWAS summary statistics for the PRS of the target samples.
-**Target dataset**: The target dataset for the model is also similar in data format, except, the use of PRS of the exposure variable(PRS of E) rather than the use of entire exposure values, and also includes the constant values for the fourth column, which is the square of the third column in the GxEprs model. 
+~~~ 
 
 **Example data**
 To conduct a GCIM analysis, we must use the same data format as GxEprs, especially in the discovery dataset. However, there is a slight difference in the target dataset, as the square of the exposure variables is not required. Here is an example of analysis using the R script in the example directories.  
 
 Data structure
+To 
 GWAS for quantitative exposure variables with the phenotype 
 
 ~~~
