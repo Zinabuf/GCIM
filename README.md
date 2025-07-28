@@ -247,11 +247,9 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
     Null deviance: 106.554  on 199  degrees of freedom
 Residual deviance:  86.566  on 181  degrees of freedom
 AIC: 124.57
-~~~    
-Test the reverse directions by changing the role of exposure and outcome using the same data as above.  Rearrange the data using the same approach as the proposed direction.
-The data structure should have the same data structures as the proposed direction, except changing the role of exposure and outcome, i.e, changing the previous outcome data as an 
-exposure variable and exposure variables as an outcome. The data format should be as follows; 
-Previous exposure variables as an outcome for a binary outcome in a discovery data set for GWEIS. 
+~~~
+    
+To evaluate the **reverse direction of causation**, re-analyze the same dataset by switching the roles of the exposure and outcome variables. This means treating the previously defined outcome variable as the new exposure, and the previous exposure variables as the new outcome. Rearrange the data using the same structure and formatting approach used for the proposed (original) direction of causation, ensuring consistency across analyses. The only difference should be the reassignment of variable roles. Specifically, format the new outcome variable (formerly the exposure) as a binary trait, suitable for use in a GWEIS within the discovery dataset 
 
 ~~~
  V1   V2 V3
