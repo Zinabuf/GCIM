@@ -123,7 +123,6 @@ GWEIS Exposure variables are
 ~~~
 
 1. Quantitative outcome
-1.1. quantitative exposure
    
  ~~~
 # Load required libraries
@@ -152,8 +151,6 @@ p <- PRS_quantitative(plink_path, "DummyData", summary_input = trd)
  # Step 5: Access results and processed PRS objects
  print(result$model_summary)
 ~~~
-
- Result displayed using this approach
 
 ~~~
 Coefficients:
@@ -186,8 +183,6 @@ F-statistic: 1.618 on 18 and 181 DF,  p-value: 0.05934
 
  2. Binary outcome 
 
-2.2. Binary exposure variables
-
 ~~~
 # Load required libraries
 library(GxEprs)
@@ -213,9 +208,7 @@ p <- PRS_binary(plink_path, "DummyData", summary_input = trd)  # Covariate PRS
                   Add_PRS = q, Int_PRS = r, Cov_PRS = p) 
 # # Step 5: Access results and processed PRS objects
  print(result$model_summary)
-~~~~
-
-Results 
+~~~
 
 ~~~
 Coefficients:
@@ -239,7 +232,7 @@ Conf_12         -0.01046    0.08043  -0.130  0.89654
 Conf_13          0.04292    0.15733   0.273  0.78501
 Conf_14         -0.21073    0.07682  -2.743  0.00609 **
 Int_PRS:Cov_PRS -0.17201    0.48449  -0.355  0.72256
----
+
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 (Dispersion parameter for binomial family taken to be 1)
@@ -313,8 +306,6 @@ The exposure variables for GWAS should be
 
 3. Quantitative outcome
 
-3.1. quantitative exposure 
-
 ~~~
 # Load required libraries
 library(GxEprs)
@@ -342,8 +333,6 @@ p <- PRS_quantitative(plink_path, "DummyData", summary_input = trd)
  # Step 5: Access results and processed PRS objects
  print(result$model_summary)
 ~~~
-
-Result 
 
 ~~~
 Coefficients:
@@ -375,9 +364,7 @@ Multiple R-squared:  0.06849,   Adjusted R-squared:  -0.02415
 F-statistic: 0.7393 on 18 and 181 DF,  p-value: 0.7673
 ~~~
 
-4. Binary outcome
-
-4.1. Binary exposure 
+4. Binary outcome 
 
 ~~~
 # Load required libraries
@@ -405,8 +392,6 @@ p <- PRS_binary(plink_path, "DummyData", summary_input = trd)  # Covariate PRS
 # # Step 5: Access results and processed PRS objects
  print(result$model_summary)
 ~~~
-
-Result 
 
 ~~~
 Coefficients:
@@ -438,6 +423,3 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Residual deviance: 247.61  on 181  degrees of freedom
 AIC: 285.61
 ~~~
-
-
-
