@@ -311,7 +311,7 @@ Previous exposure variables as an outcome for a binary outcome in a discovery da
 4 ID_4 ID_4  1
 5 ID_5 ID_5  2
 6 ID_6 ID_6  2"
-Exposure also should look like 
+Exposure should also look like 
 "      V1     V2 V3         V4         V5       V6 V7       V8      V9       V10
 1   ID_1   ID_1  1 0.62000476  0.7874038 -3.04026 45 -12.0480 2.17634 -0.940322
 2  ID_10  ID_10  1 0.02716622 -0.1648218 -4.26064 67 -13.9720 4.60617 -4.132670
@@ -402,7 +402,6 @@ Conf_12          0.013844   0.038325   0.361   0.7184
 Conf_13         -0.036297   0.141347  -0.257   0.7976  
 Conf_14          0.002498   0.014581   0.171   0.8641  
 Int_PRS:Cov_PRS  0.067951   0.082968   0.819   0.4139  
----
 Signif. codes:  0 â€˜***â€™ 0.001 â€˜**â€™ 0.01 â€˜*â€™ 0.05 â€˜.â€™ 0.1 â€˜ â€™ 1
 
 Residual standard error: 0.9414 on 181 degrees of freedom
@@ -461,7 +460,6 @@ Conf_12          0.02785    0.03838   0.726   0.4681
 Conf_13          0.04458    0.08003   0.557   0.5775  
 Conf_14          0.06213    0.03232   1.923   0.0545 .
 Int_PRS:Cov_PRS -0.15908    0.23086  -0.689   0.4908  
----
 Signif. codes:  0 â€˜***â€™ 0.001 â€˜**â€™ 0.01 â€˜*â€™ 0.05 â€˜.â€™ 0.1 â€˜ â€™ 1
 
 (Dispersion parameter for binomial family taken to be 1)
