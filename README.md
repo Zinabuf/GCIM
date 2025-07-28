@@ -15,7 +15,7 @@ _GCIM is a novel statistical method that extends beyond traditional PRS×E appro
     exists in the proposed direction. By explicitly testing both directions, GCIM offers researchers
     data-driven insight into the likely causal directions._
 
-_NB: The proposed direction of causation refers to the hypothesized G×E interaction in which the exposure affects the outcome, aligning with the researcher’s primary interest. In contrast, the reverse direction tests the opposite relationship, switching the roles of exposure and outcome to evaluate whether the assumed causal direction is valid._
+_NB: The proposed direction of causation refers to the hypothesized G×E interaction in which the exposure affects the outcome, aligning with the researcher’s primary interest. In contrast, the reverse direction test evaluates the opposite relationship, switching the roles of exposure and outcome to assess whether the assumed causal direction is valid. Once the data has been properly prepared, begin by testing the causal direction based on the proposed direction of interest—that is, the direction specified by the researcher. After this primary analysis, assess the reverse causal direction by switching the roles of the exposure and outcome variables in both the discovery and target datasets. This involves treating the original outcome as the exposure and the original exposure as the outcome, ensuring consistency in data structure and formatting across both analyses._
    
 Package installation 
 From GitHub 
@@ -53,10 +53,10 @@ plink_path <- "<plink_path>/plink2"
 **Target dataset**: The target dataset for the model is also similar in data format, except, the use of PRS of the exposure variable(PRS of E) rather than the use of entire exposure values, and also includes the constant values for the fourth column, which is the square of the third column in the GxEprs model. 
 
 **Example data**
-To conduct a GCIM analysis, we must use the same data format as GxEprs, especially in the discovery dataset. However, there is a slight difference in the target dataset, as the square of the exposure variables is not required. Here is an example of analysis using the R script in the example directories. 
+To conduct a GCIM analysis, we must use the same data format as GxEprs, especially in the discovery dataset. However, there is a slight difference in the target dataset, as the square of the exposure variables is not required. Here is an example of analysis using the R script in the example directories.  
 
 Data structure
-GWAS for quantitative exposure variables the with phenotype 
+GWAS for quantitative exposure variables with the phenotype 
 
 ~~~
     V1   V2          V3
@@ -123,7 +123,7 @@ GWEIS Exposure variables are
 ~~~
 
 Target data set 
-quantitative outcome should look like 
+Quantitative outcome should look like 
 
 ~~~
    V1     V2      V3
@@ -134,7 +134,7 @@ quantitative outcome should look like
 5 ID_805 ID_805 23.3025
 6 ID_806 ID_806 24.9871
 ~~~
- Exposure variable for the target datset should be 
+ The exposure variable for the target dataset should be 
 
  ~~~
       V1     V2          V3        V4 V5       V6      V7        V8        V9
