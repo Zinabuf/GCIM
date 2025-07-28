@@ -305,16 +305,19 @@ The data structure should have the same data structures as the proposed directio
 exposure variable and exposure variables as an outcome. The data format should be as follows; 
 Previous exposure variables as an outcome for a binary outcome in a discovery data set for GWEIS. 
 
-" V1   V2 V3
+~~~
+ V1   V2 V3
 1 ID_1 ID_1  1
 2 ID_2 ID_2  2
 3 ID_3 ID_3  2
 4 ID_4 ID_4  1
 5 ID_5 ID_5  2
 6 ID_6 ID_6  2"
+~~~
 
 Exposure should also look like 
 
+~~~
 "      V1     V2 V3         V4         V5       V6 V7       V8      V9       V10
 1   ID_1   ID_1  1 0.62000476  0.7874038 -3.04026 45 -12.0480 2.17634 -0.940322
 2  ID_10  ID_10  1 0.02716622 -0.1648218 -4.26064 67 -13.9720 4.60617 -4.132670
@@ -329,9 +332,11 @@ Exposure should also look like
 4  2.1046600 -6.70373 -2.120090 -1.55533 -5.620780   6.883290  5.733580  20
 5  0.0536371 -2.81541 -0.490841  2.77044 -2.807250  -0.815034  4.658500   7
 6  2.0906300  1.12865 -0.946887  1.83857 -0.916254   3.928980  4.353590  10"
+~~~
 
 For GWAS analyses, the data should be prepared like 
 
+~~~
       V1     V2 V3
 1   ID_1   ID_1  1
 2  ID_10  ID_10  1
@@ -339,9 +344,11 @@ For GWAS analyses, the data should be prepared like
 4 ID_101 ID_101  2
 5 ID_102 ID_102  1
 6 ID_103 ID_103  1
+~~~
 
 The exposure variables for GWAS should be 
 
+~~~
       V1     V2         V3         V4       V5 V6       V7      V8        V9
 1   ID_1   ID_1 0.62000476  0.7874038 -3.04026 45 -12.0480 2.17634 -0.940322
 2  ID_10  ID_10 0.02716622 -0.1648218 -4.26064 67 -13.9720 4.60617 -4.132670
@@ -356,6 +363,7 @@ The exposure variables for GWAS should be
 4  2.1046600 -6.70373 -2.120090 -1.55533 -5.620780   6.883290  5.733580  20
 5  0.0536371 -2.81541 -0.490841  2.77044 -2.807250  -0.815034  4.658500   7
 6  2.0906300  1.12865 -0.946887  1.83857 -0.916254   3.928980  4.353590  10
+~~~
 
 3. Quantitative outcome
 
@@ -391,6 +399,7 @@ p <- PRS_quantitative(plink_path, "DummyData", summary_input = trd)
 
 Result 
 
+~~~
 Coefficients:
                  Estimate Std. Error t value Pr(>|t|)
 (Intercept)      0.195159   0.875936   0.223   0.8239
@@ -418,6 +427,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Residual standard error: 0.9414 on 181 degrees of freedom
 Multiple R-squared:  0.06849,   Adjusted R-squared:  -0.02415
 F-statistic: 0.7393 on 18 and 181 DF,  p-value: 0.7673
+~~~
 
 4. Binary outcome
 
@@ -452,6 +462,7 @@ p <- PRS_binary(plink_path, "DummyData", summary_input = trd)  # Covariate PRS
 
 Result 
 
+~~~
 Coefficients:
                 Estimate Std. Error z value Pr(>|z|)
 (Intercept)     -2.14559    1.77175  -1.211   0.2259
@@ -480,7 +491,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
     Null deviance: 272.74  on 199  degrees of freedom
 Residual deviance: 247.61  on 181  degrees of freedom
 AIC: 285.61
-
+~~~
 
 
 
