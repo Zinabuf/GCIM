@@ -46,8 +46,7 @@ To ensure consistent and reliable estimation of G×E, the dataset should be spli
 * A covariate file in the format: `FID`, `IID`, `confounder_1`, `constant_value`, `confounder_2`, ..., `confounder_m`
 
 This standardized format ensures that all variables such as genetic, exposure, outcome, and confounders are properly aligned across discovery and target datasets, facilitating valid and replicable G×E interaction analysis.
-All GWAS, GWEIS, and polygenic risk score (PRS) construction steps are performed using the GxEprs R package cff-version: 1.2.0
-message: "If you use this software, please cite it as below."
+All GWAS, GWEIS, and polygenic risk score (PRS) construction steps are performed using the GxEprs R package cff-version:
 url: "https://github.com/DoviniJ/GxEprs"
 , while the regression analyses for both binary and quantitative outcomes are conducted using the GCIM R package. 
 
