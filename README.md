@@ -51,7 +51,7 @@ All GWAS, GWEIS, and polygenic risk score (PRS) construction steps are performed
 
 A Guide for GCIM analyses
 
-<div align="justify">GCIM analyses use PLink2 to analyze discovery data, and the package is compatible with the Linux operating system. 
+GCIM analyses use PLink2 to analyze discovery data, and the package is compatible with the Linux operating system. 
 1. Download plink2 software from the [Plink](https://www.cog-genomics.org/plink/2.0/) website and then specify the executable Plink file path.
    
 ~~~
@@ -59,7 +59,7 @@ plink_path <- "<plink_path>/plink2"
 ~~~ 
 
 **Example data**
-To conduct a GCIM analysis, we must use the same data format as GxEprs, especially in the discovery dataset. However, there is a slight difference in the target dataset, as the square of the exposure variables is not required. Here is an example of analysis using the R script in the example directories.</div>  
+<div align="justify">To conduct a GCIM analysis, we must use the same data format as GxEprs, especially in the discovery dataset. However, there is a slight difference in the target dataset, as the square of the exposure variables is not required. Here is an example of analysis using the R script in the example directories.</div>  
 
 Data structure
 To 
