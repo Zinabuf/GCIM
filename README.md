@@ -48,13 +48,6 @@ To ensure consistent and reliable estimation of G×E, the dataset should be spli
 This standardized format ensures that all variables such as genetic, exposure, outcome, and confounders are properly aligned across discovery and target datasets, facilitating valid and replicable G×E interaction analysis.
 All GWAS, GWEIS, and polygenic risk score (PRS) construction steps are performed using the GxEprs R package cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
-authors:
-  - family-names: "Jayasinghe"
-    given-names: "Dovini"
-    orcid: "https://orcid.org/0000-0000-0000-0000"
-title: "GxEprs"
-version: 1.2.0
-date-released: 2023-08-09
 url: "https://github.com/DoviniJ/GxEprs"
 , while the regression analyses for both binary and quantitative outcomes are conducted using the GCIM R package. 
 
