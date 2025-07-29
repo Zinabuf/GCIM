@@ -12,7 +12,7 @@ _<div align="justify">GCIM is a novel statistical method that extends beyond tra
     It systematically evaluates both the proposed and reverse causal directions, rather than relying
     on the assumptions of prior causal directions. GCIM uses the polygenic risk score (PRS) of the
     exposure trait rather than its observed phenotype to eliminate spurious covariance between the
-    exposure and the G×E component of the outcome. This helps prevent bias in the reverse causal directiin, when a true causal effect
+    exposure and the G×E component of the outcome. This helps prevent bias in the reverse causal direction, when a true causal effect
     exists in the proposed direction. By explicitly testing both directions, GCIM offers researchers
     data-driven insight into the likely causal directions.</div>_
 
@@ -45,8 +45,18 @@ To ensure consistent and reliable estimation of G×E, the dataset should be spli
 * `FID`, `IID`, and **exposure values**
 * A covariate file in the format: `FID`, `IID`, `confounder_1`, `constant_value`, `confounder_2`, ..., `confounder_m`
 
-This standardized format ensures that all variables—genetic, exposure, outcome, and confounders—are properly aligned across discovery and target datasets, facilitating valid and replicable G×E interaction analysis.
-All GWAS, GWEIS, and polygenic risk score (PRS) construction steps are performed using the GxEprs R package, while the regression analyses for both binary and quantitative outcomes are conducted using the GCIM R package. 
+This standardized format ensures that all variables such as genetic, exposure, outcome, and confounders are properly aligned across discovery and target datasets, facilitating valid and replicable G×E interaction analysis.
+All GWAS, GWEIS, and polygenic risk score (PRS) construction steps are performed using the GxEprs R package cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: "Jayasinghe"
+    given-names: "Dovini"
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+title: "GxEprs"
+version: 1.2.0
+date-released: 2023-08-09
+url: "https://github.com/DoviniJ/GxEprs"
+, while the regression analyses for both binary and quantitative outcomes are conducted using the GCIM R package. 
 
 A Guide for GCIM analyses
 
