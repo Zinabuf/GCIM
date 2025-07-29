@@ -12,7 +12,7 @@ _<div align="justify">GCIM is a novel statistical method that extends beyond tra
     It systematically evaluates both the proposed and reverse causal directions, rather than relying
     on the assumptions of prior causal directions. GCIM uses the polygenic risk score (PRS) of the
     exposure trait rather than its observed phenotype to eliminate spurious covariance between the
-    exposure and the G×E component of the outcome. This helps prevent bias when a true causal effect
+    exposure and the G×E component of the outcome. This helps prevent bias in the reverse causal directiin, when a true causal effect
     exists in the proposed direction. By explicitly testing both directions, GCIM offers researchers
     data-driven insight into the likely causal directions.</div>_
 
