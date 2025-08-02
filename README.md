@@ -3,7 +3,6 @@
 ---
 
 The genetic causality inference model (GCIM) is a statistical method for detecting the direction of causation in Genotype-by-environment(GxE) interaction studies. 
-
 - 
  Authors: Zinabu Fentaw, Dovini Jayasinghe, S.Hong Lee
 -
