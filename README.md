@@ -489,3 +489,159 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Residual deviance: 247.61  on 181  degrees of freedom
 AIC: 285.61
 ~~~
+
+-
+Target dataset only
+-
+
+If the researcher has a final target dataset by preparing PRS values(Additive PRS, interaction PRS, and exposure PRS) and other required data components for GCIM should follow the following format. All the data should have at least 7 columns with the following unique orders( FID, IID, outcome, Add_PRS, Int_PRS, Cov_prs, Covariate_Pheno, conf_1, conf_2, ..., conf_n). The header must be labeled, and the GxEprs R package is not required for this data structure. 
+
+I. Binary outcome
+The data frame should look like 
+
+~~~
+      FID     IID Outcome     Add_PRS     Int_PRS    Cov_PRS Covariate_Pheno
+1 ID_1000 ID_1000       0 -0.09192343  0.30122606  0.0734723               0
+2  ID_801  ID_801       0  0.87650766 -0.88310398 -0.4996281               1
+3  ID_802  ID_802       1  0.54308628 -0.73162193 -0.2363668               1
+4  ID_803  ID_803       0 -0.97195095  1.09363708  0.2814972               0
+5  ID_804  ID_804       0  0.06040028  0.02399383  0.6811896               0
+6  ID_805  ID_805       1 -0.68909479  0.78958403 -0.6240255               0
+       Conf_1   Conf_2 Conf_3    Conf_4  Conf_5    Conf_6    Conf_7   Conf_8
+1  0.42094546 -2.91833     67 -11.79100 6.19780 -1.364380 -0.445164 -9.70429
+2 -0.42082298 -4.12263     57 -13.51850 5.40198 -4.819940  0.664494 -4.92217
+3 -0.08055833  2.92534     56 -13.62360 3.21643 -0.856048  0.750187 -2.01798
+4 -1.32752645 -3.09118     61  -9.94475 3.60562 -0.917639  0.905664 -5.09843
+5  0.69800724  4.58829     49 -12.54710 4.09467 -2.589510  6.068980 12.98220
+6 -0.65798161 -3.53948     56 -12.79500 2.91524 -2.727940  3.615550  3.92957
+     Conf_9   Conf_10   Conf_11   Conf_12  Conf_13 Conf_14
+1 -0.671265  2.258490 -2.006960  1.782850 -1.97524      10
+2 -0.451329  3.146770  0.427040  0.821306 -2.77705       7
+3 -0.350832  5.101410  2.180700 -6.043430  1.78928      19
+4 -1.163290 -1.881020 -1.241540  0.699574  2.24420      20
+5 -0.704179  2.903570 -0.334968  5.042740  0.66175      10
+6 -2.938990 -0.454737  2.310130  2.517830 -4.15592       7
+~~~
+
+The analyses will be conducted as follows. 
+~~~
+# Load required libraries
+result <- gcim_b0_merged("merged_data_bp.txt", verbose = TRUE)
+print(result$model_summary)
+~~~
+
+Result
+
+~~~
+stats::glm(formula = model_formula, family = stats::binomial(link = "logit"),
+    data = merged_data)
+
+Deviance Residuals:
+    Min       1Q   Median       3Q      Max
+-1.3151  -0.3957  -0.2426  -0.1472   2.3615
+
+Coefficients:
+                Estimate Std. Error z value Pr(>|z|)
+(Intercept)      4.81384    3.55634   1.354  0.17587
+Add_PRS         -1.04471    1.05153  -0.994  0.32046
+Int_PRS         -0.77657    1.02926  -0.754  0.45055
+Covariate_Pheno  1.20406    0.66778   1.803  0.07137 .
+Conf_1           0.04113    0.36059   0.114  0.90920
+Conf_2           0.06771    0.09676   0.700  0.48409
+Conf_3          -0.04767    0.03913  -1.218  0.22313
+Conf_4           0.26105    0.23520   1.110  0.26704
+Conf_5           0.15014    0.23389   0.642  0.52092
+Conf_6           0.01001    0.19982   0.050  0.96003
+Conf_7          -0.05855    0.16252  -0.360  0.71865
+Conf_8           0.04285    0.08367   0.512  0.60854
+Conf_9           0.08123    0.21203   0.383  0.70165
+Conf_10          0.25170    0.17100   1.472  0.14105
+Conf_11          0.09185    0.17155   0.535  0.59237
+Conf_12         -0.01046    0.08043  -0.130  0.89654
+Conf_13          0.04292    0.15733   0.273  0.78501
+Conf_14         -0.21073    0.07682  -2.743  0.00609 **
+Int_PRS:Cov_PRS -0.17201    0.48449  -0.355  0.72256
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 106.554  on 199  degrees of freedom
+Residual deviance:  86.566  on 181  degrees of freedom
+AIC: 124.57
+~~~
+
+II. Quantitative outcome
+ The data frame should look like
+ ~~~
+ head(x)
+      FID     IID Outcome    Add_PRS    Int_PRS    Cov_PRS Covariate_Pheno
+1 ID_1000 ID_1000 27.0969 -0.4437585 -1.6859515 -0.6655142     -0.33594513
+2  ID_801  ID_801 26.5723 -0.1796650  0.9213890 -0.4476503     -0.64402046
+3  ID_802  ID_802 20.2632 -1.3074523  0.4621230 -0.4011368     -0.95209579
+4  ID_803  ID_803 27.7365  0.4100961  1.6783243 -0.7167570     -0.02786981
+5  ID_804  ID_804 18.7500  1.1673921  0.2602607 -0.2065687     -0.64402046
+6  ID_805  ID_805 23.3025  1.1670199  0.5528012 -1.2851982      0.28020552
+     Conf_1 Conf_2   Conf_3  Conf_4    Conf_5    Conf_6   Conf_7    Conf_8
+1 -3.247510     44 -11.6394 5.47484 -3.958770 0.9431600  9.25721 -0.542392
+2 -3.826590     69 -13.8514 3.96080 -1.788050 0.0692473 -6.32556  2.853590
+3  2.065150     60 -12.2438 4.04169 -0.905739 5.9656000  8.35545 -1.435760
+4 -0.795863     62 -10.9195 6.91985 -2.920880 1.2601900 -5.56624 -0.552624
+5 -2.620880     67  -9.9271 4.10960 -2.354540 0.7190210 -1.82806 -1.821070
+6 -3.331640     67 -11.8637 5.88272  1.072880 2.7448800 -7.32776 -2.394770
+      Conf_9   Conf_10  Conf_11   Conf_12 Conf_13 Conf_14
+1 -1.4608900  1.836640  1.80581  0.582524       0      20
+2  1.0851600 -1.303040  3.41659  1.415770       0       7
+3 -0.6181530  0.746918  5.11019 -0.207188       1      19
+4 -0.0756095 -0.910047 -1.33896  1.726360       0       7
+5  1.2157400 -3.566930 -7.91232  2.710110       0      10
+6 -3.0798300 -1.436250  2.08822  1.429390       1      15
+~~~
+
+ The analyses will be conducted as follows. 
+
+~~~
+# Load required libraries
+result <- gcim_q0_merged("merged_data_bp.txt", verbose = TRUE)
+print(result$model_summary)
+~~~
+
+Results
+
+~~~
+stats::lm(formula = model_formula, data = merged_data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max
+-9.3553 -3.3016 -0.2538  2.1435 18.9620
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)
+(Intercept)     29.49287    3.67023   8.036 1.16e-13 ***
+Add_PRS         -0.24579    0.36534  -0.673   0.5020
+Int_PRS         -0.07551    0.40504  -0.186   0.8523
+Covariate_Pheno -0.06776    0.36531  -0.185   0.8530
+Conf_1          -0.31764    0.13158  -2.414   0.0168 *
+Conf_2          -0.03142    0.04157  -0.756   0.4508
+Conf_3           0.20054    0.23651   0.848   0.3976
+Conf_4           0.38412    0.22684   1.693   0.0921 .
+Conf_5          -0.38324    0.22064  -1.737   0.0841 .
+Conf_6          -0.13732    0.15675  -0.876   0.3822
+Conf_7           0.09351    0.06991   1.338   0.1827
+Conf_8          -0.21469    0.22684  -0.946   0.3452
+Conf_9          -0.29007    0.21864  -1.327   0.1863
+Conf_10         -0.19900    0.18631  -1.068   0.2869
+Conf_11         -0.01685    0.08666  -0.194   0.8460
+Conf_12          0.06352    0.18782   0.338   0.7356
+Conf_13          2.11258    0.67700   3.120   0.0021 **
+Conf_14         -0.11187    0.06992  -1.600   0.1114
+Int_PRS:Cov_PRS  0.13736    0.43681   0.314   0.7535
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 4.623 on 181 degrees of freedom
+Multiple R-squared:  0.1386,    Adjusted R-squared:  0.05298
+F-statistic: 1.618 on 18 and 181 DF,  p-value: 0.05934
+~~~
+ 
+
