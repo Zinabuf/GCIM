@@ -494,7 +494,7 @@ AIC: 285.61
 Target dataset only
 -
 
-If the researcher has a final target dataset by preparing PRS values(Additive PRS, interaction PRS, and exposure PRS) and other required data components for GCIM should follow the following format. All the data should have at least 7 columns with the following unique orders( FID, IID, outcome, Add_PRS, Int_PRS, Cov_prs, Covariate_Pheno, conf_1, conf_2, ..., conf_n). The header must be labeled, and the GxEprs R package is not required for this data structure. 
+Suppose the researcher has a final target dataset with prepared PRS values (Additive PRS, interaction PRS, and exposure PRS) and other required data components for GCIM. In that case, they should follow the following format. All the data should have at least 7 columns with the following unique orders( FID, IID, outcome, Add_PRS, Int_PRS, Cov_prs, Covariate_Pheno, conf_1, conf_2, ..., conf_n). The header must be labeled, and the GxEprs R package is not required for this data structure. 
 
 I. Binary outcome
 The data frame should look like 
