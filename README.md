@@ -73,7 +73,7 @@ GWAS for quantitative exposure variables with the exposure phenotype
 The covariate for adjustment from the example 
 
 ~~~
-    FID   IID       Conf_1        V4 V5        V6       V7         V8        V9
+    FID   IID       V3        V4 V5        V6       V7         V8        V9
 1 ID_1 ID_1 0.4147623548 -3.831420 64 -14.03640 5.517420  0.0714337  5.662630
 2 ID_2 ID_2 0.0007767262  0.614044 66 -10.85050 2.119980 -0.8828830 -0.441662
 3 ID_3 ID_3 4.5311826719 -0.237792 55  -9.75369 3.183430 -2.0979300  6.873450
