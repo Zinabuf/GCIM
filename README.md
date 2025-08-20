@@ -41,7 +41,7 @@ To ensure consistent and reliable estimation of G×E, the dataset should be spli
 * `FID`, `IID`, and **exposure values**
 * A covariate file in the format: `FID`, `IID`, `confounder_1`, `constant_value`, `confounder_2`, ..., `confounder_m`
 
-This standardized format ensures that all variables such as genetic, exposure, outcome, and confounders are properly aligned across discovery and target datasets, facilitating valid and replicable G×E interaction analysis.
+This standardized format ensures that all variables, such as genetic, exposure, outcome, and confounders are properly aligned across discovery and target datasets, facilitating valid and replicable G×E interaction analysis.
 All GWAS, GWEIS, and polygenic risk score (PRS) construction steps are performed using the [GxEprs](https://github.com/DoviniJ/GxEprs) R package 
 , while the regression analyses for both binary and quantitative outcomes are conducted using the GCIM R package. 
 
@@ -55,14 +55,14 @@ plink_path <- "<plink_path>/plink2"
 ~~~ 
 
 **Example data**
-<div align="justify">To conduct a GCIM analysis, we must use the same data format as GxEprs, especially in the discovery dataset. However, there is a slight difference in the target dataset, as the square of the exposure variables is not required. Here is an example of analysis using the R script in the example directories.</div>  
+<div align="justify">To conduct a GCIM analysis, we must use the same data format as **GxEprs**, especially in the discovery dataset. However, there is a slight difference in the target dataset, as the square of the exposure variables is not required. Here is an example of analysis using the R script in the following examples.</div>  
 
 Data structure
-To 
-GWAS for quantitative exposure variables with the phenotype 
+To obtain PRS of the exposure variable, follow the following, which is similar data input for the GxEprs
+GWAS for quantitative exposure variables with the exposure phenotype 
 
 ~~~
-    V1   V2          V3
+  FID  IID   Exposure
 1 ID_1 ID_1 -0.64402046
 2 ID_2 ID_2 -0.02786981
 3 ID_3 ID_3  2.12865748
@@ -70,10 +70,10 @@ GWAS for quantitative exposure variables with the phenotype
 5 ID_5 ID_5 -0.95209579
 6 ID_6 ID_6 -0.02786981
 ~~~
-The covariate for adjustment 
+The covariate for adjustment from the example 
 
 ~~~
-    V1   V2           V3        V4 V5        V6       V7         V8        V9
+    FID   IID       Conf_1        V4 V5        V6       V7         V8        V9
 1 ID_1 ID_1 0.4147623548 -3.831420 64 -14.03640 5.517420  0.0714337  5.662630
 2 ID_2 ID_2 0.0007767262  0.614044 66 -10.85050 2.119980 -0.8828830 -0.441662
 3 ID_3 ID_3 4.5311826719 -0.237792 55  -9.75369 3.183430 -2.0979300  6.873450
