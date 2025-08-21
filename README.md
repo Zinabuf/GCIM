@@ -12,7 +12,7 @@ _<div align="justify">GCIM is a novel statistical method that extends beyond tra
     on the assumptions of prior causal directions. By explicitly testing both directions, GCIM offers researchers
     data-driven insight into the likely causal directions of GxE interactions.</div>_
 
-_<div align="justify">NB: The proposed direction of causation refers to the hypothesized (G×E) interaction in which the exposure affects the outcome, aligning with the researcher’s primary interest. In contrast, the reverse direction test evaluates the opposite relationship, switching the roles of exposure and outcome to assess whether the assumed causal direction is valid. Once the data has been properly prepared, begin by testing the causal direction based on the proposed direction of interest, that is the direction specified by the researcher. After this primary analysis, assess the reverse causal direction by switching the roles of the exposure and outcome variables in both the discovery and target datasets. This involves treating the original outcome as the exposure and the original exposure as the outcome, ensuring consistency in data structure and formatting across both analyses.</div>_
+_<div align="justify">NB: The proposed direction of causation refers to the hypothesized G×E interaction in which the exposure affects the outcome, aligning with the researcher’s primary interest. In contrast, the reverse direction test evaluates the opposite relationship, switching the roles of exposure and outcome to assess whether the assumed causal direction is valid. Once the data has been properly prepared, begin by testing the causal direction based on the proposed direction of interest, that is the direction specified by the researcher. After this primary analysis, assess the reverse causal direction by switching the roles of the exposure and outcome variables in both the discovery and target datasets. This involves treating the original outcome as the exposure and the original exposure as the outcome, ensuring consistency in data structure and formatting across both analyses.</div>_
    
 Package installation 
 From GitHub 
@@ -22,7 +22,9 @@ library(devtools)
 install_github("DoviniJ/GxEprs")
 install_github("Zinabuf/GCIM")
 ~~~
+
 Or the CRAN version via
+
 ~~~
 install.packages(GxEprs)
 ~~~
@@ -47,7 +49,7 @@ All GWAS, GWEIS, and polygenic risk score (PRS) construction steps are performed
 
 A Guide for GCIM analyses
 
-GCIM analyses use PLink2 to analyze discovery data, and the package is compatible with the Linux operating system. 
+GCIM analyses use PLink2 to analyze discovery data. 
 1. Download plink2 software from the [Plink](https://www.cog-genomics.org/plink/2.0/) website and then specify the executable Plink software path.
    
 ~~~
@@ -58,8 +60,7 @@ plink_path <- "<plink_path>/plink2"
 <div align="justify">To conduct a GCIM analysis, we must use the same data format as **GxEprs**, especially in the discovery dataset. However, there is a slight difference in the target dataset, as the square of the exposure variables is not required. Here is an example of analysis using the R script in the following examples.</div>  
 
 Data structure
-To obtain PRS of the exposure variable, follow the following, which is similar data input for the GxEprs
-GWAS for quantitative exposure variables with the exposure phenotype 
+To generate the polygenic risk score (PRS) for the exposure variable, we performed a GWAS on the quantitative exposure phenotype, using the same type of input data as required for the GxEprs framework. 
 
 ~~~
   FID  IID   Exposure
