@@ -62,6 +62,7 @@ plink_path <- "<plink_path>/plink2"
 Data structure
 <div align="justify">After splitting the data into two independent subsets, we designated one as the discovery dataset and the other as the target dataset. The discovery dataset contains all necessary inputs, including genotype data, the outcome and exposure phenotypes, as well as covariates used for adjustment. This dataset is used to conduct both GWAS (for the exposure variable) and GWEIS (for the outcome variable). The target dataset, in contrast, is reserved for detecting the direction of GxE interactions using the PRS derived from the analyses in the discovery dataset. 
  To construct PRS for the exposure variable, we first performed a GWAS on the quantitative exposure phenotype, adopting the same input data format required by the GxEprs framework. In this procedure, the exposure is treated as the outcome variable in the GWAS to obtain SNP effect estimates. For reproducibility, the exposure and covariates should be stored in a separate file. Example:</div> 'Qcov_discovery_phen.txt'.
+ 
 ~~~
   FID  IID   Exposure
 1 ID_1 ID_1 -0.64402046
@@ -71,6 +72,7 @@ Data structure
 5 ID_5 ID_5 -0.95209579
 6 ID_6 ID_6 -0.02786981
 ~~~
+
 The covariates used for adjustment should be provided in a separate file. Example `Qcov_discovery_cov.txt`
 
 ~~~
