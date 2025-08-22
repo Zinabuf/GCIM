@@ -174,7 +174,7 @@ library(GCIM)
 plink_path <- "<plink_path>/plink2"
 
 # For quantitative traits, use corresponding functions
-a <- GWAS_quantitative(plink_path, "DummyData", "Qcov_discovery_phen.txt", "Qcov_discovery_exp.txt")
+a <- GWAS_quantitative(plink_path, "DummyData", "Qcov_discovery_phen.txt", "Qcov_discovery_cov.txt")
 b <- GWEIS_quantitative(plink_path, "DummyData", "Qphe_discovery.txt", "Qcov_discovery.txt")
 
 # Extract and compute PRS
@@ -188,7 +188,6 @@ p <- PRS_quantitative(plink_path, "DummyData", summary_input = trd)
 
 # Step 4: Run GCIM analysis with automatic saving and scaling
 # This model specification corresponds to Model 4, as presented in the manuscript.
- $`y_t = \beta_1 \hat{g}_y + \beta_2 c_t + \beta_3 \hat{g}_{y_{gxe}} + \beta_4 \left( \hat{g}_{y_{gxe}} \,\odot\, \hat{g}_c \right) + e_y`$
  result0 <- gcim_q0("Qphe_target.txt", "Qexp_target.txt", 
                   Add_PRS = q, Int_PRS = r, Cov_PRS = p)
 #This model additionally incorporates the main effect of the PRS for the exposure variable. Details of this specification are provided in the model equation section of the Results. 
@@ -225,10 +224,6 @@ Conf_14         -0.11187    0.06992  -1.600   0.1114
 Int_PRS:Cov_PRS  0.13736    0.43681   0.314   0.7535
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Residual standard error: 4.623 on 181 degrees of freedom
-Multiple R-squared:  0.1386,    Adjusted R-squared:  0.05298
-F-statistic: 1.618 on 18 and 181 DF,  p-value: 0.05934
 ~~~
 
 ~~~
@@ -260,14 +255,11 @@ Conf_14         -0.088428   0.070307  -1.258  0.21011
 Int_PRS:Cov_PRS  0.048590   0.435383   0.112  0.91126
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Residual standard error: 4.585 on 180 degrees of freedom
-Multiple R-squared:  0.1577,    Adjusted R-squared:  0.06876
-F-statistic: 1.773 on 19 and 180 DF,  p-value: 0.02883
 ~~~
 
  2. Binary outcome 
-
+The same data frames and analyses pipeline should be applied as used for the quantitative data presented above.
+ 
 ~~~
 # Load required libraries
 library(GxEprs)
@@ -275,6 +267,7 @@ library(GCIM)
 # Set plink path
 plink_path <- "<plink_path>/plink2"
 # Step 1: Run GxEprs analysis for binary traits
+#Note: If the exposure variable is binary, use it as is. If the exposure variable is quantitative, apply the `GWAS_quantitative` function to generate the object `a` specified as described below.
 a <- GWAS_binary(plink_path, "DummyData", "Bcov_discovery_phen.txt", "Bcov_discovery_exp.txt")
 b <- GWEIS_binary(plink_path, "DummyData", "Bphe_discovery.txt", "Bcov_discovery.txt")
 
@@ -284,15 +277,19 @@ add <- b[c("ID", "A1", "ADD_BETA")]
 gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
 
 # Step 3: Compute PRS for each component
+#Note: If the exposure variable is binary, use it as is. If the exposure variable is quantitative, apply the `PRS_quantitative` function to generate the object `P` specified as described below.
+p <- PRS_binary(plink_path, "DummyData", summary_input = trd)  # Covariate PRS
 q <- PRS_binary(plink_path, "DummyData", summary_input = add)  # Additive PRS
 r <- PRS_binary(plink_path, "DummyData", summary_input = gxe)  # Interaction PRS
-p <- PRS_binary(plink_path, "DummyData", summary_input = trd)  # Covariate PRS
+
 
 # Step 4: Run GCIM analysis with automatic saving and scaling
- result <- gcim_b("Bphe_target.txt", "Bexp_target.txt", 
+ result0 <- gcim_b0("Bphe_target.txt", "Bexp_target.txt", 
+                  Add_PRS = q, Int_PRS = r, Cov_PRS = p)
+ result1 <- gcim_b1("Bphe_target.txt", "Bexp_target.txt", 
                   Add_PRS = q, Int_PRS = r, Cov_PRS = p) 
 # # Step 5: Access results and processed PRS objects
- print(result$model_summary)
+ print(result0$model_summary)
 ~~~
 
 ~~~
@@ -319,12 +316,38 @@ Conf_14         -0.21073    0.07682  -2.743  0.00609 **
 Int_PRS:Cov_PRS -0.17201    0.48449  -0.355  0.72256
 
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+~~~
 
-(Dispersion parameter for binomial family taken to be 1)
+~~~
+ print(result1$model_summary)
+~~~
 
-    Null deviance: 106.554  on 199  degrees of freedom
-Residual deviance:  86.566  on 181  degrees of freedom
-AIC: 124.57
+~~~
+Coefficients:
+                 Estimate Std. Error z value Pr(>|z|)
+(Intercept)      4.703893   3.618419   1.300  0.19361
+Add_PRS         -1.024103   1.055763  -0.970  0.33204
+Int_PRS         -0.751850   1.038001  -0.724  0.46887
+Covariate_Pheno  1.208273   0.668928   1.806  0.07087 .
+Cov_PRS          0.064796   0.417904   0.155  0.87678
+Conf_1           0.035074   0.364660   0.096  0.92338
+Conf_2           0.070014   0.098050   0.714  0.47519
+Conf_3          -0.046839   0.039508  -1.186  0.23580
+Conf_4           0.256237   0.237570   1.079  0.28078
+Conf_5           0.148611   0.234302   0.634  0.52590
+Conf_6           0.007641   0.201137   0.038  0.96970
+Conf_7          -0.059300   0.162781  -0.364  0.71564
+Conf_8           0.043153   0.083782   0.515  0.60651
+Conf_9           0.078033   0.212945   0.366  0.71403
+Conf_10          0.252354   0.170848   1.477  0.13966
+Conf_11          0.096054   0.173808   0.553  0.58051
+Conf_12         -0.010357   0.080341  -0.129  0.89743
+Conf_13          0.042602   0.157742   0.270  0.78710
+Conf_14         -0.209842   0.077039  -2.724  0.00645 **
+Int_PRS:Cov_PRS -0.162503   0.489483  -0.332  0.73990
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
 ~~~
     
 <div align="justify">To evaluate the **reverse direction of causation**, re-analyze the same dataset by switching the roles of the exposure and outcome variables. This means treating the previously defined outcome variable as the new exposure, and the previous exposure variables as the new outcome. Rearrange the data using the same structure and formatting approach used for the proposed causal directions, ensuring consistency across analyses. The only difference should be the reassignment of variable roles.</div>  
@@ -389,7 +412,7 @@ Exposure should also look like
 6  2.0906300  1.12865 -0.946887  1.83857 -0.916254   3.928980  4.353590  10"
 ~~~
 
-arget dataset
+Target dataset
 
 outcome in the target dataset 
 
