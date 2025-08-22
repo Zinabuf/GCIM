@@ -133,7 +133,7 @@ For reproducibility, the exposure and covariate data should be organized in the 
 ~~~
 
 Target data set 
-Quantitative outcome should look like 
+The quantitative outcome data should be organized in a separate file, for example: `Qphe_target.txt`
 
 ~~~
    FID     IID  Outcome
@@ -145,7 +145,7 @@ Quantitative outcome should look like
 6 ID_806 ID_806 24.9871
 ~~~
 
- The exposure variable for the target dataset should be 
+ The exposure variable and other covariates for the adjustments are for the target dataset and should be provided in a separate file, for example: `Qexp_target.tx`
 
  ~~~
    FID   IID      Exposure    Conf_1  Conf_2 Conf_3 Conf_4  Conf_5   Conf_6
@@ -187,7 +187,7 @@ r <- PRS_quantitative(plink_path, "DummyData", summary_input = gxe)
 p <- PRS_quantitative(plink_path, "DummyData", summary_input = trd)
 
 # # Step 4: Run GCIM analysis with automatic saving and scaling
- $$This model is available on the paper as Equation 4$$
+ $$This model specification corresponds to Model 4, as presented in the manuscript.$$
  result0 <- gcim_q0("Qphe_target.txt", "Qexp_target.txt", 
                   Add_PRS = q, Int_PRS = r, Cov_PRS = p)
 #This model additionally incorporates the main effect of the PRS for the exposure variable. Details of this specification are provided in the model equation section of the Results. 
