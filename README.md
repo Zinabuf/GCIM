@@ -181,15 +181,17 @@ r <- PRS_quantitative(plink_path, "DummyData", summary_input = gxe)
 p <- PRS_quantitative(plink_path, "DummyData", summary_input = trd)
 
 # # Step 4: Run GCIM analysis with automatic saving and scaling
- $$y_t = \beta_1 \hat{g}_y + \beta_2 c_t + \beta_3 \hat{g}_{y_{gxe}} + \beta_4 \left( \hat{g}_{y_{gxe}} \,\odot\, \hat{g}_c \right) + e_y$$
-
+ $$This model is available on the paper as Equation 4$$
  result0 <- gcim_q0("Qphe_target.txt", "Qexp_target.txt", 
                   Add_PRS = q, Int_PRS = r, Cov_PRS = p)
-#
- result0 <- gcim_q1("Qphe_target.txt", "Qexp_target.txt", 
+#This model additionally incorporates the main effect of the PRS for the exposure variable. Details of this specification are provided in the model equation section of the Results. 
+ result1 <- gcim_q1("Qphe_target.txt", "Qexp_target.txt", 
                   Add_PRS = q, Int_PRS = r, Cov_PRS = p)
  # Step 5: Access results and processed PRS objects
- print(result$model_summary)
+~~~
+
+~~~
+ print(result0$model_summary)
 ~~~
 
 ~~~
@@ -214,11 +216,47 @@ Conf_12          0.06352    0.18782   0.338   0.7356
 Conf_13          2.11258    0.67700   3.120   0.0021 **
 Conf_14         -0.11187    0.06992  -1.600   0.1114
 Int_PRS:Cov_PRS  0.13736    0.43681   0.314   0.7535
+---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Residual standard error: 4.623 on 181 degrees of freedom
 Multiple R-squared:  0.1386,    Adjusted R-squared:  0.05298
 F-statistic: 1.618 on 18 and 181 DF,  p-value: 0.05934
+~~~
+
+~~~
+ print(result1$model_summary)
+~~~
+
+~~~
+Coefficients:
+                 Estimate Std. Error t value Pr(>|t|)
+(Intercept)     28.183064   3.697016   7.623 1.37e-12 ***
+Add_PRS         -0.309242   0.363647  -0.850  0.39624
+Int_PRS         -0.128224   0.402497  -0.319  0.75042
+Covariate_Pheno -0.008428   0.363450  -0.023  0.98152
+Cov_PRS         -0.818939   0.406068  -2.017  0.04521 *
+Conf_1          -0.348675   0.131386  -2.654  0.00867 **
+Conf_2          -0.022893   0.041440  -0.552  0.58133
+Conf_3           0.197041   0.234542   0.840  0.40196
+Conf_4           0.451173   0.227383   1.984  0.04875 *
+Conf_5          -0.386661   0.218801  -1.767  0.07889 .
+Conf_6          -0.102698   0.156388  -0.657  0.51222
+Conf_7           0.091554   0.069332   1.321  0.18834
+Conf_8          -0.174943   0.225807  -0.775  0.43951
+Conf_9          -0.245376   0.217937  -1.126  0.26170
+Conf_10         -0.243769   0.186078  -1.310  0.19185
+Conf_11         -0.015397   0.085936  -0.179  0.85800
+Conf_12          0.039447   0.186630   0.211  0.83284
+Conf_13          2.168696   0.671913   3.228  0.00148 **
+Conf_14         -0.088428   0.070307  -1.258  0.21011
+Int_PRS:Cov_PRS  0.048590   0.435383   0.112  0.91126
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 4.585 on 180 degrees of freedom
+Multiple R-squared:  0.1577,    Adjusted R-squared:  0.06876
+F-statistic: 1.773 on 19 and 180 DF,  p-value: 0.02883
 ~~~
 
  2. Binary outcome 
