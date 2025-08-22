@@ -57,11 +57,11 @@ plink_path <- "<plink_path>/plink2"
 ~~~ 
 
 **Example data**
-<div align="justify">To conduct a GCIM analysis, we must use the same data format as **GxEprs**, especially in the discovery dataset. However, there is a slight difference in the target dataset, as the square of the exposure variables is not required. Here is an example of analysis using the R script in the following examples.</div>  
+<div align="justify">To conduct a GCIM analysis, the input data must follow the same format as required for GxEprs, particularly in the discovery dataset. The only distinction arises in the target dataset, where the squared terms of the exposure variables are not necessary. I've included an example analysis using the accompanying R script below to show the implementation.</div>  
 
 Data structure
-To generate the polygenic risk score (PRS) for the exposure variable, we performed a GWAS on the quantitative exposure phenotype, using the same type of input data as required for the GxEprs framework. 
-
+<div align="justify">**“After splitting the data into two independent subsets, we designated one as the discovery dataset and the other as the target dataset. The discovery dataset contains all necessary inputs, including genotype data, the outcome and exposure phenotypes, as well as covariates used for adjustment. This dataset is used to conduct both GWAS (for the exposure variable) and GWEIS (for the outcome variable). The target dataset, in contrast, is reserved for detecting the direction of GxE interactions using the PRS derived from the discovery analyses. 
+ To construct PRS for the exposure variable, we first performed a GWAS on the quantitative exposure phenotype, adopting the same input data format required by the GxEprs framework. In this procedure, the exposure is treated as the outcome variable in the GWAS to obtain SNP effect estimates. For reproducibility, the exposure and covariates should be stored in a separate file, for example, the exposure variable:</div> 'Qcov_discovery_phen.txt'.
 ~~~
   FID  IID   Exposure
 1 ID_1 ID_1 -0.64402046
@@ -71,28 +71,29 @@ To generate the polygenic risk score (PRS) for the exposure variable, we perform
 5 ID_5 ID_5 -0.95209579
 6 ID_6 ID_6 -0.02786981
 ~~~
-The covariate for adjustment from the example 
+while the covariates for adjustment as the example used `Qcov_discovery_cov.txt` data frame.
 
 ~~~
-    FID   IID       V3        V4 V5        V6       V7         V8        V9
-1 ID_1 ID_1 0.4147623548 -3.831420 64 -14.03640 5.517420  0.0714337  5.662630
-2 ID_2 ID_2 0.0007767262  0.614044 66 -10.85050 2.119980 -0.8828830 -0.441662
-3 ID_3 ID_3 4.5311826719 -0.237792 55  -9.75369 3.183430 -2.0979300  6.873450
-4 ID_4 ID_4 4.5311826719  6.698660 47  -9.07045 0.956878 -2.4840700  1.063590
-5 ID_5 ID_5 0.9064863904 -1.614230 59 -12.93790 1.294610 -1.7997300  1.444040
-6 ID_6 ID_6 0.0007767262 -4.389270 52 -11.85160 0.888978 -2.7231000  1.116810
-        V10       V11         V12       V13        V14       V15 V16 V17
+   FID   IID   Conf_1 Exposure_square Conf_2 Conf_3 Conf_4 Conf_5    Conf_6
+1 ID_1 ID_1 -3.831420 0.4147623548 64 -14.03640 5.517420  0.0714337  5.662630
+2 ID_2 ID_2  0.614044 0.0007767262 66 -10.85050 2.119980 -0.8828830 -0.441662
+3 ID_3 ID_3 -0.237792 4.5311826719 55  -9.75369 3.183430 -2.0979300  6.873450
+4 ID_4 ID_4  6.698660 4.5311826719 47  -9.07045 0.956878 -2.4840700  1.063590
+5 ID_5 ID_5 -1.614230 0.9064863904 59 -12.93790 1.294610 -1.7997300  1.444040
+6 ID_6 ID_6 -4.389270 0.0007767262 52 -11.85160 0.888978 -2.7231000  1.116810
+   Conf_7    Conf_8     Conf_9     Conf_10    Conf_11   Conf_12  Conf_13 Conf_14
 1  0.865562 -2.269570 -0.09658590 -2.354970  1.0588900  0.195302   0   7
 2 -2.641770  2.789440  0.52458600  2.671340 -2.6372400 -0.998764   1  20
 3 11.377700  2.969610 -1.11879000  0.873649  3.3552300 -4.578310   1  10
 4 -3.132470  2.123200 -0.00976751  0.820582  0.0305345  1.630300   1  20
 5 -6.828980 -2.967950 -2.91577000 -1.828810  7.1589200  2.109160   1  20
 6 -3.646760 -0.594538 -1.75430000 -0.716014 -2.3906700  1.312950   1  10
+
 ~~~
  For GWEIS analyses, the outcome variables 
-
+<div align="justify">To generate both the additive and interaction polygenic risk scores (PRS), we performed a genome-wide environment interaction study (GWEIS) using the GxEprs data framework. When conducting a GWEIS with a quantitative outcome, the input data must follow the same format as required for the GxEprs framework. For reproducibility, the outcome data should be organized in a dedicated file, for example:</div> 'Qphe_discovery.txt'.
  ~~~
-V1   V2      V3
+FID   IID    Outcome
 1 ID_1 ID_1 31.6534
 2 ID_2 ID_2 25.5035
 3 ID_3 ID_3 26.7391
@@ -100,24 +101,24 @@ V1   V2      V3
 5 ID_5 ID_5 26.7165
 6 ID_6 ID_6 38.8272
 ~~~
-GWEIS Exposure variables are 
-
+<div align="justify">The exposure variable and the covariate that used to addust also should look like the following data format as expressed in GxEprs 
+For reproducibility, the exposure and covariate data should be organized in the following file format, for example:</div> 'Qcov_discovery.txt'.
 ~~~
-    V1   V2          V3           V4        V5 V6        V7       V8         V9
+   FID IID   Exposure    Exposure_square Conf_1 Conf_2 Conf_3 Conf_4  Conf_5 
 1 ID_1 ID_1 -0.64402046 0.4147623548 -3.831420 64 -14.03640 5.517420  0.0714337
 2 ID_2 ID_2 -0.02786981 0.0007767262  0.614044 66 -10.85050 2.119980 -0.8828830
 3 ID_3 ID_3  2.12865748 4.5311826719 -0.237792 55  -9.75369 3.183430 -2.0979300
 4 ID_4 ID_4  2.12865748 4.5311826719  6.698660 47  -9.07045 0.956878 -2.4840700
 5 ID_5 ID_5 -0.95209579 0.9064863904 -1.614230 59 -12.93790 1.294610 -1.7997300
 6 ID_6 ID_6 -0.02786981 0.0007767262 -4.389270 52 -11.85160 0.888978 -2.7231000
-        V10       V11       V12         V13       V14        V15       V16 V17
+      Conf_6  Conf_7    Conf_8    Conf_9     Conf_10   Conf_11      Conf_12  Conf_13
 1  5.662630  0.865562 -2.269570 -0.09658590 -2.354970  1.0588900  0.195302   0
 2 -0.441662 -2.641770  2.789440  0.52458600  2.671340 -2.6372400 -0.998764   1
 3  6.873450 11.377700  2.969610 -1.11879000  0.873649  3.3552300 -4.578310   1
 4  1.063590 -3.132470  2.123200 -0.00976751  0.820582  0.0305345  1.630300   1
 5  1.444040 -6.828980 -2.967950 -2.91577000 -1.828810  7.1589200  2.109160   1
 6  1.116810 -3.646760 -0.594538 -1.75430000 -0.716014 -2.3906700  1.312950   1
-  V18
+  Conf_14
 1   7
 2  20
 3  10
@@ -130,7 +131,7 @@ Target data set
 Quantitative outcome should look like 
 
 ~~~
-   V1     V2      V3
+   FID     IID  Outcome
 1 ID_801 ID_801 26.5723
 2 ID_802 ID_802 20.2632
 3 ID_803 ID_803 27.7365
@@ -141,14 +142,14 @@ Quantitative outcome should look like
  The exposure variable for the target dataset should be 
 
  ~~~
-      V1     V2          V3        V4 V5       V6      V7        V8        V9
+   FID   IID      Exposure    Conf_1  Conf_2 Conf_3 Conf_4  Conf_5   Conf_6
 1 ID_801 ID_801 -0.64402046 -3.826590 69 -13.8514 3.96080 -1.788050 0.0692473
 2 ID_802 ID_802 -0.95209579  2.065150 60 -12.2438 4.04169 -0.905739 5.9656000
 3 ID_803 ID_803 -0.02786981 -0.795863 62 -10.9195 6.91985 -2.920880 1.2601900
 4 ID_804 ID_804 -0.64402046 -2.620880 67  -9.9271 4.10960 -2.354540 0.7190210
 5 ID_805 ID_805  0.28020552 -3.331640 67 -11.8637 5.88272  1.072880 2.7448800
 6 ID_806 ID_806  0.89635617  3.252030 61 -11.5364 5.79318 -2.311240 4.5023300
-       V10       V11        V12       V13      V14       V15 V16 V17
+   Conf_7    Conf_8    Conf_9   Conf_10    Conf_11  Conf_12   Conf_13 Conf_14
 1 -6.32556  2.853590  1.0851600 -1.303040  3.41659  1.415770   0   7
 2  8.35545 -1.435760 -0.6181530  0.746918  5.11019 -0.207188   1  19
 3 -5.56624 -0.552624 -0.0756095 -0.910047 -1.33896  1.726360   0   7
@@ -180,9 +181,15 @@ r <- PRS_quantitative(plink_path, "DummyData", summary_input = gxe)
 p <- PRS_quantitative(plink_path, "DummyData", summary_input = trd)
 
 # # Step 4: Run GCIM analysis with automatic saving and scaling
- result <- gcim_q("Qphe_target.txt", "Qexp_target.txt", 
+# $$
+y_t = \beta_1 \hat{g}_y + \beta_2 c_t + \beta_3 \hat{g}_{y_{gxe}} + \beta_4 \left( \hat{g}_{y_{gxe}} \,\odot\, \hat{g}_c \right) + e_y
+$$
+
+ result0 <- gcim_q0("Qphe_target.txt", "Qexp_target.txt", 
                   Add_PRS = q, Int_PRS = r, Cov_PRS = p)
- 
+#
+ result0 <- gcim_q1("Qphe_target.txt", "Qexp_target.txt", 
+                  Add_PRS = q, Int_PRS = r, Cov_PRS = p)
  # Step 5: Access results and processed PRS objects
  print(result$model_summary)
 ~~~
