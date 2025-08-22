@@ -88,10 +88,11 @@ The covariates used for adjustment should be provided in a separate file. Exampl
 4 -3.132470  2.123200 -0.00976751  0.820582  0.0305345  1.630300   1  20
 5 -6.828980 -2.967950 -2.91577000 -1.828810  7.1589200  2.109160   1  20
 6 -3.646760 -0.594538 -1.75430000 -0.716014 -2.3906700  1.312950   1  10
-
 ~~~
+
  For GWEIS analyses, the outcome variables 
 <div align="justify">To generate both the additive and interaction polygenic risk scores (PRS), we performed a genome-wide environment interaction study (GWEIS) using the GxEprs data framework. When conducting a GWEIS with a quantitative outcome, the input data must follow the same format as required for the GxEprs framework. For reproducibility, the outcome data should be organized in a dedicated file, for example:</div> 'Qphe_discovery.txt'.
+
  ~~~
 FID   IID    Outcome
 1 ID_1 ID_1 31.6534
@@ -101,8 +102,10 @@ FID   IID    Outcome
 5 ID_5 ID_5 26.7165
 6 ID_6 ID_6 38.8272
 ~~~
+
 <div align="justify">The exposure variable and the covariate that used to addust also should look like the following data format as expressed in GxEprs 
 For reproducibility, the exposure and covariate data should be organized in the following file format, for example:</div> 'Qcov_discovery.txt'.
+
 ~~~
    FID IID   Exposure    Exposure_square Conf_1 Conf_2 Conf_3 Conf_4  Conf_5 
 1 ID_1 ID_1 -0.64402046 0.4147623548 -3.831420 64 -14.03640 5.517420  0.0714337
@@ -139,6 +142,7 @@ Quantitative outcome should look like
 5 ID_805 ID_805 23.3025
 6 ID_806 ID_806 24.9871
 ~~~
+
  The exposure variable for the target dataset should be 
 
  ~~~
