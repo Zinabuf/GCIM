@@ -1,6 +1,6 @@
 Package: GCIM
 Title: The genetic causality inference model(GCIM) is a statistical method for detecting the causal direction in GxE interaction studies.
-Version: 0.0.1.000
+Version: 0.0.0.9000
 Authors@R: 
     c(person("Zinabu", "Fentaw", , "zfentaw@gmail.com", role = c("aut", "cre", "cph")), person("Dovini", "Jayasinghe", role = c("aut","cph"), 
       email = "dovini.jayasinghe@mymail.unisa.edu.au"), person("Hong", "Lee", role = c("aut","cph"),email = "Hong.Lee@unisa.edu.au"))
