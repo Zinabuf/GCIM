@@ -57,7 +57,8 @@ plink_path <- "<plink_path>/plink2"
 ~~~ 
 
 **Example data**
-<div align="justify">To conduct a GCIM analysis, the input data must follow the same format as required for GxEprs, particularly in the discovery dataset. The only distinction arises in the target dataset, where the squared terms of the exposure variables are not necessary. I've included an example analysis using the accompanying R script below to show the implementation.</div>  
+<div align="justify">To conduct a GCIM analysis, the input data must follow the same format as required for GxEprs, particularly in the discovery dataset. The only distinction arises in the target dataset, where the squared term of the exposure variable is not necessary. I've included an example analysis using the accompanying R script below to show the implementation.
+ ##Note: The squared term of the exposure variable has no role in modeling only for the dataframe, so it can be any value.</div>  
 
 Data structure
 <div align="justify">After splitting the data into two independent subsets, we designated one as the discovery dataset and the other as the target dataset. The discovery dataset contains all necessary inputs, including genotype data, the outcome and exposure phenotypes, as well as covariates used for adjustment. This dataset is used to conduct both GWAS (for the exposure variable) and GWEIS (for the outcome variable). The target dataset, in contrast, is reserved for detecting the direction of GxE interactions using the PRS derived from the analyses in the discovery dataset. 
@@ -268,7 +269,7 @@ library(GCIM)
 plink_path <- "<plink_path>/plink2"
 # Step 1: Run GxEprs analysis for binary traits
 #Note: If the exposure variable is binary, use it as is. If the exposure variable is quantitative, apply the `GWAS_quantitative` function to generate the object `a` specified as described below.
-a <- GWAS_binary(plink_path, "DummyData", "Bcov_discovery_phen.txt", "Bcov_discovery_exp.txt")
+a <- GWAS_binary(plink_path, "DummyData", "Bcov_discovery_phen.txt", "Bcov_discovery_cov.txt")
 b <- GWEIS_binary(plink_path, "DummyData", "Bphe_discovery.txt", "Bcov_discovery.txt")
 
 # Step 2: Extract summary statistics
@@ -347,103 +348,9 @@ Conf_14         -0.209842   0.077039  -2.724  0.00645 **
 Int_PRS:Cov_PRS -0.162503   0.489483  -0.332  0.73990
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
 ~~~
     
-<div align="justify">To evaluate the **reverse direction of causation**, re-analyze the same dataset by switching the roles of the exposure and outcome variables. This means treating the previously defined outcome variable as the new exposure, and the previous exposure variables as the new outcome. Rearrange the data using the same structure and formatting approach used for the proposed causal directions, ensuring consistency across analyses. The only difference should be the reassignment of variable roles.</div>  
-
-For GWAS analyses, the data should be prepared like 
-
-~~~
-      V1     V2 V3
-1   ID_1   ID_1  1
-2  ID_10  ID_10  1
-3 ID_100 ID_100  1
-4 ID_101 ID_101  2
-5 ID_102 ID_102  1
-6 ID_103 ID_103  1
-~~~
-
-The exposure variables for GWAS should be 
-
-~~~
-      V1     V2         V3         V4       V5 V6       V7      V8        V9
-1   ID_1   ID_1 0.62000476  0.7874038 -3.04026 45 -12.0480 2.17634 -0.940322
-2  ID_10  ID_10 0.02716622 -0.1648218 -4.26064 67 -13.9720 4.60617 -4.132670
-3 ID_100 ID_100 0.06735963  0.2595373 -3.75818 60 -13.7169 4.72924  0.696672
-4 ID_101 ID_101 0.04674951 -0.2162164  1.51113 49 -11.6284 5.84781 -1.100270
-5 ID_102 ID_102 2.02783487 -1.4240207 -3.23187 68 -12.1182 2.86926  0.405321
-6 ID_103 ID_103 0.05924497 -0.2434029  3.81645 58 -12.0755 2.45074 -0.181400
-         V10      V11       V12      V13       V14        V15       V16 V17
-1 -0.4463510 -5.45685 -2.531610 -2.13435 -1.956230  -3.827920 -0.380636  10
-2  1.7448900  7.77612 -0.285812  1.11394 -3.279560 -15.311500  3.590800   7
-3 -1.2816200 -7.51913 -1.729600  2.93850 -2.630840   3.709820  2.452090  20
-4  2.1046600 -6.70373 -2.120090 -1.55533 -5.620780   6.883290  5.733580  20
-5  0.0536371 -2.81541 -0.490841  2.77044 -2.807250  -0.815034  4.658500   7
-6  2.0906300  1.12865 -0.946887  1.83857 -0.916254   3.928980  4.353590  10
-~~~
-Outcome for GWEIS
-~~~
- V1   V2 V3
-1 ID_1 ID_1  1
-2 ID_2 ID_2  2
-3 ID_3 ID_3  2
-4 ID_4 ID_4  1
-5 ID_5 ID_5  2
-6 ID_6 ID_6  2"
-~~~
-
-Exposure should also look like 
-
-~~~
-"      V1     V2 V3         V4         V5       V6 V7       V8      V9       V10
-1   ID_1   ID_1  1 0.62000476  0.7874038 -3.04026 45 -12.0480 2.17634 -0.940322
-2  ID_10  ID_10  1 0.02716622 -0.1648218 -4.26064 67 -13.9720 4.60617 -4.132670
-3 ID_100 ID_100  1 0.06735963  0.2595373 -3.75818 60 -13.7169 4.72924  0.696672
-4 ID_101 ID_101  2 0.04674951 -0.2162164  1.51113 49 -11.6284 5.84781 -1.100270
-5 ID_102 ID_102  1 2.02783487 -1.4240207 -3.23187 68 -12.1182 2.86926  0.405321
-6 ID_103 ID_103  1 0.05924497 -0.2434029  3.81645 58 -12.0755 2.45074 -0.181400
-         V11      V12       V13      V14       V15        V16       V17 V18
-1 -0.4463510 -5.45685 -2.531610 -2.13435 -1.956230  -3.827920 -0.380636  10
-2  1.7448900  7.77612 -0.285812  1.11394 -3.279560 -15.311500  3.590800   7
-3 -1.2816200 -7.51913 -1.729600  2.93850 -2.630840   3.709820  2.452090  20
-4  2.1046600 -6.70373 -2.120090 -1.55533 -5.620780   6.883290  5.733580  20
-5  0.0536371 -2.81541 -0.490841  2.77044 -2.807250  -0.815034  4.658500   7
-6  2.0906300  1.12865 -0.946887  1.83857 -0.916254   3.928980  4.353590  10"
-~~~
-
-Target dataset
-
-outcome in the target dataset 
-
-~~~
-     V1     V2 V3
-1 ID_801 ID_801  1
-2 ID_802 ID_802  1
-3 ID_803 ID_803  0
-4 ID_804 ID_804  0
-5 ID_805 ID_805  0
-6 ID_806 ID_806  1
-~~~
-
-Exposure variables in the targetdataset 
-
-~~~
-      V1      V2 V3          V4       V5 V6        V7      V8        V9
-1 ID_1000 ID_1000  0  0.42094546 -2.91833 67 -11.79100 6.19780 -1.364380
-2  ID_801  ID_801  0 -0.42082298 -4.12263 57 -13.51850 5.40198 -4.819940
-3  ID_802  ID_802  1 -0.08055833  2.92534 56 -13.62360 3.21643 -0.856048
-4  ID_803  ID_803  0 -1.32752645 -3.09118 61  -9.94475 3.60562 -0.917639
-5  ID_804  ID_804  0  0.69800724  4.58829 49 -12.54710 4.09467 -2.589510
-6  ID_805  ID_805  1 -0.65798161 -3.53948 56 -12.79500 2.91524 -2.727940
-        V10      V11       V12       V13       V14       V15      V16 V17
-1 -0.445164 -9.70429 -0.671265  2.258490 -2.006960  1.782850 -1.97524  10
-2  0.664494 -4.92217 -0.451329  3.146770  0.427040  0.821306 -2.77705   7
-3  0.750187 -2.01798 -0.350832  5.101410  2.180700 -6.043430  1.78928  19
-4  0.905664 -5.09843 -1.163290 -1.881020 -1.241540  0.699574  2.24420  20
-5  6.068980 12.98220 -0.704179  2.903570 -0.334968  5.042740  0.66175  10
-6  3.615550  3.92957 -2.938990 -0.454737  2.310130  2.517830 -4.15592   7
-~~~
+To evaluate the **reverse causal direction**, re-analyze the same dataset by switching the roles of the exposure and outcome variables. This means treating the previously defined outcome variable as the new exposure, and the previous exposure variables as the new outcome. Rearrange the data using the same structure and formatting approach used for the proposed causal directions as mentioned above, ensuring consistency across analyses. The only difference should be the reassignment of variable roles.
 
 3. Quantitative outcome
 
@@ -455,7 +362,7 @@ library(GCIM)
 plink_path <- "<plink_path>/plink2"
 
 # For quantitative traits, use corresponding functions
-a <- GWAS_quantitative(plink_path, "DummyData", "Qcov_disc_phen.txt", "Qcov_discovery_exp.txt")
+a <- GWAS_quantitative(plink_path, "DummyData", "Qcov_disc_phen.txt", "Qcov_discovery_cov.txt")
 b <- GWEIS_quantitative(plink_path, "DummyData", "Qcov_disc_out.txt", "Qcov_disc_exp.txt")
 
 # Extract and compute PRS
@@ -468,12 +375,18 @@ r <- PRS_quantitative(plink_path, "DummyData", summary_input = gxe)
 p <- PRS_quantitative(plink_path, "DummyData", summary_input = trd)
 
 # # Step 4: Run GCIM analysis with automatic saving and scaling
- result <- gcim_q("Qexp_tar_out.txt", "Qexp_tar_exp.txt", 
+ result0 <- gcim_q0("Qexp_tar_out.txt", "Qexp_tar_exp.txt", 
                   Add_PRS = q, Int_PRS = r, Cov_PRS = p)
- 
+  result1 <- gcim_q1("Qexp_tar_out.txt", "Qexp_tar_exp.txt", 
+                  Add_PRS = q, Int_PRS = r, Cov_PRS = p)
  # Step 5: Access results and processed PRS objects
- print(result$model_summary)
+
 ~~~
+
+~~~
+ print(result0$model_summary)
+~~~
+
 ~~~
 Coefficients:
                  Estimate Std. Error t value Pr(>|t|)
@@ -496,12 +409,39 @@ Conf_12          0.013844   0.038325   0.361   0.7184
 Conf_13         -0.036297   0.141347  -0.257   0.7976
 Conf_14          0.002498   0.014581   0.171   0.8641
 Int_PRS:Cov_PRS  0.067951   0.082968   0.819   0.4139
-
+---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+~~~
 
-Residual standard error: 0.9414 on 181 degrees of freedom
-Multiple R-squared:  0.06849,   Adjusted R-squared:  -0.02415
-F-statistic: 0.7393 on 18 and 181 DF,  p-value: 0.7673
+~~~
+ print(result1$model_summary)
+~~~
+
+~~~
+Coefficients:
+                  Estimate Std. Error t value Pr(>|t|)
+(Intercept)      0.0588418  0.8763433   0.067   0.9465
+Add_PRS          0.6821117  0.6567596   1.039   0.3004
+Int_PRS          0.5977589  0.6543250   0.914   0.3622
+Covariate_Pheno -0.0006245  0.0152351  -0.041   0.9673
+Cov_PRS          0.1214049  0.0759022   1.599   0.1115
+Conf_1           0.0320768  0.0273042   1.175   0.2416
+Conf_2          -0.0044078  0.0084943  -0.519   0.6045
+Conf_3          -0.0323717  0.0479567  -0.675   0.5005
+Conf_4          -0.0463334  0.0468689  -0.989   0.3242
+Conf_5           0.0856096  0.0445610   1.921   0.0563 .
+Conf_6           0.0225979  0.0319764   0.707   0.4807
+Conf_7           0.0020233  0.0142275   0.142   0.8871
+Conf_8           0.0191299  0.0462282   0.414   0.6795
+Conf_9           0.0386541  0.0446481   0.866   0.3878
+Conf_10         -0.0236882  0.0383195  -0.618   0.5372
+Conf_11          0.0119143  0.0175498   0.679   0.4981
+Conf_12          0.0076775  0.0383555   0.200   0.8416
+Conf_13         -0.0582612  0.1414111  -0.412   0.6808
+Conf_14          0.0024458  0.0145183   0.168   0.8664
+Int_PRS:Cov_PRS  0.0546324  0.0830318   0.658   0.5114
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ~~~
 
 4. Binary outcome 
@@ -513,7 +453,7 @@ library(GCIM)
 # Set plink path
 plink_path <- "<plink_path>/plink2"
 # Step 1: Run GxEprs analysis for binary traits
-a <- GWAS_binary(plink_path, "DummyData", "Bcov_discovery_phen.txt", "Bcov_discovery_exp.txt")
+a <- GWAS_binary(plink_path, "DummyData", "Bcov_discovery_phen.txt", "Bcov_discovery_cov.txt")
 b <- GWEIS_binary(plink_path, "DummyData", "Bcov_disc_out1.txt", "Bphe_disc_exp.txt")
 
 # Step 2: Extract summary statistics
@@ -527,10 +467,15 @@ r <- PRS_binary(plink_path, "DummyData", summary_input = gxe)  # Interaction PRS
 p <- PRS_binary(plink_path, "DummyData", summary_input = trd)  # Covariate PRS
 
 # Step 4: Run GCIM analysis with automatic saving and scaling
- result <- gcim_b("Bexp_tar_out.txt", "Bexp_tar_exp.txt", 
+ result0 <- gcim_b0("Bexp_tar_out.txt", "Bexp_tar_exp.txt", 
+                  Add_PRS = q, Int_PRS = r, Cov_PRS = p)
+ result1 <- gcim_b1("Bexp_tar_out.txt", "Bexp_tar_exp.txt", 
                   Add_PRS = q, Int_PRS = r, Cov_PRS = p) 
-# # Step 5: Access results and processed PRS objects
- print(result$model_summary)
+#Step 5: Access results and processed PRS objects
+~~~
+
+~~~
+print(result0$model_summary)
 ~~~
 
 ~~~
@@ -555,13 +500,39 @@ Conf_12          0.02785    0.03838   0.726   0.4681
 Conf_13          0.04458    0.08003   0.557   0.5775
 Conf_14          0.06213    0.03232   1.923   0.0545 .
 Int_PRS:Cov_PRS -0.15908    0.23086  -0.689   0.4908
+---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+~~~
 
-(Dispersion parameter for binomial family taken to be 1)
+~~~
+print(result0$model_summary)
+~~~
 
-    Null deviance: 272.74  on 199  degrees of freedom
-Residual deviance: 247.61  on 181  degrees of freedom
-AIC: 285.61
+~~~
+Coefficients:
+                Estimate Std. Error z value Pr(>|z|)
+(Intercept)     -2.17581    1.77526  -1.226  0.22034
+Add_PRS          0.10961    2.32367   0.047  0.96238
+Int_PRS          0.09498    2.33450   0.041  0.96755
+Covariate_Pheno  1.09816    0.60304   1.821  0.06860 .
+Cov_PRS          0.22051    0.20304   1.086  0.27746
+Conf_1           0.47750    0.17652   2.705  0.00683 **
+Conf_2           0.02046    0.05789   0.353  0.72379
+Conf_3          -0.01125    0.01919  -0.586  0.55778
+Conf_4          -0.14761    0.10779  -1.369  0.17085
+Conf_5          -0.06223    0.12148  -0.512  0.60848
+Conf_6           0.20386    0.10582   1.926  0.05405 .
+Conf_7           0.12744    0.07665   1.663  0.09638 .
+Conf_8          -0.07427    0.03659  -2.030  0.04238 *
+Conf_9           0.08466    0.10168   0.833  0.40506
+Conf_10         -0.06056    0.08616  -0.703  0.48213
+Conf_11          0.08213    0.08885   0.924  0.35531
+Conf_12          0.02502    0.03868   0.647  0.51770
+Conf_13          0.04305    0.08066   0.534  0.59352
+Conf_14          0.06662    0.03273   2.035  0.04181 *
+Int_PRS:Cov_PRS -0.15114    0.23407  -0.646  0.51848
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ~~~
 
 -
