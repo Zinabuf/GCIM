@@ -188,6 +188,7 @@ p <- PRS_quantitative(plink_path, "DummyData", summary_input = trd)
 
 # # Step 4: Run GCIM analysis with automatic saving and scaling
  $$This model specification corresponds to Model 4, as presented in the manuscript.$$
+ The quadratic formula is given by $x = {-b \pm \sqrt {b^2-4ac} \over 2a}$.
  result0 <- gcim_q0("Qphe_target.txt", "Qexp_target.txt", 
                   Add_PRS = q, Int_PRS = r, Cov_PRS = p)
 #This model additionally incorporates the main effect of the PRS for the exposure variable. Details of this specification are provided in the model equation section of the Results. 
