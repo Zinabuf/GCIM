@@ -6,7 +6,7 @@ The **genetic causality inference model (GCIM)** is a statistical method for det
 
 
 
- ## uthors: Zinabu Fentaw, Dovini Jayasinghe, S.Hong Lee
+ ## Authors: Zinabu Fentaw, Dovini Jayasinghe, S.Hong Lee
 
 
 _<div align="justify">GCIM is a novel statistical method that extends beyond traditional PRS×E approaches.
@@ -31,14 +31,14 @@ Or the CRAN version via
 install.packages(GxEprs)
 ~~~
 
-Load the library
+## II. Load the library
 
 ~~~
 library(GxEprs)
 library(GCIM)
 ~~~
 
-**Data Preparation:**
+## III. Data Preparation
 
 To ensure consistent and reliable estimation of G×E, the dataset should be split into two subsets: **a discovery dataset (80%)** and **a target dataset (20%)**. This split should maintain consistency across genetic data, outcome variables, exposure variables, and potential confounders. The genetic data must be in **PLINK binary format**, comprising three files: `.bed`, `.bim`, and `.fam`. The **outcome file** should include `FID`, `IID`, and the outcome variable. For binary outcomes, follow standard coding conventions: use **PLINK’s default coding (1 = Control, 2 = Case)** for the **discovery dataset**, and use **binary coding (0 = Control, 1 = Case)** for the **target dataset**. The **exposure and confounder file for the discovery dataset** should contain at least `m` columns (Minimum of 3) with the following format: `FID`, `IID`, `exposure`, `exposure_squared`, `confounder_1`, ..., `confounder_m`. Note that **exposure-squared is not required** in the **target dataset**. Additionally, for conducting a genome-wide association study (GWAS) of the exposure variable in the discovery dataset (for use in computing the Polygenic Risk Score of the exposure), the exposure data should also be formatted separately as:
 
@@ -49,14 +49,6 @@ This standardized format ensures that all variables, such as genetic, exposure, 
 All GWAS, GWEIS, and polygenic risk score (PRS) construction steps are performed using the [GxEprs](https://github.com/DoviniJ/GxEprs) R package 
 , while the regression analyses for both binary and quantitative outcomes are conducted using the GCIM R package. 
 
-A Guide for GCIM analyses
-
-GCIM analyses use PLink2 to analyze discovery data. 
-1. Download plink2 software from the [Plink](https://www.cog-genomics.org/plink/2.0/) website and then specify the executable Plink software path.
-   
-~~~
-plink_path <- "<plink_path>/plink2"
-~~~ 
 
 **Example data**
 <div align="justify">To conduct a GCIM analysis, the input data must follow the same format as required for GxEprs, particularly in the discovery dataset. The only distinction arises in the target dataset, where the squared term of the exposure variable is not necessary. I've included an example analysis using the accompanying R script below to show the implementation.
@@ -167,7 +159,17 @@ The quantitative outcome data should be organized in a separate file, for exampl
 6  1.53227 -1.898840 -0.6726290  0.826352  4.01520  0.972757   1   7
 ~~~
 
-1. Quantitative outcome
+
+## IV. Analysis workflow
+
+GCIM analyses use PLink2 to analyze discovery data. 
+1. Download plink2 software from the [Plink](https://www.cog-genomics.org/plink/2.0/) website and then specify the executable Plink software path.
+   
+~~~
+plink_path <- "<plink_path>/plink2"
+~~~ 
+### 1. proposed causal direction 
+#### 1.1. Quantitative outcome 
    
  ~~~
 # Load required libraries
@@ -260,7 +262,7 @@ Int_PRS:Cov_PRS  0.048590   0.435383   0.112  0.91126
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ~~~
 
- 2. Binary outcome 
+#### 1.2. Binary outcome 
 The same data frames and analyses pipeline should be applied as used for the quantitative data presented above.
  
 ~~~
@@ -351,10 +353,12 @@ Int_PRS:Cov_PRS -0.162503   0.489483  -0.332  0.73990
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ~~~
-    
+
+ ### 2. Reverse causal direction
+ 
 To evaluate the **reverse causal direction**, re-analyze the same dataset by switching the roles of the exposure and outcome variables. This means treating the previously defined outcome variable as the new exposure, and the previous exposure variables as the new outcome. Rearrange the data using the same structure and formatting approach used for the proposed causal directions as mentioned above, ensuring consistency across analyses. The only difference should be the reassignment of variable roles.
 
-3. Quantitative outcome
+#### 2.1. Quantitative outcome
 
 ~~~
 # Load required libraries
@@ -446,7 +450,7 @@ Int_PRS:Cov_PRS  0.0546324  0.0830318   0.658   0.5114
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ~~~
 
-4. Binary outcome 
+#### 2.2 Binary outcome 
 
 ~~~
 # Load required libraries
