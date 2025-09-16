@@ -56,11 +56,11 @@ All GWAS, GWEIS, and polygenic risk score (PRS) construction steps are performed
 
 Data structure
 <div align="justify">After splitting the data into two independent subsets, we designated one as the discovery dataset and the other as the target dataset. The discovery dataset contains all necessary inputs, including genotype data, the outcome and exposure phenotypes, as well as covariates used for adjustment. This dataset is used to conduct both GWAS (for the exposure variable) and GWEIS (for the outcome variable). The target dataset, in contrast, is reserved for detecting the direction of GxE interactions using the PRS derived from the analyses in the discovery dataset. 
- To construct PRS for the exposure variable, we first performed a GWAS on the quantitative exposure phenotype, adopting the same input data format required by the GxEprs framework. In this procedure, the exposure is treated as the outcome variable in the GWAS to obtain SNP effect estimates. For reproducibility, the exposure and covariates should be stored in a separate file. Example:</div> 'Qcov_discovery_phen.txt'.
+ To construct PRS for the exposure variable, we first performed a GWAS on the quantitative exposure phenotype, adopting the same input data format required by the GxEprs framework. In this procedure, the exposure is treated as the outcome variable in the GWAS to obtain SNP effect estimates. For reproducibility, the exposure and covariates should be stored in a separate file. Example:</div> 'Qexp_disc.txt'.
  
 ~~~
   FID  IID   Exposure
-1 ID_1 ID_1 -0.64402046
+ ID_1 ID_1 -0.64402046
 2 ID_2 ID_2 -0.02786981
 3 ID_3 ID_3  2.12865748
 4 ID_4 ID_4  2.12865748
@@ -68,27 +68,28 @@ Data structure
 6 ID_6 ID_6 -0.02786981
 ~~~
 
-The covariates used for adjustment should be provided in a separate file. Example `Qcov_discovery_cov.txt`
+The covariates used for adjustment should be provided in a separate file. Example `Qcov_disc.txt`
 
 ~~~
-   FID   IID   Conf_1 Exposure_square Conf_2 Conf_3 Conf_4 Conf_5    Conf_6
+   FID   IID   cov_1 Exposure_square cov_2  cov_3  cov_4  cov_5   cov_6
 1 ID_1 ID_1 -3.831420 0.4147623548 64 -14.03640 5.517420  0.0714337  5.662630
 2 ID_2 ID_2  0.614044 0.0007767262 66 -10.85050 2.119980 -0.8828830 -0.441662
 3 ID_3 ID_3 -0.237792 4.5311826719 55  -9.75369 3.183430 -2.0979300  6.873450
 4 ID_4 ID_4  6.698660 4.5311826719 47  -9.07045 0.956878 -2.4840700  1.063590
 5 ID_5 ID_5 -1.614230 0.9064863904 59 -12.93790 1.294610 -1.7997300  1.444040
 6 ID_6 ID_6 -4.389270 0.0007767262 52 -11.85160 0.888978 -2.7231000  1.116810
-   Conf_7    Conf_8     Conf_9     Conf_10    Conf_11   Conf_12  Conf_13 Conf_14
+   cov_7    cov_8     cov_9     cov_10    cov_11    cov_12 cov_13 cov_14 
 1  0.865562 -2.269570 -0.09658590 -2.354970  1.0588900  0.195302   0   7
 2 -2.641770  2.789440  0.52458600  2.671340 -2.6372400 -0.998764   1  20
 3 11.377700  2.969610 -1.11879000  0.873649  3.3552300 -4.578310   1  10
 4 -3.132470  2.123200 -0.00976751  0.820582  0.0305345  1.630300   1  20
 5 -6.828980 -2.967950 -2.91577000 -1.828810  7.1589200  2.109160   1  20
 6 -3.646760 -0.594538 -1.75430000 -0.716014 -2.3906700  1.312950   1  10
+
 ~~~
 
  For GWEIS analyses, the outcome variables 
-<div align="justify">To generate both the additive and interaction polygenic risk scores (PRS), we performed a genome-wide environment interaction study (GWEIS) using the GxEprs data framework. When conducting a GWEIS with a quantitative outcome, the input data must follow the same format as required for the GxEprs framework. For reproducibility, the outcome data should be organized in a dedicated file, for example:</div> 'Qphe_discovery.txt'.
+<div align="justify">To generate both the additive and interaction polygenic risk scores (PRS), we performed a genome-wide environment interaction study (GWEIS) using the GxEprs data framework. When conducting a GWEIS with a quantitative outcome, the input data must follow the same format as required for the GxEprs framework. For reproducibility, the outcome data should be organized in a dedicated file, for example:</div> 'Qphen_disc.txt'.
 
  ~~~
 FID   IID    Outcome
@@ -101,7 +102,7 @@ FID   IID    Outcome
 ~~~
 
 <div align="justify">The exposure variable and the covariate that used to addust also should look like the following data format as expressed in GxEprs 
-For reproducibility, the exposure and covariate data should be organized in the following file format, for example:</div> 'Qcov_discovery.txt'.
+For reproducibility, the exposure and covariate data should be organized in the following file format, for example:</div> 'Qexp_dis_cov.txt'.
 
 ~~~
    FID IID   Exposure    Exposure_square Conf_1 Conf_2 Conf_3 Conf_4  Conf_5 
@@ -128,7 +129,7 @@ For reproducibility, the exposure and covariate data should be organized in the 
 ~~~
 
 Target data set 
-The quantitative outcome data should be organized in a separate file, for example: `Qphe_target.txt`
+The quantitative outcome data should be organized in a separate file, for example: `Qphen_tar.txt`
 
 ~~~
    FID     IID  Outcome
@@ -140,7 +141,7 @@ The quantitative outcome data should be organized in a separate file, for exampl
 6 ID_806 ID_806 24.9871
 ~~~
 
- The exposure variable and other covariates for the adjustments are for the target dataset and should be provided in a separate file, for example: `Qexp_target.tx`
+ The exposure variable and other covariates for the adjustments are for the target dataset and should be provided in a separate file, for example: `Qexp_tar_cov.txt`
 
  ~~~
    FID   IID      Exposure    Conf_1  Conf_2 Conf_3 Conf_4  Conf_5   Conf_6
