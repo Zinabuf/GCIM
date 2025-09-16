@@ -25,12 +25,6 @@ install_github("DoviniJ/GxEprs")
 install_github("Zinabuf/GCIM")
 ~~~
 
-Or the CRAN version via
-
-~~~
-install.packages(GxEprs)
-~~~
-
 ## II. Load the library
 
 ~~~
