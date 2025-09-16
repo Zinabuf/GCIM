@@ -6,7 +6,7 @@ The **genetic causality inference model (GCIM)** is a statistical method for det
 
 
 
- ## Authors: Zinabu Fentaw, Dovini Jayasinghe, S.Hong Lee
+ #### Authors: Zinabu Fentaw, Dovini Jayasinghe, S.Hong Lee
 
 
 _<div align="justify">GCIM is a novel statistical method that extends beyond traditional PRS×E approaches.
