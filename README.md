@@ -179,8 +179,8 @@ library(GCIM)
 plink_path <- "<plink_path>/plink2"
 
 # For quantitative traits, use corresponding functions
-a <- GWAS_quantitative(plink_path, "DummyData", "Qcov_discovery_phen.txt", "Qcov_discovery_cov.txt")
-b <- GWEIS_quantitative(plink_path, "DummyData", "Qphe_discovery.txt", "Qcov_discovery.txt")
+a <- GWAS_quantitative(plink_path, "DummyData", "Qexp_disc.txt", "Qcov_disc.txt")
+b <- GWEIS_quantitative(plink_path, "DummyData", "Qphen_disc.txt", "Qexp_dis_cov.txt")
 
 # Extract and compute PRS
 trd <- a[c("ID", "A1", "BETA")]
@@ -193,10 +193,10 @@ p <- PRS_quantitative(plink_path, "DummyData", summary_input = trd)
 
 # Step 4: Run GCIM analysis with automatic saving and scaling
 # This model specification corresponds to Model 4, as presented in the manuscript.
- result0 <- gcim_q0("Qphe_target.txt", "Qexp_target.txt", 
+result1 <- gcim_q0("Qphen_tar.txt", "Qexp_tar_cov.txt", 
                   Add_PRS = q, Int_PRS = r, Cov_PRS = p)
 #This model additionally incorporates the main effect of the PRS for the exposure variable. Details of this specification are provided in the model equation section of the Results. 
- result1 <- gcim_q1("Qphe_target.txt", "Qexp_target.txt", 
+ result2 <- gcim_q1("Qphen_tar.txt", "Qexp_tar_cov.txt", 
                   Add_PRS = q, Int_PRS = r, Cov_PRS = p)
  # Step 5: Access results and processed PRS objects
 ~~~
@@ -273,8 +273,8 @@ library(GCIM)
 plink_path <- "<plink_path>/plink2"
 # Step 1: Run GxEprs analysis for binary traits
 #Note: If the exposure variable is binary, use it as is. If the exposure variable is quantitative, apply the `GWAS_quantitative` function to generate the object `a` specified as described below.
-a <- GWAS_binary(plink_path, "DummyData", "Bcov_discovery_phen.txt", "Bcov_discovery_cov.txt")
-b <- GWEIS_binary(plink_path, "DummyData", "Bphe_discovery.txt", "Bcov_discovery.txt")
+a <- GWAS_binary(plink_path, "DummyData", "Bexp_disc.txt", "Bcov_disc.txt")
+b <- GWEIS_binary(plink_path, "DummyData", "Bphen_disc.txt", "Bexp_disc_cov.txt")
 
 # Step 2: Extract summary statistics
 trd <- a[c("ID", "A1", "BETA")]
@@ -289,10 +289,10 @@ r <- PRS_binary(plink_path, "DummyData", summary_input = gxe)  # Interaction PRS
 
 
 # Step 4: Run GCIM analysis with automatic saving and scaling
- result0 <- gcim_b0("Bphe_target.txt", "Bexp_target.txt", 
-                  Add_PRS = q, Int_PRS = r, Cov_PRS = p)
- result1 <- gcim_b1("Bphe_target.txt", "Bexp_target.txt", 
+ result1 <- gcim_b0("Bphen_tar.txt", "Bexp_tar_cov.txt", 
                   Add_PRS = q, Int_PRS = r, Cov_PRS = p) 
+ result2 <- gcim_b1("Bphen_tar.txt", "Bexp_tar_cov.txt", 
+                  Add_PRS = q, Int_PRS = r, Cov_PRS = p)
 # # Step 5: Access results and processed PRS objects
  print(result0$model_summary)
 ~~~
@@ -368,8 +368,8 @@ library(GCIM)
 plink_path <- "<plink_path>/plink2"
 
 # For quantitative traits, use corresponding functions
-a <- GWAS_quantitative(plink_path, "DummyData", "Qcov_disc_phen.txt", "Qcov_discovery_cov.txt")
-b <- GWEIS_quantitative(plink_path, "DummyData", "Qcov_disc_out.txt", "Qcov_disc_exp.txt")
+a <- GWAS_quantitative(plink_path, "DummyData", "Qphen_disc.txt", "Qcov_disc.txt")
+b <- GWEIS_quantitative(plink_path, "DummyData", "Qexp_disc.txt", "Qphen_disc_cov.txt")
 
 # Extract and compute PRS
 trd <- a[c("ID", "A1", "BETA")]
@@ -381,9 +381,9 @@ r <- PRS_quantitative(plink_path, "DummyData", summary_input = gxe)
 p <- PRS_quantitative(plink_path, "DummyData", summary_input = trd)
 
 # # Step 4: Run GCIM analysis with automatic saving and scaling
- result0 <- gcim_q0("Qexp_tar_out.txt", "Qexp_tar_exp.txt", 
+ result0 <- gcim_q0("Qexp_tar.txt", "Qphen_tar_cov.txt", 
                   Add_PRS = q, Int_PRS = r, Cov_PRS = p)
-  result1 <- gcim_q1("Qexp_tar_out.txt", "Qexp_tar_exp.txt", 
+ result1 <- gcim_q1("Qexp_tar.txt", "Qphen_tar_cov.txt", 
                   Add_PRS = q, Int_PRS = r, Cov_PRS = p)
  # Step 5: Access results and processed PRS objects
 
@@ -459,8 +459,8 @@ library(GCIM)
 # Set plink path
 plink_path <- "<plink_path>/plink2"
 # Step 1: Run GxEprs analysis for binary traits
-a <- GWAS_binary(plink_path, "DummyData", "Bcov_discovery_phen.txt", "Bcov_discovery_cov.txt")
-b <- GWEIS_binary(plink_path, "DummyData", "Bcov_disc_out1.txt", "Bphe_disc_exp.txt")
+a <- GWAS_binary(plink_path, "DummyData", "Bphen_disc.txt", "Bcov_disc.txt")
+b <- GWEIS_binary(plink_path, "DummyData", "Bexp_disc.txt", "Bphen_disc_cov.txt")
 
 # Step 2: Extract summary statistics
 trd <- a[c("ID", "A1", "BETA")]
@@ -473,10 +473,10 @@ r <- PRS_binary(plink_path, "DummyData", summary_input = gxe)  # Interaction PRS
 p <- PRS_binary(plink_path, "DummyData", summary_input = trd)  # Covariate PRS
 
 # Step 4: Run GCIM analysis with automatic saving and scaling
- result0 <- gcim_b0("Bexp_tar_out.txt", "Bexp_tar_exp.txt", 
-                  Add_PRS = q, Int_PRS = r, Cov_PRS = p)
- result1 <- gcim_b1("Bexp_tar_out.txt", "Bexp_tar_exp.txt", 
+ result0 <- gcim_b0("Bexp_tar.txt", "Bphen_tar_cov.txt", 
                   Add_PRS = q, Int_PRS = r, Cov_PRS = p) 
+ result1 <- gcim_b1("Bexp_tar.txt", "Bphen_tar_cov.txt", 
+                  Add_PRS = q, Int_PRS = r, Cov_PRS = p)
 #Step 5: Access results and processed PRS objects
 ~~~
 
