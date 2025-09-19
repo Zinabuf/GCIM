@@ -14,7 +14,7 @@ _<div align="justify">GCIM is a novel statistical method that extends beyond tra
     on the assumptions of prior causal directions. By explicitly testing both directions, GCIM offers researchers
     data-driven insight into the likely causal directions of GxE interactions.</div>_
 
-_<div align="justify">NB: The proposed direction of causation refers to the hypothesized G×E interaction in which the exposure affects the outcome, aligning with the researcher’s primary interest. In contrast, the reverse direction test evaluates the opposite relationship, switching the roles of exposure and outcome to assess whether the assumed causal direction is valid. Once the data has been properly prepared, begin by testing the causal direction based on the proposed direction of interest, that is the direction specified by the researcher. After this primary analysis, assess the reverse causal direction by switching the roles of the exposure and outcome variables in both the discovery and target datasets. This involves treating the original outcome as the exposure and the original exposure as the outcome, ensuring consistency in data structure and formatting across both analyses.</div>_
+_<div align="justify">NB: The proposed direction of causation refers to the hypothesized G×E interaction in which the exposure affects the outcome, aligning with the researcher’s primary interest. In contrast, the reverse direction test evaluates the opposite relationship, switching the roles of exposure and outcome to assess whether the assumed causal direction is valid. Once the data has been properly prepared, begin by testing the causal direction based on the proposed direction of interest, that is, the direction specified by the researcher. After this primary analysis, assess the reverse causal direction by switching the roles of the exposure and outcome variables in both the discovery and target datasets. This involves treating the original outcome as the exposure and the original exposure as the outcome, ensuring consistency in data structure and formatting across both analyses.</div>_
    
 ## I. Package installation 
 From GitHub 
@@ -33,13 +33,98 @@ library(GCIM)
 ~~~
 
 ## III. Data Preparation
+ 
+To ensure consistent and reliable estimation of G×E, the dataset should be split into two independent and non-overlapping subsets: a **discovery dataset (80%)** and a **target dataset (20%)**. This split should maintain consistency across genetic data, outcome variables, exposure variables, and potential confounders. 
 
-To ensure consistent and reliable estimation of G×E, the dataset should be split into two subsets: **a discovery dataset (80%)** and **a target dataset (20%)**. This split should maintain consistency across genetic data, outcome variables, exposure variables, and potential confounders. The genetic data must be in **PLINK binary format**, comprising three files: `.bed`, `.bim`, and `.fam`. The **outcome file** should include `FID`, `IID`, and the outcome variable. For binary outcomes, follow standard coding conventions: use **PLINK’s default coding (1 = Control, 2 = Case)** for the **discovery dataset**, and use **binary coding (0 = Control, 1 = Case)** for the **target dataset**. The **exposure and confounder file for the discovery dataset** should contain at least `m` columns (Minimum of 3) with the following format: `FID`, `IID`, `exposure`, `exposure_squared`, `confounder_1`, ..., `confounder_m`. Note that **exposure-squared is not required** in the **target dataset**. Additionally, for conducting a genome-wide association study (GWAS) of the exposure variable in the discovery dataset (for use in computing the Polygenic Risk Score of the exposure), the exposure data should also be formatted separately as:
+#### Genotype data 
+The genetic data must be in **PLINK binary format**, comprising three files: `.bed`, `.bim`, and `.fam`. The **outcome file** should include `FID`, `IID`, and the outcome variable. For binary outcomes, follow standard coding conventions: use **PLINK’s default coding (1 = Control, 2 = Case)** for the **discovery dataset**, and use **binary coding (0 = Control, 1 = Case)** for the **target dataset**.
+DummyData.fam: This is a file associated with the PLINK binary format file, which contains the following columns in order. The example dataset has 1,000 individuals. Note that the file has no column headings. This follows the PLINK .fam file format.
+family ID (FID)
+individual ID (IID)
+father's ID
+mother's ID
+sex
+phenotype value
+
+~~~
+1 ID_1 ID_1  0  0  1 -9
+2 ID_2 ID_2  0  0  2 -9
+3 ID_3 ID_3  0  0  2 -9
+4 ID_4 ID_4  0  0  2 -9
+5 ID_5 ID_5  0  0  1 -9
+6 ID_6 ID_6  0  0  1 -9
+~~~
+
+DummyData.fam:  This is is a file associated with the PLINK binary format file which contains the following columns in order. The example dataset has 1,000 SNPs. Note that the file has no column headings. This follows the PLINK .bim file format
+chromosome code
+SNP ID
+position of centimorgans
+base-pair coordinate
+minor allele
+reference allele
+
+~~~
+  1 SNP_1  0  768448  A  G
+2  1 SNP_2  0  853954  C  A
+3  1 SNP_4  0  940203  A  G
+4  1 SNP_5  0  987670  T  G
+5  1 SNP_6  0 1021695  A  G
+6  1 SNP_7  0 1053452  A  G
+~~~
+
+DummyData.bed: This is the PLINK binary format file, which includes genotype information. This follows the PLINK .bed file format.
+
+### A. Discovery input files
+
+**Qphen_disc.txt**: This is a .txt file which contains the following columns in order. The discovery dataset has 800 individuals. Note that the file has no column headings.
+FID
+IID
+quantitative outcome
+
+ ~~~
+FID   IID    Outcome
+1 ID_1 ID_1 31.6534
+2 ID_2 ID_2 25.5035
+3 ID_3 ID_3 26.7391
+4 ID_4 ID_4 25.5271
+5 ID_5 ID_5 26.7165
+6 ID_6 ID_6 38.8272
+~~~
+
+**Qexp_dis_cov.txt**: This is a .txt file which contains the following columns in order. The discovery dataset has 800 individuals. Note that the file has no column heading. 
+FID
+IID
+standardized covariate
+constant values (Note: This is the input data format for GxEprs, if not specified, the mode will omit the variable specified in the fourth column.)
+14 confounders of the discovery sample (Note: These columns are optional. Can use any number of columns as confounders to adjust the phenotype upon user requirement.)
+
+~~~
+   FID IID   Exposure   constant_value Conf_1 Conf_2 Conf_3 Conf_4  Conf_5 Conf_6
+1 ID_1 ID_1 -0.64402046  2 -3.831420 64 -14.03640 5.517420  0.0714337  5.662630
+2 ID_2 ID_2 -0.02786981  2  0.614044 66 -10.85050 2.119980 -0.8828830 -0.441662
+3 ID_3 ID_3  2.12865748  2 -0.237792 55  -9.75369 3.183430 -2.0979300  6.873450
+4 ID_4 ID_4  2.12865748  2  6.698660 47  -9.07045 0.956878 -2.4840700  1.063590
+5 ID_5 ID_5 -0.95209579  2 -1.614230 59 -12.93790 1.294610 -1.7997300  1.444040
+6 ID_6 ID_6 -0.02786981  2 -4.389270 52 -11.85160 0.888978 -2.7231000  1.116810
+      Conf_7  Conf_8    Conf_9    Conf_10     Conf_11   Conf_12  Conf_13  Conf_14
+1  0.865562 -2.269570 -0.09658590 -2.354970  1.0588900  0.195302   0   7
+2 -2.641770  2.789440  0.52458600  2.671340 -2.6372400 -0.998764   1  20
+3 11.377700  2.969610 -1.11879000  0.873649  3.3552300 -4.578310   1  10
+4 -3.132470  2.123200 -0.00976751  0.820582  0.0305345  1.630300   1  20
+5 -6.828980 -2.967950 -2.91577000 -1.828810  7.1589200  2.109160   1  20
+6 -3.646760 -0.594538 -1.75430000 -0.716014 -2.3906700  1.312950   1  10
+
+~~~
+
+
+The **Covariate and confounder file for the discovery dataset** should contain at least `m` columns (Minimum of 4) with the following format: `FID`, `IID`, `Exposure`, `Constant_value`, `Confounder_1`, ..., `Confounder_m`. Note that **Constant-value is the input format for GxEprs 4th column for the standardized coivariate square**.
+
+Additionally, for conducting a genome-wide association study (GWAS) of the exposure variable in the discovery dataset (for use in computing the Polygenic Risk Score of the exposure), the exposure data should also be formatted separately as:
 
 * `FID`, `IID`, and **exposure values**
 * A covariate file in the format: `FID`, `IID`, `confounder_1`, `exposure_square`, `confounder_2`, ..., `confounder_m`
 
-This standardized format ensures that all variables, such as genetic, exposure, outcome, and confounders are properly aligned across discovery and target datasets, facilitating valid and replicable G×E interaction analysis.
+This standardized format ensures that all variables, such as genetic, exposure, outcome, and confounders, are properly aligned across discovery and target datasets, facilitating valid and replicable G×E interaction analysis.
 All GWAS, GWEIS, and polygenic risk score (PRS) construction steps are performed using the [GxEprs](https://github.com/DoviniJ/GxEprs) R package 
 , while the regression analyses for both binary and quantitative outcomes are conducted using the GCIM R package. 
 
