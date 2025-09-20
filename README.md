@@ -56,7 +56,8 @@ phenotype value
 6 ID_6 ID_6  0  0  1 -9
 ~~~
 
-**DummyData.fam:**  This is a file associated with the PLINK binary format file, which contains the following columns in order. The example dataset has 1,000 SNPs. Note that the file has no column headings. This follows the PLINK .bim file format
+**DummyData.bim:**  This is a file associated with the PLINK binary format file, which contains the following columns in order. The example dataset has 1,000 SNPs. Please note that the file does not have column headings. This follows the PLINK .bim file format
+
 chromosome code
 SNP ID
 position of centimorgans
@@ -76,15 +77,16 @@ reference allele
 **DummyData.bed:** This is the PLINK binary format file, which includes genotype information. This follows the PLINK .bed file format.
 ## 1. Proposed direction. 
 
- _<div align="justify">The **proposed direction** of causation refers to the hypothesized G×E interaction in which the exposure affects the outcome, aligning with the researcher’s primary interest. Once the data has been properly prepared, begin by testing the causal direction based on the proposed direction of interest, that is, the direction specified by the researcher.</div>_
+ _<div align="justify">The **proposed direction** causal direction refers to the hypothesized G×E interaction in which the exposure affects the outcome, aligning with the researcher’s primary interest. The data should be carefully prepared and evaluated to test the causal direction according to the researcher’s specified hypothesis of interest.</div>_
  
 ### 1.1.. Discovery input files
 The **outcome file** should include `FID`, `IID`, and the outcome variable. For binary outcomes, follow standard coding conventions: use **PLINK’s default coding (1 = Control, 2 = Case)** in the **discovery dataset**.
 
-**Qphen_disc.txt**: This is a .txt file containing the following columns in the specified order. The discovery dataset has 800 individuals. Please note that the file does not have column headings. To generate both the additive and interaction polygenic risk scores (PRS), we performed a **genome-wide environment interaction study (GWEIS)** using the GxEprs data framework. When conducting a GWEIS with a quantitative outcome, the input data must follow the same format as required for the GxEprs framework. For reproducibility, the outcome data should be organized in a dedicated file, for example:
+**Qphen_disc.txt**: This is a .txt file containing the following columns in the specified order. The discovery dataset has 800 individuals. Please note that the file does not have column headings. To generate both the additive and interaction polygenic risk scores (PRS), we performed a **genome-wide environment interaction study (GWEIS)**. When conducting a GWEIS with a quantitative outcome, the input data must follow the same format as required for the GxEprs input data format. Therefore, the file `Qphen_disc.txt` will have the following essential column:
+
 FID
 IID
-quantitative outcome
+Outcome
 
  ~~~
 FID   IID    Outcome
@@ -97,10 +99,11 @@ FID   IID    Outcome
 ~~~
 
 **Qexp_dis_cov.txt**: This is a .txt file containing the following columns in the specified order. The discovery dataset has 800 individuals. Note that the file has no column heading. The exposure variable and the covariate that are used to adjust the data frame, as expressed in GxEprs. 
+
 FID
 IID
 standardized covariate
-constant values (Note: This is the input data format for GxEprs; if not specified, the mode will omit the variable specified in the fourth column.)
+constant values (Note: This is the input data format for GxEprs; if not specified, the mode will omit the variable specified in the fourth column. This column is not mandatory for binary outcome)
 14 confounders of the discovery sample (Note: These columns are optional. Can use any number of columns as confounders to adjust the phenotype upon user requirement.)
 
 ~~~
@@ -131,6 +134,7 @@ constant values (Note: This is the input data format for GxEprs; if not specifie
 5 ID_5 ID_5 -0.95209579
 6 ID_6 ID_6 -0.02786981
 ~~~
+
 **Qcov_disc.txt:** The covariates used for adjustment **GWAS** should be provided in a separate file. 
 
 ~~~
@@ -153,6 +157,7 @@ constant values (Note: This is the input data format for GxEprs; if not specifie
 ### 1.2. Target input files
 
 The **outcome file** should include `FID`, `IID`, and the outcome variable. For binary outcomes, use **binary coding (0 = Control, 1 = Case)** in the **target dataset**.
+
 **Qphen_tar.txt:** This is a .txt file which contains the following columns in order. The target dataset has 200 individuals who are independent from the discovery dataset. Please note that the file does not have column headings.
 
 ~~~
@@ -164,7 +169,8 @@ The **outcome file** should include `FID`, `IID`, and the outcome variable. For 
 5 ID_805 ID_805 23.3025
 6 ID_806 ID_806 24.9871
 ~~~
-**Qexp_tar_cov.txt:** The exposure variable and other covariates for the adjustments are for the target dataset and should be provided in a separate file. 
+
+**Qexp_tar_cov.txt:** This file should contain the exposure variable along with covariates for adjustment in the target dataset, provided separately from other inputs.
 
 ~~~
   FID   IID      Exposure    Conf_1  Conf_2 Conf_3 Conf_4  Conf_5   Conf_6
@@ -183,9 +189,9 @@ The **outcome file** should include `FID`, `IID`, and the outcome variable. For 
 6  1.53227 -1.898840 -0.6726290  0.826352  4.01520  0.972757   1   7
 ~~~
 
-## 2. Reverse direction. 
+## 2. Reverse causal direction. 
 
- _<div align="justify">The reverse direction test evaluates the opposite relationship, switching the roles of exposure and outcome to assess whether the assumed causal direction is valid. After this primary analysis, assess the reverse causal direction by switching the roles of the exposure and outcome variables in both the discovery and target datasets. This involves treating the original outcome as the exposure and the original exposure as the outcome, ensuring consistency in data structure and formatting across both analyses.</div>_
+ _<div align="justify">The reverse causal direction test assesses the validity of the assumed causal relationship by switching the roles of exposure and outcome. Following the primary analysis in the proposed causal direction, the reverse test is conducted to verify the possible causal direction, with the original outcome treated as the exposure and the original exposure treated as the outcome. Consistency in data structure and formatting should be maintained across analyses.</div>_
  
  ### 2.1.. Discovery input files
  
