@@ -14,7 +14,6 @@ _<div align="justify">GCIM is a novel statistical method that extends beyond tra
     on the assumptions of prior causal directions. By explicitly testing both directions, GCIM offers researchers
     data-driven insight into the likely causal directions of GxE interactions.</div>_
 
-_<div align="justify">NB: The proposed direction of causation refers to the hypothesized G×E interaction in which the exposure affects the outcome, aligning with the researcher’s primary interest. In contrast, the reverse direction test evaluates the opposite relationship, switching the roles of exposure and outcome to assess whether the assumed causal direction is valid. Once the data has been properly prepared, begin by testing the causal direction based on the proposed direction of interest, that is, the direction specified by the researcher. After this primary analysis, assess the reverse causal direction by switching the roles of the exposure and outcome variables in both the discovery and target datasets. This involves treating the original outcome as the exposure and the original exposure as the outcome, ensuring consistency in data structure and formatting across both analyses.</div>_
    
 ## I. Package installation 
 From GitHub 
@@ -77,7 +76,7 @@ reference allele
 
  _<div align="justify">The **proposed direction** of causation refers to the hypothesized G×E interaction in which the exposure affects the outcome, aligning with the researcher’s primary interest. Once the data has been properly prepared, begin by testing the causal direction based on the proposed direction of interest, that is, the direction specified by the researcher.</div>_
  
-### A. Discovery input files
+### 1.1.. Discovery input files
 The **outcome file** should include `FID`, `IID`, and the outcome variable. For binary outcomes, follow standard coding conventions: use **PLINK’s default coding (1 = Control, 2 = Case)** in the **discovery dataset**.
 
 **Qphen_disc.txt**: This is a .txt file containing the following columns in the specified order. The discovery dataset has 800 individuals. Please note that the file does not have column headings. To generate both the additive and interaction polygenic risk scores (PRS), we performed a **genome-wide environment interaction study (GWEIS)** using the GxEprs data framework. When conducting a GWEIS with a quantitative outcome, the input data must follow the same format as required for the GxEprs framework. For reproducibility, the outcome data should be organized in a dedicated file, for example:
@@ -117,8 +116,8 @@ constant values (Note: This is the input data format for GxEprs; if not specifie
 4 -3.132470  2.123200 -0.00976751  0.820582  0.0305345  1.630300   1  20
 5 -6.828980 -2.967950 -2.91577000 -1.828810  7.1589200  2.109160   1  20
 6 -3.646760 -0.594538 -1.75430000 -0.716014 -2.3906700  1.312950   1  10
-
 ~~~
+
 **Qexp_disc.txt:** To construct PRS for the exposure variable, we first performed a GWAS on the quantitative exposure phenotype, adopting the same input data format required by the GxEprs framework. In this procedure, the exposure is treated as the outcome variable in the GWAS to obtain SNP effect estimates.
 
 ~~~
@@ -149,7 +148,7 @@ constant values (Note: This is the input data format for GxEprs; if not specifie
 6 -0.594538 -1.75430000 -0.716014 -2.3906700  1.312950   1  10
 ~~~
 
-### A. Target input files
+### 1.2. Target input files
 
 The **outcome file** should include `FID`, `IID`, and the outcome variable. For binary outcomes, use **binary coding (0 = Control, 1 = Case)** in the **target dataset**.
 **Qphen_tar.txt:** This is a .txt file which contains the following columns in order. The target dataset has 200 individuals who are independent from the discovery dataset. Please note that the file does not have column headings.
@@ -182,8 +181,12 @@ The **outcome file** should include `FID`, `IID`, and the outcome variable. For 
 6  1.53227 -1.898840 -0.6726290  0.826352  4.01520  0.972757   1   7
 ~~~
 
-## 1. Reverse direction. 
+## 2. Reverse direction. 
+
  _<div align="justify">The reverse direction test evaluates the opposite relationship, switching the roles of exposure and outcome to assess whether the assumed causal direction is valid. After this primary analysis, assess the reverse causal direction by switching the roles of the exposure and outcome variables in both the discovery and target datasets. This involves treating the original outcome as the exposure and the original exposure as the outcome, ensuring consistency in data structure and formatting across both analyses.</div>_
+ 
+ ### 2.1.. Discovery input files
+ 
 **Qexp_disc.txt:** This is a .txt file containing the following columns in the specified order. The exposure as an outcome for the reverse directions. Please note that the file does not have column headings. To generate both the additive and interaction polygenic risk scores (PRS), we performed a genome-wide environment interaction study (GWEIS) using the GxEprs data framework. When conducting a GWEIS with a quantitative outcome, the input data must follow the same format as required for the GxEprs framework. For reproducibility, the outcome data should be organized in a dedicated file, for example: FID IID quantitative outcome. 
 
 ~~~
@@ -217,6 +220,67 @@ constant values (Note: This is the input data format for GxEprs; if not specifie
 4 -3.995170  1.17464  2.9239000 -2.148990 -7.193830  2.918810   0  20
 5 -3.869480  0.72570  0.3461710 -0.882131 -2.526320 -1.620050   1  20
 6 10.636900 -2.92550  0.0215072 -1.328180 -0.774790  1.984740   1  20
+~~~
+**Qphen_disc.txt:** To construct PRS for the exposure variable, we first performed a GWAS on the quantitative exposure phenotype, adopting the same input data format required by the GxEprs framework. In this procedure, the exposure is treated as the outcome variable in the GWAS to obtain SNP effect estimates.
+
+~~~
+      FID   IID  Outcome
+1   ID_1   ID_1 31.6534
+2  ID_10  ID_10 34.1878
+3 ID_100 ID_100 23.1237
+4 ID_101 ID_101 39.1574
+5 ID_102 ID_102 29.0466
+6 ID_103 ID_103 28.5813
+~~~
+**Qexp_disc.txt:** To construct PRS for the exposure variable, we first performed a GWAS on the quantitative exposure phenotype, adopting the same input data format required by the GxEprs framework. In this procedure, the exposure is treated as the outcome variable in the GWAS to obtain SNP effect estimates.
+
+~~~
+      FID   IID  Conf_1  Constant_value Conf_2  Conf_3  Conf_4  Conf_5 Conf_6 Conf_7
+1   ID_1   ID_1 -3.831420  2 64 -14.0364 5.51742  0.0714337  5.662630  0.865562
+2  ID_10  ID_10 -3.408730  2 45 -13.1770 4.96769 -0.4055640 -1.274350 -9.632180
+3 ID_100 ID_100 -1.691620  2 60 -14.2821 3.01444 -0.0835603  1.622540 -8.066920
+4 ID_101 ID_101 -3.979340  2 52 -12.2061 5.93377 -0.4792830  3.473790 -3.995170
+5 ID_102 ID_102 -2.377090  2 69 -13.6426 4.53418 -2.2062600  0.222482 -3.869480
+6 ID_103 ID_103  0.268657  2 67 -14.7840 5.09824 -3.5448200  5.679140 10.636900
+    Conf_8   Conf_9    Conf_10   Conf_11   Conf_12  Conf_13 Conf_14
+1 -2.26957 -0.0965859 -2.354970  1.058890  0.195302   0   7
+2 -1.74190  2.6967400 -1.321190  0.742495 -0.688296   1  13
+3 -1.65889 -2.7431200 -0.944793  7.769740  0.140430   1  10
+4  1.17464  2.9239000 -2.148990 -7.193830  2.918810   0  20
+5  0.72570  0.3461710 -0.882131 -2.526320 -1.620050   1  20
+6 -2.92550  0.0215072 -1.328180 -0.774790  1.984740   1  20
+~~~
+
+### 2.2. Target input files
+**Qexp_tar.txt:** This is a .txt file which contains the following columns in order. The target dataset has 200 individuals who are independent from the discovery dataset. Please note that the file does not have column headings.
+
+~~~
+      FID   IID   Exposure
+1 ID_801 ID_801 -0.64402046
+2 ID_802 ID_802 -0.95209579
+3 ID_803 ID_803 -0.02786981
+4 ID_804 ID_804 -0.64402046
+5 ID_805 ID_805  0.28020552
+6 ID_806 ID_806  0.89635617
+~~~
+
+**Qphen_tar_cov.txt:** The exposure variable and other covariates for the adjustments are for the target dataset and should be provided in a separate file. 
+
+~~~
+   FID      IID   Outcome   Conf_1  Conf_2 Conf_3  Conf_4  Conf_5  Conf_6
+1 ID_1000 ID_1000 27.0969 -3.247510 44 -11.6394 5.47484 -3.958770 0.9431600
+2  ID_801  ID_801 26.5723 -3.826590 69 -13.8514 3.96080 -1.788050 0.0692473
+3  ID_802  ID_802 20.2632  2.065150 60 -12.2438 4.04169 -0.905739 5.9656000
+4  ID_803  ID_803 27.7365 -0.795863 62 -10.9195 6.91985 -2.920880 1.2601900
+5  ID_804  ID_804 18.7500 -2.620880 67  -9.9271 4.10960 -2.354540 0.7190210
+6  ID_805  ID_805 23.3025 -3.331640 67 -11.8637 5.88272  1.072880 2.7448800
+    Conf_7   Conf_8    Conf_9    Conf_10   Conf_11  Conf_12 Conf_13 Conf_14
+1  9.25721 -0.542392 -1.4608900  1.836640  1.80581  0.582524   0  20
+2 -6.32556  2.853590  1.0851600 -1.303040  3.41659  1.415770   0   7
+3  8.35545 -1.435760 -0.6181530  0.746918  5.11019 -0.207188   1  19
+4 -5.56624 -0.552624 -0.0756095 -0.910047 -1.33896  1.726360   0   7
+5 -1.82806 -1.821070  1.2157400 -3.566930 -7.91232  2.710110   0  10
+6 -7.32776 -2.394770 -3.0798300 -1.436250  2.08822  1.429390   1  15
 ~~~
 
 ## IV. Analysis workflow
