@@ -37,7 +37,9 @@ To ensure consistent and reliable estimation of G×E, the dataset should be spli
 
 #### Genotype data 
 The genetic data must be in **PLINK binary format**, comprising three files: `.bed`, `.bim`, and `.fam`. 
-**DummyData.fam:** This is a file associated with the PLINK binary format file, which contains the following columns in order. The example dataset has 1,000 individuals. Note that the file has no column headings. This follows the PLINK .fam file format.
+
+**DummyData.fam:** This is a file associated with the PLINK binary format file, which contains the following columns in order. The example dataset has 1,000 individuals. Please note that the file does not have column headings. This follows the PLINK .fam file format.
+
 family ID (FID)
 individual ID (IID)
 father's ID
