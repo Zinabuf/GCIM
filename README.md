@@ -325,7 +325,7 @@ result1 <- gcim_q0("Qphen_tar.txt", "Qexp_tar_cov.txt",
 ~~~
 
 ~~~
- print(result0$model_summary)
+ print(result1$model_summary)
 ~~~
 
 ~~~
@@ -355,7 +355,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 ~~~
 
 ~~~
- print(result1$model_summary)
+ print(result2$model_summary)
 ~~~
 
 ~~~
@@ -417,7 +417,7 @@ r <- PRS_binary(plink_path, "DummyData", summary_input = gxe)  # Interaction PRS
  result2 <- gcim_b1("Bphen_tar.txt", "Bexp_tar_cov.txt", 
                   Add_PRS = q, Int_PRS = r, Cov_PRS = p)
 # # Step 5: Access results and processed PRS objects
- print(result0$model_summary)
+ print(result1$model_summary)
 ~~~
 
 ~~~
@@ -447,7 +447,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 ~~~
 
 ~~~
- print(result1$model_summary)
+ print(result2$model_summary)
 ~~~
 
 ~~~
@@ -504,16 +504,16 @@ r <- PRS_quantitative(plink_path, "DummyData", summary_input = gxe)
 p <- PRS_quantitative(plink_path, "DummyData", summary_input = trd)
 
 # # Step 4: Run GCIM analysis with automatic saving and scaling
- result0 <- gcim_q0("Qexp_tar.txt", "Qphen_tar_cov.txt", 
+ result1 <- gcim_q0("Qexp_tar.txt", "Qphen_tar_cov.txt", 
                   Add_PRS = q, Int_PRS = r, Cov_PRS = p)
- result1 <- gcim_q1("Qexp_tar.txt", "Qphen_tar_cov.txt", 
+ result2 <- gcim_q1("Qexp_tar.txt", "Qphen_tar_cov.txt", 
                   Add_PRS = q, Int_PRS = r, Cov_PRS = p)
  # Step 5: Access results and processed PRS objects
 
 ~~~
 
 ~~~
- print(result0$model_summary)
+ print(result1$model_summary)
 ~~~
 
 ~~~
@@ -543,7 +543,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 ~~~
 
 ~~~
- print(result1$model_summary)
+ print(result2$model_summary)
 ~~~
 
 ~~~
@@ -596,15 +596,15 @@ r <- PRS_binary(plink_path, "DummyData", summary_input = gxe)  # Interaction PRS
 p <- PRS_binary(plink_path, "DummyData", summary_input = trd)  # Covariate PRS
 
 # Step 4: Run GCIM analysis with automatic saving and scaling
- result0 <- gcim_b0("Bexp_tar.txt", "Bphen_tar_cov.txt", 
+ result1 <- gcim_b0("Bexp_tar.txt", "Bphen_tar_cov.txt", 
                   Add_PRS = q, Int_PRS = r, Cov_PRS = p) 
- result1 <- gcim_b1("Bexp_tar.txt", "Bphen_tar_cov.txt", 
+ result2 <- gcim_b1("Bexp_tar.txt", "Bphen_tar_cov.txt", 
                   Add_PRS = q, Int_PRS = r, Cov_PRS = p)
 #Step 5: Access results and processed PRS objects
 ~~~
 
 ~~~
-print(result0$model_summary)
+print(result1$model_summary)
 ~~~
 
 ~~~
@@ -634,7 +634,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 ~~~
 
 ~~~
-print(result0$model_summary)
+print(result2$model_summary)
 ~~~
 
 ~~~
