@@ -74,6 +74,9 @@ reference allele
 
 **DummyData.bed:** This is the PLINK binary format file, which includes genotype information. This follows the PLINK .bed file format.
 ## 1. Proposed direction. 
+
+ _<div align="justify">The **proposed direction** of causation refers to the hypothesized G×E interaction in which the exposure affects the outcome, aligning with the researcher’s primary interest. Once the data has been properly prepared, begin by testing the causal direction based on the proposed direction of interest, that is, the direction specified by the researcher.</div>_
+ 
 ### A. Discovery input files
 The **outcome file** should include `FID`, `IID`, and the outcome variable. For binary outcomes, follow standard coding conventions: use **PLINK’s default coding (1 = Control, 2 = Case)** in the **discovery dataset**.
 
@@ -180,9 +183,41 @@ The **outcome file** should include `FID`, `IID`, and the outcome variable. For 
 ~~~
 
 ## 1. Reverse direction. 
+ _<div align="justify">The reverse direction test evaluates the opposite relationship, switching the roles of exposure and outcome to assess whether the assumed causal direction is valid. After this primary analysis, assess the reverse causal direction by switching the roles of the exposure and outcome variables in both the discovery and target datasets. This involves treating the original outcome as the exposure and the original exposure as the outcome, ensuring consistency in data structure and formatting across both analyses.</div>_
+**Qexp_disc.txt:** This is a .txt file containing the following columns in the specified order. The exposure as an outcome for the reverse directions. Please note that the file does not have column headings. To generate both the additive and interaction polygenic risk scores (PRS), we performed a genome-wide environment interaction study (GWEIS) using the GxEprs data framework. When conducting a GWEIS with a quantitative outcome, the input data must follow the same format as required for the GxEprs framework. For reproducibility, the outcome data should be organized in a dedicated file, for example: FID IID quantitative outcome. 
 
+~~~
+  FID   IID   Exposure
+1 ID_1 ID_1 -0.64402046
+2 ID_2 ID_2 -0.02786981
+3 ID_3 ID_3  2.12865748
+4 ID_4 ID_4  2.12865748
+5 ID_5 ID_5 -0.95209579
+6 ID_6 ID_6 -0.02786981
+~~~
+**Qphen_disc_cov.txt**: This is a .txt file containing the following columns in the specified order. The discovery dataset has 800 individuals. Note that the file has no column heading. The exposure variable and the covariate that are used to adjust the data frame, as expressed in GxEprs. 
+FID
+IID
+standardized covariate
+constant values (Note: This is the input data format for GxEprs; if not specified, the mode will omit the variable specified in the fourth column.)
+14 confounders of the discovery sample (Note: These columns are optional. Can use any number of columns as confounders to adjust the phenotype upon user requirement.)
 
-
+~~~
+    FID    FID  Outcome Constant_value Conf_1 Conf_2 Conf_3  Conf_4  Conf_5 Conf_6
+1   ID_1   ID_1 31.6534  2 -3.831420 64 -14.0364 5.51742  0.0714337  5.662630
+2  ID_10  ID_10 34.1878  2 -3.408730 45 -13.1770 4.96769 -0.4055640 -1.274350
+3 ID_100 ID_100 23.1237  2 -1.691620 60 -14.2821 3.01444 -0.0835603  1.622540
+4 ID_101 ID_101 39.1574  2 -3.979340 52 -12.2061 5.93377 -0.4792830  3.473790
+5 ID_102 ID_102 29.0466  2 -2.377090 69 -13.6426 4.53418 -2.2062600  0.222482
+6 ID_103 ID_103 28.5813  2  0.268657 67 -14.7840 5.09824 -3.5448200  5.679140
+   Conf_7    Conf_8    Conf_9   Conf_10   Conf_11    Conf_12  Conf_13 Conf_14
+1  0.865562 -2.26957 -0.0965859 -2.354970  1.058890  0.195302   0   7
+2 -9.632180 -1.74190  2.6967400 -1.321190  0.742495 -0.688296   1  13
+3 -8.066920 -1.65889 -2.7431200 -0.944793  7.769740  0.140430   1  10
+4 -3.995170  1.17464  2.9239000 -2.148990 -7.193830  2.918810   0  20
+5 -3.869480  0.72570  0.3461710 -0.882131 -2.526320 -1.620050   1  20
+6 10.636900 -2.92550  0.0215072 -1.328180 -0.774790  1.984740   1  20
+~~~
 
 ## IV. Analysis workflow
 
