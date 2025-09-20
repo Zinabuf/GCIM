@@ -75,7 +75,7 @@ reference allele
 **DummyData.bed:** This is the PLINK binary format file, which includes genotype information. This follows the PLINK .bed file format.
 ## 1. Proposed direction. 
 ### A. Discovery input files
-The **outcome file** should include `FID`, `IID`, and the outcome variable. For binary outcomes, follow standard coding conventions: use **PLINK’s default coding (1 = Control, 2 = Case)** for the **discovery dataset**, and use **binary coding (0 = Control, 1 = Case)** for the **target dataset**.
+The **outcome file** should include `FID`, `IID`, and the outcome variable. For binary outcomes, follow standard coding conventions: use **PLINK’s default coding (1 = Control, 2 = Case)** in the **discovery dataset**.
 
 **Qphen_disc.txt**: This is a .txt file containing the following columns in the specified order. The discovery dataset has 800 individuals. Please note that the file does not have column headings. To generate both the additive and interaction polygenic risk scores (PRS), we performed a **genome-wide environment interaction study (GWEIS)** using the GxEprs data framework. When conducting a GWEIS with a quantitative outcome, the input data must follow the same format as required for the GxEprs framework. For reproducibility, the outcome data should be organized in a dedicated file, for example:
 FID
