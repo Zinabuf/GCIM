@@ -91,11 +91,12 @@ reference allele
  
 ### 1.1. Discovery input files
 The **outcome file** should include `FID`, `IID`, and the outcome variable. For binary outcomes, follow standard coding conventions: use **PLINK’s default coding (1 = Control, 2 = Case)** in the **discovery dataset**.
+
 #### 1.1.1. Genome-wide environment interaction study (GWEIS)
 
-To generate both the additive and interaction polygenic risk scores (PRS), we performed a **GWEIS**. When conducting a GWEIS with a quantitative outcome, the input data must follow the same format as required for the GxEprs input data format. Therefore, the file `Qphen_disc.txt` will have the following essential column:
+To generate both the additive and interaction polygenic risk scores (PRS), we performed a **GWEIS**. When conducting a GWEIS with a quantitative outcome, the input data must follow the same format as required for the GxEprs input data format. 
 
-**Qphen_disc.txt**: This is a .txt file containing the following columns in the specified order. The discovery dataset has 800 individuals. Please note that the file does not have column headings. Therefore, the file `Qphen_disc.txt` will have the following essential column:
+**Qphen_disc.txt**: This is a .txt file containing the following columns in the specified order. Please note that the file does not have column headings. Therefore, the outcome file `Qphen_disc.txt` will have the following essential column:
 
 FID
 
@@ -113,7 +114,7 @@ FID   IID    Outcome
 6 ID_6 ID_6 38.8272
 ~~~
 
-**Qexp_dis_cov.txt**: This is a .txt file containing the following columns in the specified order. The discovery dataset has 800 individuals. Note that the file has no column heading. The exposure variable and the covariate that are used to adjust the data frame, as expressed in GxEprs. 
+**Qexp_dis_cov.txt**: This is a .txt file containing the following columns in the specified order. Note that the file has no column heading. The exposure variable and the covariate that are used to adjust the data frame, as expressed in GxEprs. 
 
 FID
 
@@ -141,7 +142,10 @@ constant values (Note: This is the input data format for GxEprs; if not specifie
 6 -3.646760 -0.594538 -1.75430000 -0.716014 -2.3906700  1.312950   1  10
 ~~~
 
-**Qexp_disc.txt:** To construct PRS for the exposure variable, we first performed a GWAS on the quantitative exposure phenotype, adopting the same input data format required by the GxEprs framework. In this procedure, the exposure is treated as the outcome variable in the GWAS to obtain SNP effect estimates.
+#### 1.1.1. Genome-wide environment study (GWAS)
+
+We first performed a GWAS on the quantitative exposure phenotype to construct a PRS of exposure, adopting the same input data format required by the GxEprs framework. In this procedure, the exposure is treated as the outcome variable in the GWAS to obtain SNP effect estimates.
+**Qexp_disc.txt:** This is a .txt file containing the following columns in the specified order. Please note that the file does not have column headings. Therefore, the exposure file `Qexp_disc.txt` will have the following essential column:
 
 FID
 
@@ -151,7 +155,7 @@ Exposure
 
 ~~~
   FID  IID   Exposure
- ID_1 ID_1 -0.64402046
+1 ID_1 ID_1 -0.64402046
 2 ID_2 ID_2 -0.02786981
 3 ID_3 ID_3  2.12865748
 4 ID_4 ID_4  2.12865748
@@ -159,7 +163,7 @@ Exposure
 6 ID_6 ID_6 -0.02786981
 ~~~
 
-**Qcov_disc.txt:** The covariates used for adjustment **GWAS** should be provided in a separate file. 
+**Qcov_disc.txt:**  This covariate file is used to adjust the GWAS of the exposure variable. Note that it does not contain column headings. Covariates for GWAS adjustment should be provided in a separate `.txt` file, which must include the following columns in the specified order.
 
 FID
 
@@ -191,7 +195,7 @@ constant values (Note: This is the input data format for GxEprs; if not specifie
 
 The **outcome file** should include `FID`, `IID`, and the outcome variable. For binary outcomes, use **binary coding (0 = Control, 1 = Case)** in the **target dataset**.
 
-**Qphen_tar.txt:** This is a .txt file which contains the following columns in order. The target dataset has 200 individuals who are independent from the discovery dataset. Please note that the file does not have column headings.
+**Qphen_tar.txt:** This is a .txt file which contains the following columns in order. Please note that the file does not have column headings.
 
 ~~~
    FID     IID  Outcome
@@ -344,25 +348,25 @@ library(GCIM)
 plink_path <- "<plink_path>/plink2"
 
 # For quantitative traits, use corresponding functions
-a <- GWAS_quantitative(plink_path, "DummyData", "Qexp_disc.txt", "Qcov_disc.txt")
-b <- GWEIS_quantitative(plink_path, "DummyData", "Qphen_disc.txt", "Qexp_dis_cov.txt")
+GWEIS <- GWEIS_quantitative(plink_path, "DummyData", "Qphen_disc.txt", "Qexp_dis_cov.txt")
+GWAS <- GWAS_quantitative(plink_path, "DummyData", "Qexp_disc.txt", "Qcov_disc.txt")
 
 # Extract and compute PRS
-trd <- a[c("ID", "A1", "BETA")]
-add <- b[c("ID", "A1", "ADD_BETA")]
-gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
+add <- GWEIS[c("ID", "A1", "ADD_BETA")]
+int <- GWEIS[c("ID", "A1", "INTERACTION_BETA")]
+cov_add <- GWAS[c("ID", "A1", "BETA")]
 
-q <- PRS_quantitative(plink_path, "DummyData", summary_input = add)
-r <- PRS_quantitative(plink_path, "DummyData", summary_input = gxe) 
-p <- PRS_quantitative(plink_path, "DummyData", summary_input = trd)
+add_prs <- PRS_quantitative(plink_path, "DummyData", summary_input = add)
+int_prs <- PRS_quantitative(plink_path, "DummyData", summary_input = int) 
+cov_prs <- PRS_quantitative(plink_path, "DummyData", summary_input = cov_add)
 
 # Run GCIM analysis with automatic saving and scaling
 # This model specification corresponds to Model 4, as presented in the manuscript.
 result1 <- gcim_q0("Qphen_tar.txt", "Qexp_tar_cov.txt", 
-                  Add_PRS = q, Int_PRS = r, Cov_PRS = p)
+                  Add_PRS = add_prs, Int_PRS = int_prs, Cov_PRS = cov_prs)
 #This model additionally incorporates the main effect of the PRS for the exposure variable. Details of this specification are provided in the model equation section of the Results. 
  result2 <- gcim_q1("Qphen_tar.txt", "Qexp_tar_cov.txt", 
-                  Add_PRS = q, Int_PRS = r, Cov_PRS = p)
+                  Add_PRS = add_prs, Int_PRS = int_prs, Cov_PRS = cov_prs)
  # Access results
 ~~~
 
