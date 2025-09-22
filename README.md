@@ -76,7 +76,7 @@ minor allele
 reference allele
 
 ~~~
-  1 SNP_1  0  768448  A  G
+1  1 SNP_1  0  768448  A  G
 2  1 SNP_2  0  853954  C  A
 3  1 SNP_4  0  940203  A  G
 4  1 SNP_5  0  987670  T  G
@@ -95,7 +95,9 @@ The **outcome file** should include `FID`, `IID`, and the outcome variable. For 
 **Qphen_disc.txt**: This is a .txt file containing the following columns in the specified order. The discovery dataset has 800 individuals. Please note that the file does not have column headings. To generate both the additive and interaction polygenic risk scores (PRS), we performed a **genome-wide environment interaction study (GWEIS)**. When conducting a GWEIS with a quantitative outcome, the input data must follow the same format as required for the GxEprs input data format. Therefore, the file `Qphen_disc.txt` will have the following essential column:
 
 FID
+
 IID
+
 Outcome
 
  ~~~
@@ -111,8 +113,11 @@ FID   IID    Outcome
 **Qexp_dis_cov.txt**: This is a .txt file containing the following columns in the specified order. The discovery dataset has 800 individuals. Note that the file has no column heading. The exposure variable and the covariate that are used to adjust the data frame, as expressed in GxEprs. 
 
 FID
+
 IID
+
 standardized covariate
+
 constant values (Note: This is the input data format for GxEprs; if not specified, the mode will omit the variable specified in the fourth column. This column is not mandatory for binary outcome)
 14 confounders of the discovery sample (Note: These columns are optional. Can use any number of columns as confounders to adjust the phenotype upon user requirement.)
 
