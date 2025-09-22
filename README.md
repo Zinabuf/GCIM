@@ -38,7 +38,7 @@ To ensure consistent and reliable estimation of G×E, the dataset should be spli
 #### Genotype data 
 The genetic data must be in **PLINK binary format**, comprising three files: `.bed`, `.bim`, and `.fam`. 
 
-**DummyData.fam:** This is a file associated with the PLINK binary format file, which contains the following columns in order. The example dataset has 1,000 individuals. Please note that the file does not have column headings. This follows the PLINK .fam file format.
+**DummyData.fam:** This is a file associated with the PLINK binary format file, which contains the following columns in order. Please note that the file does not have column headings. This follows the PLINK .fam file format.
 
 family ID (FID)
 individual ID (IID)
@@ -77,7 +77,7 @@ reference allele
 **DummyData.bed:** This is the PLINK binary format file, which includes genotype information. This follows the PLINK .bed file format.
 ## 1. Proposed direction. 
 
- _<div align="justify">The **proposed direction** causal direction refers to the hypothesized G×E interaction in which the exposure affects the outcome, aligning with the researcher’s primary interest. The data should be carefully prepared and evaluated to test the causal direction according to the researcher’s specified hypothesis of interest.</div>_
+ _<div align="justify">The **proposed causal direction** refers to the hypothesized G×E interaction in which the exposure affects the outcome, aligning with the researcher’s primary interest. The data should be carefully prepared and evaluated to test the causal direction according to the researcher’s specified hypothesis of interest.</div>_
  
 ### 1.1.. Discovery input files
 The **outcome file** should include `FID`, `IID`, and the outcome variable. For binary outcomes, follow standard coding conventions: use **PLINK’s default coding (1 = Control, 2 = Case)** in the **discovery dataset**.
@@ -191,7 +191,7 @@ The **outcome file** should include `FID`, `IID`, and the outcome variable. For 
 
 ## 2. Reverse causal direction. 
 
- _<div align="justify">The reverse causal direction test assesses the validity of the assumed causal relationship by switching the roles of exposure and outcome. Following the primary analysis in the proposed causal direction, the reverse test is conducted to verify the possible causal direction, with the original outcome treated as the exposure and the original exposure treated as the outcome. Consistency in data structure and formatting should be maintained across analyses.</div>_
+ _<div align="justify">The **reverse causal direction** test assesses the validity of the assumed causal relationship by switching the roles of exposure and outcome. Following the primary analysis in the proposed causal direction, the reverse test is conducted to verify the possible causal direction, with the original outcome treated as the exposure and the original exposure treated as the outcome. Consistency in data structure and formatting should be maintained across analyses.</div>_
  
  ### 2.1.. Discovery input files
  
