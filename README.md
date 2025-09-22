@@ -553,10 +553,10 @@ GWAS <- GWAS_quantitative(plink_path, "DummyData", "Qphen_disc.txt", "Qcov_disc.
 
 # Extract and compute PRS
 
-add_exp <- b[c("ID", "A1", "ADD_BETA")]
-int_exp <- b[c("ID", "A1", "INTERACTION_BETA")]
+add_exp <- GWEIS[c("ID", "A1", "ADD_BETA")]
+int_exp <- GWEIS[c("ID", "A1", "INTERACTION_BETA")]
 
-add_out <- a[c("ID", "A1", "BETA")]
+add_out <- GWAS[c("ID", "A1", "BETA")]
 
 add_prs <- PRS_quantitative(plink_path, "DummyData", summary_input = add_exp)
 int_prs <- PRS_quantitative(plink_path, "DummyData", summary_input = int_exp) 
@@ -641,25 +641,28 @@ library(GCIM)
 # Set plink path
 plink_path <- "<plink_path>/plink2"
 # Run GxEprs analysis for binary traits
-a <- GWAS_binary(plink_path, "DummyData", "Bphen_disc.txt", "Bcov_disc.txt")
-b <- GWEIS_binary(plink_path, "DummyData", "Bexp_disc.txt", "Bphen_disc_cov.txt")
+
+# We conducted a GWEIS of the outcome variable (treated as the exposure in the proposed causal direction) to generate both additive and interaction PRS.
+GWEIS <- GWEIS_binary(plink_path, "DummyData", "Bexp_disc.txt", "Bphen_disc_cov.txt")
+# We conducted a GWAS of the exposure variable (treated as the outcome in the proposed causal directions) to construct an exposure PRS
+GWAS <- GWAS_binary(plink_path, "DummyData", "Bphen_disc.txt", "Bcov_disc.txt")
 
 # Extract summary statistics
-trd <- a[c("ID", "A1", "BETA")]
-add <- b[c("ID", "A1", "ADD_BETA")]
-gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
+add_exp <- GWEIS[c("ID", "A1", "ADD_BETA")]
+int_exp <- GWEIS[c("ID", "A1", "INTERACTION_BETA")]
+add_out <- GWAS[c("ID", "A1", "BETA")]
 
 # Compute PRS for each component
-q <- PRS_binary(plink_path, "DummyData", summary_input = add)  # Additive PRS
-r <- PRS_binary(plink_path, "DummyData", summary_input = gxe)  # Interaction PRS
-p <- PRS_binary(plink_path, "DummyData", summary_input = trd)  # Covariate PRS
+add_prs <- PRS_binary(plink_path, "DummyData", summary_input = add_exp)  # Additive PRS
+int_prs <- PRS_binary(plink_path, "DummyData", summary_input = int_exp)  # Interaction PRS
+out_prs <- PRS_binary(plink_path, "DummyData", summary_input = add_prs)  # Covariate PRS
 
 # Run GCIM analysis with automatic saving and scaling
 # A similar model specification is applied as described above for the quantitative analysis.
  result1 <- gcim_b0("Bexp_tar.txt", "Bphen_tar_cov.txt", 
-                  Add_PRS = q, Int_PRS = r, Cov_PRS = p) 
+                  Add_PRS = add_prs, Int_PRS = int_prs, Cov_PRS = out_prs) 
  result2 <- gcim_b1("Bexp_tar.txt", "Bphen_tar_cov.txt", 
-                  Add_PRS = q, Int_PRS = r, Cov_PRS = p)
+                  Add_PRS = add_prs, Int_PRS = int_prs, Cov_PRS = out_prs)
 # Access results
 ~~~
 
