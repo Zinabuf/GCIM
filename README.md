@@ -41,10 +41,15 @@ The genetic data must be in **PLINK binary format**, comprising three files: `.b
 **DummyData.fam:** This is a file associated with the PLINK binary format file, which contains the following columns in order. Please note that the file does not have column headings. This follows the PLINK .fam file format.
 
 family ID (FID)
+
 individual ID (IID)
+
 father's ID
+
 mother's ID
+
 sex
+
 phenotype value
 
 ~~~
@@ -59,10 +64,15 @@ phenotype value
 **DummyData.bim:**  This is a file associated with the PLINK binary format file, which contains the following columns in order. The example dataset has 1,000 SNPs. Please note that the file does not have column headings. This follows the PLINK .bim file format
 
 chromosome code
+
 SNP ID
+
 position of centimorgans
+
 base-pair coordinate
+
 minor allele
+
 reference allele
 
 ~~~
@@ -229,6 +239,7 @@ constant values (Note: This is the input data format for GxEprs; if not specifie
 5 -3.869480  0.72570  0.3461710 -0.882131 -2.526320 -1.620050   1  20
 6 10.636900 -2.92550  0.0215072 -1.328180 -0.774790  1.984740   1  20
 ~~~
+
 **Qphen_disc.txt:** To construct PRS for the exposure variable, we first performed a GWAS on the quantitative exposure phenotype, adopting the same input data format required by the GxEprs framework. In this procedure, the exposure is treated as the outcome variable in the GWAS to obtain SNP effect estimates.
 
 ~~~
@@ -488,7 +499,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 
  ### 2. Reverse causal direction
  
-To evaluate the **reverse causal direction**, re-analyze the same dataset by switching the roles of the exposure and outcome variables. This means treating the previously defined outcome variable as the new exposure, and the previous exposure variables as the new outcome. Rearrange the data using the same structure and formatting approach used for the proposed causal directions as mentioned above, ensuring consistency across analyses pipline. The only difference should be the reassignment of variable roles.
+To evaluate the **reverse causal direction**, re-analyze the same dataset by switching the roles of the exposure and outcome variables. This means treating the previously defined outcome variable as the new exposure, and the previous exposure variables as the new outcome. Rearrange the data using the same structure and formatting approach used for the proposed causal directions as mentioned above, ensuring consistency across analysis pipeline. The only difference should be the reassignment of variable roles.
 
 #### 2.1. Quantitative outcome
 
