@@ -9,7 +9,7 @@ The **genetic causality inference model (GCIM)** is a statistical method for det
  #### Authors: Zinabu Fentaw, Dovini Jayasinghe, S.Hong Lee
 
 
-_<div align="justify">GCIM is a novel statistical method that extends beyond traditional PRS×E approaches.
+_<div align="justify">GCIM is a novel statistical method that extends beyond traditional polygenic risk scores-by-environment interactions (PRS×E) approaches.
     It systematically evaluates both the proposed and reverse causal directions, rather than relying
     on the assumptions of prior causal directions. By explicitly testing both directions, GCIM offers researchers
     data-driven insight into the likely causal directions of GxE interactions.</div>_
@@ -89,10 +89,13 @@ reference allele
 
  _<div align="justify">The **proposed causal direction** refers to the hypothesized G×E interaction in which the exposure affects the outcome, aligning with the researcher’s primary interest. The data should be carefully prepared and evaluated to test the causal direction according to the researcher’s specified hypothesis of interest.</div>_
  
-### 1.1.. Discovery input files
+### 1.1. Discovery input files
 The **outcome file** should include `FID`, `IID`, and the outcome variable. For binary outcomes, follow standard coding conventions: use **PLINK’s default coding (1 = Control, 2 = Case)** in the **discovery dataset**.
+#### 1.1.1. Genome-wide environment interaction study (GWEIS)
 
-**Qphen_disc.txt**: This is a .txt file containing the following columns in the specified order. The discovery dataset has 800 individuals. Please note that the file does not have column headings. To generate both the additive and interaction polygenic risk scores (PRS), we performed a **genome-wide environment interaction study (GWEIS)**. When conducting a GWEIS with a quantitative outcome, the input data must follow the same format as required for the GxEprs input data format. Therefore, the file `Qphen_disc.txt` will have the following essential column:
+To generate both the additive and interaction polygenic risk scores (PRS), we performed a **GWEIS**. When conducting a GWEIS with a quantitative outcome, the input data must follow the same format as required for the GxEprs input data format. Therefore, the file `Qphen_disc.txt` will have the following essential column:
+
+**Qphen_disc.txt**: This is a .txt file containing the following columns in the specified order. The discovery dataset has 800 individuals. Please note that the file does not have column headings. Therefore, the file `Qphen_disc.txt` will have the following essential column:
 
 FID
 
@@ -116,7 +119,7 @@ FID
 
 IID
 
-standardized covariate
+standardized Exposure
 
 constant values (Note: This is the input data format for GxEprs; if not specified, the mode will omit the variable specified in the fourth column. This column is not mandatory for binary outcome)
 14 confounders of the discovery sample (Note: These columns are optional. Can use any number of columns as confounders to adjust the phenotype upon user requirement.)
@@ -140,6 +143,12 @@ constant values (Note: This is the input data format for GxEprs; if not specifie
 
 **Qexp_disc.txt:** To construct PRS for the exposure variable, we first performed a GWAS on the quantitative exposure phenotype, adopting the same input data format required by the GxEprs framework. In this procedure, the exposure is treated as the outcome variable in the GWAS to obtain SNP effect estimates.
 
+FID
+
+IID
+
+Exposure
+
 ~~~
   FID  IID   Exposure
  ID_1 ID_1 -0.64402046
@@ -151,6 +160,15 @@ constant values (Note: This is the input data format for GxEprs; if not specifie
 ~~~
 
 **Qcov_disc.txt:** The covariates used for adjustment **GWAS** should be provided in a separate file. 
+
+FID
+
+IID
+
+constant value
+
+constant values (Note: This is the input data format for GxEprs; if not specified, the mode will omit the variable specified in the fourth column. This column is not mandatory for binary outcome)
+14 confounders of the discovery sample (Note: These columns are optional. Can use any number of columns as confounders to adjust the phenotype upon user requirement.)
 
 ~~~
    FID  IID  Conf_1 Constant_value Conf_2  Conf_3  Conf_4  Conf_5   Conf_6 Conf_7
