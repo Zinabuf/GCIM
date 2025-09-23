@@ -371,10 +371,12 @@ exp_prs <- PRS_quantitative(plink_path, "DummyData", summary_input = add_exp)
 # This model specification corresponds to Model 4, as presented in the manuscript.
 result1 <- gcim_q0("Qphen_tar.txt", "Qexp_tar_cov.txt", 
                   Add_PRS = add_prs, Int_PRS = int_prs, Cov_PRS = exp_prs)
-#This model additionally incorporates the main effect of the PRS for the exposure variable. Details of this specification are provided in the model equation section of the Results. 
+#This model additionally incorporates the main effect of the PRS for the exposure variable. Details of this specification are provided in the model equation section of the output. 
  result2 <- gcim_q1("Qphen_tar.txt", "Qexp_tar_cov.txt", 
                   Add_PRS = add_prs, Int_PRS = int_prs, Cov_PRS = exp_prs)
  # Access results
+print(result1$model_summary)
+print(result2$model_summary)
 ~~~
 
 ~~~
@@ -475,6 +477,7 @@ exp_prs <- PRS_binary(plink_path, "DummyData", summary_input = add_exp)  # Covar
                   Add_PRS = add_prs, Int_PRS = int_prs, Cov_PRS = exp_prs)
 # Access results
  print(result1$model_summary)
+ print(result2$model_summary)
 ~~~
 
 ~~~
