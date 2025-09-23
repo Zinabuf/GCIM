@@ -375,8 +375,7 @@ result1 <- gcim_q0("Qphen_tar.txt", "Qexp_tar_cov.txt",
  result2 <- gcim_q1("Qphen_tar.txt", "Qexp_tar_cov.txt", 
                   Add_PRS = add_prs, Int_PRS = int_prs, Cov_PRS = exp_prs)
  # Access results
-print(result1$model_summary)
-print(result2$model_summary)
+
 ~~~
 
 ~~~
@@ -476,10 +475,11 @@ exp_prs <- PRS_binary(plink_path, "DummyData", summary_input = add_exp)  # Covar
  result2 <- gcim_b1("Bphen_tar.txt", "Bexp_tar_cov.txt", 
                   Add_PRS = add_prs, Int_PRS = int_prs, Cov_PRS = exp_prs)
 # Access results
- print(result1$model_summary)
- print(result2$model_summary)
 ~~~
 
+~~~
+ print(result1$model_summary)
+~~~
 ~~~
 Coefficients:
                 Estimate Std. Error z value Pr(>|z|)
@@ -573,7 +573,6 @@ out_prs <- PRS_quantitative(plink_path, "DummyData", summary_input = add_out)
  result2 <- gcim_q1("Qexp_tar.txt", "Qphen_tar_cov.txt", 
                   Add_PRS = add_prs, Int_PRS = int_prs, Cov_PRS = out_prs)
  # Access results
-
 ~~~
 
 ~~~
