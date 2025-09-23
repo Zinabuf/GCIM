@@ -94,7 +94,7 @@ The **outcome file** should include `FID`, `IID`, and the outcome variable. For 
 
 #### 1.1.1. Genome-wide environment interaction study (GWEIS)
 
-To generate both the additive and interaction polygenic risk scores (PRS), we performed a **GWEIS**. When conducting a GWEIS with a quantitative outcome, the input data must follow the same format as required for the GxEprs input data format. 
+ Conducted a GWEIS to generate both additive and interaction polygenic risk scores (PRS). For analyses with a quantitative outcome, the input data must adhere to the same format required by the GxEprs framework 
 
 **Qphen_disc.txt**: This is a .txt file containing the following columns in the specified order. Please note that the file does not have column headings. Therefore, the outcome file `Qphen_disc.txt` will have the following essential column:
 
@@ -144,8 +144,8 @@ constant values. Note: This is the input data format for GxEprs; if not specifie
 
 #### 1.1.1. Genome-wide environment study (GWAS)
 
-We first performed a GWAS on the quantitative exposure phenotype to construct a PRS of exposure, adopting the same input data format required by the GxEprs framework. In this procedure, the exposure is treated as the outcome variable in the GWAS to obtain SNP effect estimates.
-**Qexp_disc.txt:** This is a .txt file containing the following columns in the specified order. Please note that the file does not have column headings. Therefore, the exposure file `Qexp_disc.txt` will have the following essential column:
+Perform a GWAS on the quantitative exposure phenotype to construct a PRS of exposure, adopting the same input data format required by the GxEprs framework. In this procedure, the exposure is treated as the outcome variable in the GWAS to obtain SNP effect estimates.
+**Qexp_disc.txt:** This is a `.txt` file containing the following columns in the specified order. Please note that the file does not have column headings. Therefore, the exposure file `Qexp_disc.txt` will have the following essential column:
 
 FID
 
@@ -163,15 +163,15 @@ Exposure
 6 ID_6 ID_6 -0.02786981
 ~~~
 
-**Qcov_disc.txt:**  This covariate file is used to adjust the GWAS of the exposure variable. Note that it does not contain column headings. Covariates for GWAS adjustment should be provided in a separate `.txt` file, which must include the following columns in the specified order.
+**Qcov_disc.txt:**  This covariate file is used to adjust the GWAS of the exposure variable. Note that it does not contain column headings. Covariates for GWAS adjustment should be provided in a separate `.txt` file, which must include the following columns in the specified order for quantitative exposure. If the exposure is binary, the third and fourth columns are not required (as constant values can be removed), and any covariates may be included for adjustment.
 
 FID
 
 IID
 
-constant value
+Constant value
 
-constant values (Note: This is the input data format for GxEprs; if not specified, the mode will omit the variable specified in the fourth column. This column is not mandatory for binary outcome)
+Constant values (Note: This is the input data format for GxEprs; if not specified, the mode will omit the variable specified in the fourth column. This column is not mandatory for binary outcome)
 14 confounders of the discovery sample (Note: These columns are optional. Can use any number of columns as confounders to adjust the phenotype upon user requirement.)
 
 ~~~
@@ -195,7 +195,7 @@ constant values (Note: This is the input data format for GxEprs; if not specifie
 
 The **outcome file** should include `FID`, `IID`, and the outcome variable. For binary outcomes, use **binary coding (0 = Control, 1 = Case)** in the **target dataset**.
 
-**Qphen_tar.txt:** This is a .txt file which contains the following columns in order. Please note that the file does not have column headings.
+**Qphen_tar.txt:** This is a '.txt` file which contains the following columns in order. Please note that the file does not have column headings.
 
 ~~~
    FID     IID  Outcome
@@ -232,7 +232,7 @@ The **outcome file** should include `FID`, `IID`, and the outcome variable. For 
  
  ### 2.1.. Discovery input files
  
-**Qexp_disc.txt:** This is a .txt file containing the following columns in the specified order. The exposure as an outcome for the reverse directions. Please note that the file does not have column headings. To generate both the additive and interaction polygenic risk scores (PRS), we performed a genome-wide environment interaction study (GWEIS) using the GxEprs data framework. When conducting a GWEIS with a quantitative outcome, the input data must follow the same format as required for the GxEprs framework. For reproducibility, the outcome data should be organized in a dedicated file, for example: FID IID quantitative outcome. 
+**Qexp_disc.txt:** This is a `.txt` file containing the following columns in the specified order. The exposure as an outcome for the reverse directions. Please note that the file does not have column headings. To generate both the additive and interaction polygenic risk scores (PRS), we performed a genome-wide environment interaction study (GWEIS) using the GxEprs data framework. When conducting a GWEIS with a quantitative outcome, the input data must follow the same format as required for the GxEprs framework. For reproducibility, the outcome data should be organized in a dedicated file, for example: FID IID quantitative outcome. 
 
 ~~~
   FID   IID   Exposure
@@ -243,7 +243,7 @@ The **outcome file** should include `FID`, `IID`, and the outcome variable. For 
 5 ID_5 ID_5 -0.95209579
 6 ID_6 ID_6 -0.02786981
 ~~~
-**Qphen_disc_cov.txt**: This is a .txt file containing the following columns in the specified order. The discovery dataset has 800 individuals. Note that the file has no column heading. The exposure variable and the covariate that are used to adjust the data frame, as expressed in GxEprs. 
+**Qphen_disc_cov.txt**: This is a `.txt` file containing the following columns in the specified order. The discovery dataset has 800 individuals. Note that the file does not have a column heading. The exposure variable and the covariate that are used to adjust the data frame, as expressed in GxEprs. 
 FID
 IID
 standardized covariate
@@ -298,7 +298,7 @@ constant values (Note: This is the input data format for GxEprs; if not specifie
 ~~~
 
 ### 2.2. Target input files
-**Qexp_tar.txt:** This is a .txt file which contains the following columns in order. The target dataset has 200 individuals who are independent from the discovery dataset. Please note that the file does not have column headings.
+**Qexp_tar.txt:** This is a `.txt` file which contains the following columns in order. The target dataset has 200 individuals who are independent from the discovery dataset. Please note that the file does not have column headings.
 
 ~~~
       FID   IID   Exposure
