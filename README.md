@@ -90,7 +90,7 @@ reference allele
  _<div align="justify">The **proposed causal direction** refers to the hypothesized G×E interaction in which the exposure affects the outcome, aligning with the researcher’s primary interest. The data should be carefully prepared and evaluated to test the causal direction in accordance with the researcher’s specified hypothesis of interest.</div>_
  
 ### 1.1. Discovery input files
-**Note:** The **outcome file** should include `FID`, `IID`, and the outcome variable. For binary outcomes, follow standard coding conventions: use **PLINK’s default coding (1 = Control, 2 = Case)** in the **discovery dataset**.
+**Note:** The **outcome file** should include `FID`, `IID`, and the `outcome variable`. For binary outcomes, follow standard coding conventions: use **PLINK’s default coding (1 = Control, 2 = Case)** in the **discovery dataset**.
 
 #### 1.1.1. Genome-wide environment interaction study (GWEIS)
 
