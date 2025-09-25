@@ -61,7 +61,7 @@ phenotype value
 6 ID_6 ID_6  0  0  1 -9
 ~~~
 
-**DummyData.bim:**  This is a file associated with the PLINK binary format file, which contains the following columns in order. The example dataset has 1,000 SNPs. Please note that the file does not have column headings. This follows the PLINK .bim file format
+**DummyData.bim:**  This is a file associated with the PLINK binary format file, which contains the following columns in order. Please note that the file does not have column headings. This follows the PLINK .bim file format
 
 chromosome code
 
@@ -272,9 +272,9 @@ constant values (Note: This is the input data format for GxEprs; if not specifie
 **Qphen_disc.txt:** To construct PRS for the exposure variable, we first performed a GWAS on the quantitative exposure phenotype, adopting the same input data format required by the GxEprs framework. In this procedure, the exposure is treated as the outcome variable in the GWAS to obtain SNP effect estimates.
 
 ~~~
-      FID   IID  Outcome
-1   ID_1   ID_1 31.6534
-2  ID_10  ID_10 34.1878
+   FID   IID  Outcome
+1 ID_1   ID_1 31.6534
+2 ID_10  ID_10 34.1878
 3 ID_100 ID_100 23.1237
 4 ID_101 ID_101 39.1574
 5 ID_102 ID_102 29.0466
@@ -297,7 +297,6 @@ constant values (Note: This is the input data format for GxEprs; if not specifie
 4 -3.995170  1.17464  2.9239000 -2.148990 -7.193830  2.918810   0  20
 5 -3.869480  0.72570  0.3461710 -0.882131 -2.526320 -1.620050   1  20
 6 10.636900 -2.92550  0.0215072 -1.328180 -0.774790  1.984740   1  20
-
 ~~~
 
 ### 2.2. Target input files
