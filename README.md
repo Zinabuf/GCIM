@@ -87,10 +87,10 @@ reference allele
 **DummyData.bed:** This is the PLINK binary format file, which includes genotype information. This follows the PLINK .bed file format.
 ## 1. Proposed direction. 
 
- _<div align="justify">The **proposed causal direction** refers to the hypothesized G×E interaction in which the exposure affects the outcome, aligning with the researcher’s primary interest. The data should be carefully prepared and evaluated to test the causal direction according to the researcher’s specified hypothesis of interest.</div>_
+ _<div align="justify">The **proposed causal direction** refers to the hypothesized G×E interaction in which the exposure affects the outcome, aligning with the researcher’s primary interest. The data should be carefully prepared and evaluated to test the causal direction in accordance with the researcher’s specified hypothesis of interest.</div>_
  
 ### 1.1. Discovery input files
-The **outcome file** should include `FID`, `IID`, and the outcome variable. For binary outcomes, follow standard coding conventions: use **PLINK’s default coding (1 = Control, 2 = Case)** in the **discovery dataset**.
+**Note:** The **outcome file** should include `FID`, `IID`, and the outcome variable. For binary outcomes, follow standard coding conventions: use **PLINK’s default coding (1 = Control, 2 = Case)** in the **discovery dataset**.
 
 #### 1.1.1. Genome-wide environment interaction study (GWEIS)
 
@@ -122,7 +122,7 @@ IID
 
 standardized Exposure
 
-constant values. Note: This is the input data format for GxEprs; if not specified, the mode will omit the variable specified in the fourth column for quantitative exposure. This column is not mandatory for a binary outcome.
+constant values. Note: This is the input data format for GxEprs; if not specified, the mode will omit the variable specified in the fourth column for quantitative exposure. Keeping the fourth column constant is unnecessary when dealing with a binary outcome.
 14 confounders of the discovery sample (Note: These columns are optional. Can use any number of columns as confounders to adjust the phenotype upon user requirement.)
 
 ~~~
@@ -142,9 +142,10 @@ constant values. Note: This is the input data format for GxEprs; if not specifie
 6 -3.646760 -0.594538 -1.75430000 -0.716014 -2.3906700  1.312950   1  10
 ~~~
 
-#### 1.1.1. Genome-wide environment study (GWAS)
+#### 1.1.2. Genome-wide environment study (GWAS)
 
 Perform a GWAS on the quantitative exposure phenotype to construct a PRS of exposure, adopting the same input data format required by the GxEprs framework. In this procedure, the exposure is treated as the outcome variable in the GWAS to obtain SNP effect estimates.
+
 **Qexp_disc.txt:** This is a `.txt` file containing the following columns in the specified order. Please note that the file does not have column headings. Therefore, the exposure file `Qexp_disc.txt` will have the following essential column:
 
 FID
