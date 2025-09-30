@@ -440,7 +440,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 ~~~
 NOte:the output displayed in the analysis is
 
-~~~
+
 `Add_PRS`: additive PRS
 `Int_PRS`: Interaction PRS
 `Covariate_Pheno`: Exposure variable
@@ -448,7 +448,9 @@ NOte:the output displayed in the analysis is
 `Conf_1, Conf_2, …, Conf_14`: are based on the sequence of columns in the input file.
 `Int_PRS:Cov_PRS`: GxE interaction 
 
+
 #### 1.2. Binary outcome 
+
 The same data frames and analyses pipeline should be applied as used for the quantitative data presented above.
  
 ~~~
