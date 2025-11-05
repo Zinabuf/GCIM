@@ -124,9 +124,11 @@ phenotype value
 * constant values.  Note: This is the input data format for GxEprs; if not specified, the model will omit the variable specified in the fourth column for the quantitative outcome. Keeping the fourth column constant is unnecessary when dealing with a binary outcome.
 
 * Conf_1
+  
   .
   .
   .
+  
 * Conf_n   14 confounders available in the example data.(Note: These columns are optional. You can include any number of columns as confounders to adjust the GWAS of the exposure phenotype.)
 
 ~~~
