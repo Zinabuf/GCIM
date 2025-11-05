@@ -129,7 +129,9 @@ phenotype value
   .
   .
   
-* Conf_n   14 confounders available in the example data.(Note: These columns are optional. You can include any number of columns as confounders to adjust the GWAS of the exposure phenotype.)
+* Conf_n
+
+(Note: These columns are optional. You can include any number of columns as confounders to adjust the GWAS of the exposure phenotype.)
 
 ~~~
 1 ID_1 ID_1 -0.64402046  2 -3.831420 64 -14.03640 5.517420  0.0714337  5.662630  0.865562 -2.269570 -0.09658590 -2.354970  1.0588900  0.195302   0   7
