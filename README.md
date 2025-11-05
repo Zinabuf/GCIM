@@ -15,7 +15,7 @@ _<div align="justify">GCIM is a novel statistical method that extends beyond tra
     data-driven insight into the likely causal directions of GxE interactions.</div>_
 
    
-## I. Package installation 
+## 1. Package installation 
 From GitHub 
 
 ~~~
@@ -24,14 +24,14 @@ install_github("DoviniJ/GxEprs")
 install_github("Zinabuf/GCIM")
 ~~~
 
-## II. Load the library
+## 2. Load the library
 
 ~~~
 library(GxEprs)
 library(GCIM)
 ~~~
 
-## III. Data Preparation
+## 3. Data Preparation
  
 To ensure consistent and reliable estimation of G×E, the dataset should be split into two independent and non-overlapping subsets: a **discovery dataset (80%)** and a **target dataset (20%)**. This split should maintain consistency across genotype data, outcome variables, exposure variables, and potential confounders. 
 
@@ -85,14 +85,14 @@ reference allele
 ~~~
 
 **DummyData.bed:** This is the PLINK binary format file, which includes genotype information. This follows the PLINK .bed file format.
-## 1. Proposed direction. 
+## 3.1. Proposed direction. 
 
  _<div align="justify">The **proposed causal direction** refers to the hypothesized G×E interaction in which the exposure affects the outcome, aligning with the researcher’s primary interest. The data should be carefully prepared and evaluated to test the causal direction in accordance with the researcher’s specified hypothesis of interest.</div>_
  
-### 1.1. Discovery input files
+### 3.1.1. Discovery input files
 **Note:** The **outcome file** should include `FID`, `IID`, and the `outcome variable`. For binary outcomes, follow standard coding conventions: use **PLINK’s default coding (1 = Control, 2 = Case)** in the **discovery dataset**.
 
-#### 1.1.1. Genome-wide environment interaction study (GWEIS)
+#### 3.1.1.1. Genome-wide environment interaction study (GWEIS)
 
  Conducted a GWEIS to generate both additive and interaction polygenic risk scores (PRS). For analyses with a quantitative outcome, the input data must adhere to the same format required by the GxEprs framework 
 
@@ -142,7 +142,7 @@ constant values. Note: This is the input data format for GxEprs; if not specifie
 6 -3.646760 -0.594538 -1.75430000 -0.716014 -2.3906700  1.312950   1  10
 ~~~
 
-#### 1.1.2. Genome-wide environment study (GWAS)
+#### 3.1.1.2. Genome-wide environment study (GWAS)
 
 Perform a GWAS on the quantitative exposure phenotype to construct a PRS of exposure, adopting the same input data format required by the GxEprs framework. In this procedure, the exposure is treated as the outcome variable in the GWAS to obtain SNP effect estimates.
 
@@ -193,7 +193,7 @@ Constant values (Note: This is the input data format for GxEprs; if not specifie
 
 ~~~
 
-### 1.2. Target input files
+### 3.1.2. Target input files
 
 The **outcome file** should include `FID`, `IID`, and the outcome variable. For binary outcomes, use **binary coding (0 = Control, 1 = Case)** in the **target dataset**.
 
@@ -228,11 +228,11 @@ The **outcome file** should include `FID`, `IID`, and the outcome variable. For 
 6  1.53227 -1.898840 -0.6726290  0.826352  4.01520  0.972757   1   7
 ~~~
 
-## 2. Reverse causal direction. 
+## 3.2. Reverse causal direction. 
 
  _<div align="justify">The **reverse causal direction** test assesses the validity of the assumed causal relationship by switching the roles of exposure and outcome. Following the primary analysis in the proposed causal direction, the reverse test is conducted to verify the possible causal direction, with the original outcome treated as the exposure and the original exposure treated as the outcome. Consistency in data structure and formatting should be maintained across analyses.</div>_
  
- ### 2.1.. Discovery input files
+ ### 3.2.1.. Discovery input files
  
 **Qexp_disc.txt:** This is a `.txt` file containing the following columns in the specified order. The exposure as an outcome for the reverse directions. Please note that the file should not have column headings. To generate both the additive and interaction polygenic risk scores (PRS), we performed a genome-wide environment interaction study (GWEIS) using the GxEprs data framework. When conducting a GWEIS with a quantitative outcome, the input data must follow the same format as required for the GxEprs framework. For reproducibility, the outcome data should be organized in a dedicated file, for example: FID IID quantitative outcome. 
 
@@ -299,7 +299,7 @@ constant values (Note: This is the input data format for GxEprs; if not specifie
 6 10.636900 -2.92550  0.0215072 -1.328180 -0.774790  1.984740   1  20
 ~~~
 
-### 2.2. Target input files
+### 3.2.2. Target input files
 **Qexp_tar.txt:** This is a `.txt` file which contains the following columns in order. The target dataset consists of individuals who are independent of those in the discovery dataset. Please note that the file should not have column headings.
 
 ~~~
@@ -331,7 +331,7 @@ constant values (Note: This is the input data format for GxEprs; if not specifie
 6 -7.32776 -2.394770 -3.0798300 -1.436250  2.08822  1.429390   1  15
 ~~~
 
-## IV. Analysis workflow
+## 4. Analysis workflow
 
 GCIM analyses use PLink2 to analyze discovery data. 
 1. Download plink2 software from the [Plink](https://www.cog-genomics.org/plink/2.0/) website and then specify the executable Plink software path.
@@ -339,8 +339,8 @@ GCIM analyses use PLink2 to analyze discovery data.
 ~~~
 plink_path <- "<plink_path>/plink2"
 ~~~ 
-### 1. proposed causal direction 
-#### 1.1. Quantitative outcome 
+### 4.1. proposed causal direction 
+#### 4.1.1. Quantitative outcome 
    
  ~~~
 # Load required libraries
@@ -449,7 +449,7 @@ NOte:the output displayed in the analysis is
 `Int_PRS:Cov_PRS`: GxE interaction 
 
 
-#### 1.2. Binary outcome 
+#### 4.1.2. Binary outcome 
 
 The same data frames and analyses pipeline should be applied as used for the quantitative data presented above.
  
@@ -549,11 +549,11 @@ Int_PRS:Cov_PRS -0.10157    0.50393  -0.202  0.84027
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ~~~
 
- ### 2. Reverse causal direction
+ ### 4.2. Reverse causal direction
  
 To evaluate the **reverse causal direction**, re-analyze the same dataset by switching the roles of the exposure and outcome variables. This means treating the previously defined outcome variable as the new exposure, and the previous exposure variables as the new outcome. Rearrange the data using the same structure and formatting approach used for the proposed causal directions as mentioned above, ensuring consistency across analysis pipeline. The only difference should be the reassignment of variable roles.
 
-#### 2.1. Quantitative outcome
+#### 4.2.1. Quantitative outcome
 
 ~~~
 # Load required libraries
@@ -648,7 +648,7 @@ Int_PRS:Cov_PRS  0.0538590  0.0830611   0.648    0.518
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ~~~
 
-#### 2.2 Binary outcome 
+#### 4.2.2 Binary outcome 
 
 ~~~
 # Load required libraries
