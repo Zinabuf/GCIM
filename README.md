@@ -46,9 +46,9 @@ The genetic data must be in **PLINK binary format**, comprising three files: `.b
 
 * father's ID
 
-*mother's ID
+* mother's ID
 
-*sex
+* sex
 
 phenotype value
 
@@ -63,17 +63,17 @@ phenotype value
 
 **DummyData.bim:**  This is a file associated with the PLINK binary format file, which contains the following columns in order. Please note that the file should not have column headings. This follows the PLINK .bim file format
 
-chromosome code
+* chromosome code
 
-SNP ID
+* SNP ID
 
-position of centimorgans
+* position of centimorgans
 
-base-pair coordinate
+* base-pair coordinate
 
-minor allele
+* minor allele
 
-reference allele
+* reference allele
 
 ~~~
 1  1 SNP_1  0  768448  A  G
@@ -98,11 +98,11 @@ reference allele
 
 **Qphen_disc.txt**: This is a .txt file containing the following columns in the specified order. Please note that the file should not have column headings. Therefore, the outcome file `Qphen_disc.txt` will have the following essential column:
 
-FID
+* FID
 
-IID
+* IID
 
-Outcome
+* Outcome
 
  ~~~
 FID   IID    Outcome
@@ -148,11 +148,11 @@ Perform a GWAS on the quantitative exposure phenotype to construct a PRS of expo
 
 **Qexp_disc.txt:** This is a `.txt` file containing the following columns in the specified order. Please note that the file should not have column headings. Therefore, the exposure file `Qexp_disc.txt` will have the following essential column:
 
-FID
+* FID
 
-IID
+* IID
 
-Exposure
+* Exposure
 
 ~~~
   FID  IID   Exposure
@@ -166,13 +166,13 @@ Exposure
 
 **Qcov_disc.txt:**  This covariate file is used to adjust the GWAS of the exposure variable. Note that it should not have column headings. Covariates for GWAS adjustment should be provided in a separate `.txt` file, which must include the following columns in the specified order for quantitative exposure. If the exposure is binary, the third and fourth columns are not required (as constant values can be removed), and any covariates may be included for adjustment.
 
-FID
+* FID
 
-IID
+* IID
 
-Constant value
+* Constant value
 
-Constant values (Note: This is the input data format for GxEprs; if not specified, the model will omit the variable specified in the fourth column.)
+* Constant values (Note: This is the input data format for GxEprs; if not specified, the model will omit the variable specified in the fourth column.)
 14 confounders of the discovery sample (Note: These columns are optional. You can include any number of columns as confounders to adjust the GWAS of the exposure phenotype.)
 
 ~~~
