@@ -40,15 +40,15 @@ The genetic data must be in **PLINK binary format**, comprising three files: `.b
 
 **DummyData.fam:** This is a file associated with the PLINK binary format file, which contains the following columns in order. Please note that the file should not have column headings. This follows the PLINK .fam file format.
 
-family ID (FID)
+* family ID (FID)
 
-individual ID (IID)
+* individual ID (IID)
 
-father's ID
+* father's ID
 
-mother's ID
+*mother's ID
 
-sex
+*sex
 
 phenotype value
 
