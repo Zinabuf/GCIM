@@ -61,7 +61,7 @@ phenotype value
 6 ID_6 ID_6  0  0  1 -9
 ~~~
 
-**DummyData.bim:**  This is a file associated with the PLINK binary format file, which contains the following columns in order. Please note that the file should not have column headings. This follows the PLINK .bim file format
+**DummyData.bim:**  This is a file associated with the PLINK binary format file, which contains the following columns in order. Please note that the file should not have column headings. This follows the PLINK .bim file format.
 
 * chromosome code
 
@@ -142,7 +142,7 @@ phenotype value
 6 ID_6 ID_6 -0.02786981  2 -4.389270 52 -11.85160 0.888978 -2.7231000  1.116810  -3.646760 -0.594538 -1.75430000 -0.716014 -2.3906700  1.312950   1  10
 ~~~
 
-#### 3.1.1.2. Genome-wide environment study (GWAS)
+#### 3.1.1.2. Genome-wide association study (GWAS)
 
 Perform a GWAS on the quantitative exposure phenotype to construct a PRS of exposure, adopting the same input data format required by the GxEprs framework. In this procedure, the exposure is treated as the outcome variable in the GWAS to obtain SNP effect estimates.
 
@@ -204,8 +204,13 @@ The **outcome file** should include `FID`, `IID`, and the outcome variable. For 
 
 **Qphen_tar.txt:** This is a '.txt` file which contains the following columns in order. Please note that the file should not have column headings.
 
+* FID
+
+* IID
+
+* Outcome
+  
 ~~~
-   FID     IID  Outcome
 1 ID_801 ID_801 26.5723
 2 ID_802 ID_802 20.2632
 3 ID_803 ID_803 27.7365
@@ -216,33 +221,94 @@ The **outcome file** should include `FID`, `IID`, and the outcome variable. For 
 
 **Qexp_tar_cov.txt:** This file should contain the exposure variable along with covariates for adjustment in the target dataset, provided separately from other inputs. Please note that the file should not have column headings. 
 
+* FID
+
+* IID
+
+* Exposure 
+  
+* Conf_1
+  
+  .
+  .
+  .
+  
+* Conf_n
+
+(Note: These columns are optional. You can include any number of columns as confounders to adjust the GxE in GCIM for the outcome.)
 ~~~
-  FID   IID      Exposure    Conf_1  Conf_2 Conf_3 Conf_4  Conf_5   Conf_6
-1 ID_801 ID_801 -0.64402046 -3.826590 69 -13.8514 3.96080 -1.788050 0.0692473
-2 ID_802 ID_802 -0.95209579  2.065150 60 -12.2438 4.04169 -0.905739 5.9656000
-3 ID_803 ID_803 -0.02786981 -0.795863 62 -10.9195 6.91985 -2.920880 1.2601900
-4 ID_804 ID_804 -0.64402046 -2.620880 67  -9.9271 4.10960 -2.354540 0.7190210
-5 ID_805 ID_805  0.28020552 -3.331640 67 -11.8637 5.88272  1.072880 2.7448800
-6 ID_806 ID_806  0.89635617  3.252030 61 -11.5364 5.79318 -2.311240 4.5023300
-  Conf_7    Conf_8    Conf_9   Conf_10    Conf_11  Conf_12   Conf_13 Conf_14
-1 -6.32556  2.853590  1.0851600 -1.303040  3.41659  1.415770   0   7
-2  8.35545 -1.435760 -0.6181530  0.746918  5.11019 -0.207188   1  19
-3 -5.56624 -0.552624 -0.0756095 -0.910047 -1.33896  1.726360   0   7
-4 -1.82806 -1.821070  1.2157400 -3.566930 -7.91232  2.710110   0  10
-5 -7.32776 -2.394770 -3.0798300 -1.436250  2.08822  1.429390   1  15
-6  1.53227 -1.898840 -0.6726290  0.826352  4.01520  0.972757   1   7
+1 ID_801 ID_801 -0.64402046 -3.826590 69 -13.8514 3.96080 -1.788050 0.0692473 -6.32556  2.853590  1.0851600 -1.303040  3.41659  1.415770   0   7
+2 ID_802 ID_802 -0.95209579  2.065150 60 -12.2438 4.04169 -0.905739 5.9656000  8.35545 -1.435760 -0.6181530  0.746918  5.11019 -0.207188   1  19
+3 ID_803 ID_803 -0.02786981 -0.795863 62 -10.9195 6.91985 -2.920880 1.2601900  -5.56624 -0.552624 -0.0756095 -0.910047 -1.33896  1.726360   0   7
+4 ID_804 ID_804 -0.64402046 -2.620880 67  -9.9271 4.10960 -2.354540 0.7190210  -1.82806 -1.821070  1.2157400 -3.566930 -7.91232  2.710110   0  10
+5 ID_805 ID_805  0.28020552 -3.331640 67 -11.8637 5.88272  1.072880 2.7448800  -7.32776 -2.394770 -3.0798300 -1.436250  2.08822  1.429390   1  15
+6 ID_806 ID_806  0.89635617  3.252030 61 -11.5364 5.79318 -2.311240 4.5023300  1.53227 -1.898840 -0.6726290  0.826352  4.01520  0.972757   1   7 
 ~~~
 
 ## 3.2. Reverse causal direction. 
 
  _<div align="justify">The **reverse causal direction** test assesses the validity of the assumed causal relationship by switching the roles of exposure and outcome. Following the primary analysis in the proposed causal direction, the reverse test is conducted to verify the possible causal direction, with the original outcome treated as the exposure and the original exposure treated as the outcome. Consistency in data structure and formatting should be maintained across analyses.</div>_
  
- ### 3.2.1.. Discovery input files
  
-**Qexp_disc.txt:** This is a `.txt` file containing the following columns in the specified order. The exposure as an outcome for the reverse directions. Please note that the file should not have column headings. To generate both the additive and interaction polygenic risk scores (PRS), we performed a genome-wide environment interaction study (GWEIS) using the GxEprs data framework. When conducting a GWEIS with a quantitative outcome, the input data must follow the same format as required for the GxEprs framework. For reproducibility, the outcome data should be organized in a dedicated file, for example: FID IID quantitative outcome. 
+ ### 3.2.1.. Discovery input files
+
+ #### 3.2.1.1. GWEIS
+ **Qexp_disc.txt:** This is a .txt file containing the following columns in the specified order. The exposure as an outcome for the reverse directions. Please note that the file should not have column headings. To generate both the additive and interaction polygenic risk scores (PRS), we performed a genome-wide environment interaction study (GWEIS) using the GxEprs data framework. When conducting a GWEIS with a quantitative outcome, the input data must follow the same format as required for the GxEprs framework. For reproducibility, the outcome data should be organized in a dedicated file, for example: 
+* FID
+
+* IID
+
+* Exposure
+  
+~~~
+1 ID_1   ID_1 31.6534
+2 ID_10  ID_10 34.1878
+3 ID_100 ID_100 23.1237
+4 ID_101 ID_101 39.1574
+5 ID_102 ID_102 29.0466
+6 ID_103 ID_103 28.5813
+~~~
+
+**Qphen_disc_cov.txt**: This is a `.txt` file containing the following columns in the specified order. Note that the file should not have a column heading. The exposure variable and the covariate that are used to adjust the data frame, as expressed in GxEprs.
+
+* FID
+
+* IID
+
+* Outcome
+
+* constant values.  Note: This is the input data format for GxEprs; if not specified, the model will omit the variable specified in the fourth column for the quantitative outcome. Keeping the fourth column constant is unnecessary when dealing with a binary outcome.
+
+* Conf_1
+  
+  .
+  .
+  .
+  
+* Conf_n
+
+(Note: These columns are optional. You can include any number of columns as confounders to adjust the GWAS of the exposure phenotype.)
 
 ~~~
-  FID   IID   Exposure
+1   ID_1   ID_1  2  2 -3.831420 64 -14.0364 5.51742  0.0714337  5.662630  0.865562 -2.26957 -0.0965859 -2.354970  1.058890  0.195302   0   7
+2  ID_10  ID_10  2  2 -3.408730 45 -13.1770 4.96769 -0.4055640 -1.274350  -9.632180 -1.74190  2.6967400 -1.321190  0.742495 -0.688296   1  13
+3 ID_100 ID_100  2  2 -1.691620 60 -14.2821 3.01444 -0.0835603  1.622540  -8.066920 -1.65889 -2.7431200 -0.944793  7.769740  0.140430   1  10
+4 ID_101 ID_101  2  2 -3.979340 52 -12.2061 5.93377 -0.4792830  3.473790  -3.995170  1.17464  2.9239000 -2.148990 -7.193830  2.918810   0  20
+5 ID_102 ID_102  2  2 -2.377090 69 -13.6426 4.53418 -2.2062600  0.222482  -3.869480  0.72570  0.3461710 -0.882131 -2.526320 -1.620050   1  20
+6 ID_103 ID_103  2  2  0.268657 67 -14.7840 5.09824 -3.5448200  5.679140  10.636900 -2.92550  0.0215072 -1.328180 -0.774790  1.984740   1  20
+~~~
+
+3.2.1.2. GWAS
+ 
+**Qphen_disc.txt:** This is a `.txt` file containing the following columns in the specified order. The exposure as an outcome for the reverse directions. Please note that the file should not have column headings. To generate both the additive and interaction polygenic risk scores (PRS), we performed a genome-wide environment interaction study (GWEIS) using the GxEprs data framework. When conducting a GWEIS with a quantitative outcome, the input data must follow the same format as required for the GxEprs framework. For reproducibility, the outcome data should be organized in a dedicated file, for example: FID IID quantitative outcome. 
+
+* FID
+
+* IID
+
+* Exposure
+
+~~~
 1 ID_1 ID_1 -0.64402046
 2 ID_2 ID_2 -0.02786981
 3 ID_3 ID_3  2.12865748
@@ -251,64 +317,47 @@ The **outcome file** should include `FID`, `IID`, and the outcome variable. For 
 6 ID_6 ID_6 -0.02786981
 ~~~
 **Qphen_disc_cov.txt**: This is a `.txt` file containing the following columns in the specified order. The discovery dataset has 800 individuals. Note that the file should not have a column heading. The exposure variable and the covariate that are used to adjust the data frame, as expressed in GxEprs. 
-FID
-IID
-standardized covariate
-constant values (Note: This is the input data format for GxEprs; if not specified, the model will omit the variable specified in the fourth column.)
-14 confounders of the discovery sample (Note: These columns are optional. You can include any number of columns as confounders to adjust the GWAS of the exposure phenotype.)
+
+* FID
+
+* IID
+
+* Outcome
+
+* Constant values
+
+  (Note: This is the input data format for GxEprs; if not specified, the model will omit the variable specified in the fourth column.)
+
+  
+* Conf_1
+  
+  .
+  .
+  .
+  
+* Conf_n
+
+(Note: These columns are optional. You can include any number of columns as confounders to adjust the GWAS of the exposure phenotype.)
 
 ~~~
-    FID    FID  Outcome Constant_value Conf_1 Conf_2 Conf_3  Conf_4  Conf_5 Conf_6
-1   ID_1   ID_1 31.6534  2 -3.831420 64 -14.0364 5.51742  0.0714337  5.662630
-2  ID_10  ID_10 34.1878  2 -3.408730 45 -13.1770 4.96769 -0.4055640 -1.274350
-3 ID_100 ID_100 23.1237  2 -1.691620 60 -14.2821 3.01444 -0.0835603  1.622540
-4 ID_101 ID_101 39.1574  2 -3.979340 52 -12.2061 5.93377 -0.4792830  3.473790
-5 ID_102 ID_102 29.0466  2 -2.377090 69 -13.6426 4.53418 -2.2062600  0.222482
-6 ID_103 ID_103 28.5813  2  0.268657 67 -14.7840 5.09824 -3.5448200  5.679140
-   Conf_7    Conf_8    Conf_9   Conf_10   Conf_11    Conf_12  Conf_13 Conf_14
-1  0.865562 -2.26957 -0.0965859 -2.354970  1.058890  0.195302   0   7
-2 -9.632180 -1.74190  2.6967400 -1.321190  0.742495 -0.688296   1  13
-3 -8.066920 -1.65889 -2.7431200 -0.944793  7.769740  0.140430   1  10
-4 -3.995170  1.17464  2.9239000 -2.148990 -7.193830  2.918810   0  20
-5 -3.869480  0.72570  0.3461710 -0.882131 -2.526320 -1.620050   1  20
-6 10.636900 -2.92550  0.0215072 -1.328180 -0.774790  1.984740   1  20
+1   ID_1   ID_1 31.6534  2 -3.831420 64 -14.0364 5.51742  0.0714337  5.662630  0.865562 -2.26957 -0.0965859 -2.354970  1.058890  0.195302   0   7
+2  ID_10  ID_10 34.1878  2 -3.408730 45 -13.1770 4.96769 -0.4055640 -1.274350  -9.632180 -1.74190  2.6967400 -1.321190  0.742495 -0.688296   1  13
+3 ID_100 ID_100 23.1237  2 -1.691620 60 -14.2821 3.01444 -0.0835603  1.622540  -8.066920 -1.65889 -2.7431200 -0.944793  7.769740  0.140430   1  10
+4 ID_101 ID_101 39.1574  2 -3.979340 52 -12.2061 5.93377 -0.4792830  3.473790  -3.995170  1.17464  2.9239000 -2.148990 -7.193830  2.918810   0  20  
+5 ID_102 ID_102 29.0466  2 -2.377090 69 -13.6426 4.53418 -2.2062600  0.222482  -3.869480  0.72570  0.3461710 -0.882131 -2.526320 -1.620050   1  20
+6 ID_103 ID_103 28.5813  2  0.268657 67 -14.7840 5.09824 -3.5448200  5.679140  10.636900 -2.92550  0.0215072 -1.328180 -0.774790  1.984740   1  20
 ~~~
 
-**Qphen_disc.txt:** To construct PRS for the exposure variable, we first performed a GWAS on the quantitative exposure phenotype, adopting the same input data format required by the GxEprs framework. In this procedure, the exposure is treated as the outcome variable in the GWAS to obtain SNP effect estimates. Note that the file should not have a column heading.
 
-~~~
-   FID   IID  Outcome
-1 ID_1   ID_1 31.6534
-2 ID_10  ID_10 34.1878
-3 ID_100 ID_100 23.1237
-4 ID_101 ID_101 39.1574
-5 ID_102 ID_102 29.0466
-6 ID_103 ID_103 28.5813
-~~~
-**Qexp_disc.txt:** To construct PRS for the exposure variable, we first performed a GWAS on the quantitative exposure phenotype, adopting the same input data format required by the GxEprs framework. In this procedure, the exposure is treated as the outcome variable in the GWAS to obtain SNP effect estimates. Note that the file should not have a column heading. 
-
-~~~
-      FID   IID  Constant_values Constant_value Conf_1  Conf_2  Conf_3  Conf_4 Conf_5 Conf_6
-1   ID_1   ID_1  2  2 -3.831420 64 -14.0364 5.51742  0.0714337  5.662630
-2  ID_10  ID_10  2  2 -3.408730 45 -13.1770 4.96769 -0.4055640 -1.274350
-3 ID_100 ID_100  2  2 -1.691620 60 -14.2821 3.01444 -0.0835603  1.622540
-4 ID_101 ID_101  2  2 -3.979340 52 -12.2061 5.93377 -0.4792830  3.473790
-5 ID_102 ID_102  2  2 -2.377090 69 -13.6426 4.53418 -2.2062600  0.222482
-6 ID_103 ID_103  2  2  0.268657 67 -14.7840 5.09824 -3.5448200  5.679140
-    Conf_7   Conf_8    Conf_9   Conf_10   Conf_11  Conf_12 Conf_13 Conf_13
-1  0.865562 -2.26957 -0.0965859 -2.354970  1.058890  0.195302   0   7
-2 -9.632180 -1.74190  2.6967400 -1.321190  0.742495 -0.688296   1  13
-3 -8.066920 -1.65889 -2.7431200 -0.944793  7.769740  0.140430   1  10
-4 -3.995170  1.17464  2.9239000 -2.148990 -7.193830  2.918810   0  20
-5 -3.869480  0.72570  0.3461710 -0.882131 -2.526320 -1.620050   1  20
-6 10.636900 -2.92550  0.0215072 -1.328180 -0.774790  1.984740   1  20
-~~~
 
 ### 3.2.2. Target input files
 **Qexp_tar.txt:** This is a `.txt` file which contains the following columns in order. The target dataset consists of individuals who are independent of those in the discovery dataset. Please note that the file should not have column headings.
 
-~~~
-      FID   IID   Exposure
+* FID
+* IID
+* Exposure
+  
+~~~    
 1 ID_801 ID_801 -0.64402046
 2 ID_802 ID_802 -0.95209579
 3 ID_803 ID_803 -0.02786981
@@ -319,21 +368,29 @@ constant values (Note: This is the input data format for GxEprs; if not specifie
 
 **Qphen_tar_cov.txt:** The exposure variable and other covariates used for adjustment should be from the target dataset and provided in a separate file. Please note that the file should not have column headings.
 
+* FID
+
+* IID
+
+* Outcome 
+  
+* Conf_1
+  
+  .
+  .
+  .
+  
+* Conf_n
+
+(Note: These columns are optional. You can include any number of columns as confounders to adjust the GxE in GCIM for the outcome.)
+
 ~~~
-   FID      IID   Outcome   Conf_1  Conf_2 Conf_3  Conf_4  Conf_5  Conf_6
-1 ID_1000 ID_1000 27.0969 -3.247510 44 -11.6394 5.47484 -3.958770 0.9431600
-2  ID_801  ID_801 26.5723 -3.826590 69 -13.8514 3.96080 -1.788050 0.0692473
-3  ID_802  ID_802 20.2632  2.065150 60 -12.2438 4.04169 -0.905739 5.9656000
-4  ID_803  ID_803 27.7365 -0.795863 62 -10.9195 6.91985 -2.920880 1.2601900
-5  ID_804  ID_804 18.7500 -2.620880 67  -9.9271 4.10960 -2.354540 0.7190210
-6  ID_805  ID_805 23.3025 -3.331640 67 -11.8637 5.88272  1.072880 2.7448800
-    Conf_7   Conf_8    Conf_9    Conf_10   Conf_11  Conf_12 Conf_13 Conf_14
-1  9.25721 -0.542392 -1.4608900  1.836640  1.80581  0.582524   0  20
-2 -6.32556  2.853590  1.0851600 -1.303040  3.41659  1.415770   0   7
-3  8.35545 -1.435760 -0.6181530  0.746918  5.11019 -0.207188   1  19
-4 -5.56624 -0.552624 -0.0756095 -0.910047 -1.33896  1.726360   0   7
-5 -1.82806 -1.821070  1.2157400 -3.566930 -7.91232  2.710110   0  10
-6 -7.32776 -2.394770 -3.0798300 -1.436250  2.08822  1.429390   1  15
+1 ID_1000 ID_1000 27.0969 -3.247510 44 -11.6394 5.47484 -3.958770 0.9431600  9.25721 -0.542392 -1.4608900  1.836640  1.80581  0.582524   0  20
+2  ID_801  ID_801 26.5723 -3.826590 69 -13.8514 3.96080 -1.788050 0.0692473  -6.32556  2.853590  1.0851600 -1.303040  3.41659  1.415770   0   7
+3  ID_802  ID_802 20.2632  2.065150 60 -12.2438 4.04169 -0.905739 5.9656000  8.35545 -1.435760 -0.6181530  0.746918  5.11019 -0.207188   1  19
+4  ID_803  ID_803 27.7365 -0.795863 62 -10.9195 6.91985 -2.920880 1.2601900  -5.56624 -0.552624 -0.0756095 -0.910047 -1.33896  1.726360   0   7
+5  ID_804  ID_804 18.7500 -2.620880 67  -9.9271 4.10960 -2.354540 0.7190210  -1.82806 -1.821070  1.2157400 -3.566930 -7.91232  2.710110   0  10
+6  ID_805  ID_805 23.3025 -3.331640 67 -11.8637 5.88272  1.072880 2.7448800   -7.32776 -2.394770 -3.0798300 -1.436250  2.08822  1.429390   1  15
 ~~~
 
 ## 4. Analysis workflow
@@ -379,7 +436,7 @@ result1 <- gcim_q0("Qphen_tar.txt", "Qexp_tar_cov.txt",
 #This model additionally incorporates the main effect of the PRS for the exposure variable. Details of this specification are provided in the model equation section of the output. 
  result2 <- gcim_q1("Qphen_tar.txt", "Qexp_tar_cov.txt", 
                   Add_PRS = add_prs, Int_PRS = int_prs, Cov_PRS = exp_prs)
- # Access results
+ # result
 
 ~~~
 
@@ -443,7 +500,7 @@ Int_PRS:Cov_PRS  0.06421    0.43454   0.148  0.88269
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ~~~
-NOte:the output displayed in the analysis is
+Note:the output displayed in the analysis is
 
 
 `Add_PRS`: additive PRS
@@ -490,7 +547,7 @@ exp_prs <- PRS_binary(plink_path, "DummyData", summary_input = add_exp)  # Covar
                   Add_PRS = add_prs, Int_PRS = int_prs, Cov_PRS = exp_prs) 
  result2 <- gcim_b1("Bphen_tar.txt", "Bexp_tar_cov.txt", 
                   Add_PRS = add_prs, Int_PRS = int_prs, Cov_PRS = exp_prs)
-# Access results
+# results
 ~~~
 
 ~~~
@@ -589,7 +646,7 @@ out_prs <- PRS_quantitative(plink_path, "DummyData", summary_input = add_out)
                   Add_PRS = add_prs, Int_PRS = int_prs, Cov_PRS = out_prs)
  result2 <- gcim_q1("Qexp_tar.txt", "Qphen_tar_cov.txt", 
                   Add_PRS = add_prs, Int_PRS = int_prs, Cov_PRS = out_prs)
- # Access results
+ # results
 ~~~
 
 ~~~
@@ -684,7 +741,7 @@ out_prs <- PRS_binary(plink_path, "DummyData", summary_input = add_out)  # Covar
                   Add_PRS = add_prs, Int_PRS = int_prs, Cov_PRS = out_prs) 
  result2 <- gcim_b1("Bexp_tar.txt", "Bphen_tar_cov.txt", 
                   Add_PRS = add_prs, Int_PRS = int_prs, Cov_PRS = out_prs)
-# Access results
+# results
 ~~~
 
 ~~~
