@@ -105,7 +105,6 @@ phenotype value
 * Outcome
 
  ~~~
-FID   IID    Outcome
 1 ID_1 ID_1 31.6534
 2 ID_2 ID_2 25.5035
 3 ID_3 ID_3 26.7391
@@ -116,30 +115,27 @@ FID   IID    Outcome
 
 **Qexp_dis_cov.txt**: This is a .txt file containing the following columns in the specified order. Note that the file should have no column heading. The exposure variable and the covariate that are used to adjust the data frame, as expressed in GxEprs. 
 
-FID
+* FID
 
-IID
+* IID
 
-standardized Exposure
+* standardized Exposure
 
-constant values. Note: This is the input data format for GxEprs; if not specified, the model will omit the variable specified in the fourth column for the quantitative outcome. Keeping the fourth column constant is unnecessary when dealing with a binary outcome.
-14 confounders of the discovery sample (Note: These columns are optional. You can include any number of columns as confounders to adjust the GWAS of the exposure phenotype.)
+* constant values.  Note: This is the input data format for GxEprs; if not specified, the model will omit the variable specified in the fourth column for the quantitative outcome. Keeping the fourth column constant is unnecessary when dealing with a binary outcome.
+
+* Conf_1
+  .
+  .
+  .
+* Conf_n   14 confounders available in the example data.(Note: These columns are optional. You can include any number of columns as confounders to adjust the GWAS of the exposure phenotype.)
 
 ~~~
-   FID IID   Exposure   constant_value Conf_1 Conf_2 Conf_3 Conf_4  Conf_5 Conf_6
-1 ID_1 ID_1 -0.64402046  2 -3.831420 64 -14.03640 5.517420  0.0714337  5.662630
-2 ID_2 ID_2 -0.02786981  2  0.614044 66 -10.85050 2.119980 -0.8828830 -0.441662
-3 ID_3 ID_3  2.12865748  2 -0.237792 55  -9.75369 3.183430 -2.0979300  6.873450
-4 ID_4 ID_4  2.12865748  2  6.698660 47  -9.07045 0.956878 -2.4840700  1.063590
-5 ID_5 ID_5 -0.95209579  2 -1.614230 59 -12.93790 1.294610 -1.7997300  1.444040
-6 ID_6 ID_6 -0.02786981  2 -4.389270 52 -11.85160 0.888978 -2.7231000  1.116810
-      Conf_7  Conf_8    Conf_9    Conf_10     Conf_11   Conf_12  Conf_13  Conf_14
-1  0.865562 -2.269570 -0.09658590 -2.354970  1.0588900  0.195302   0   7
-2 -2.641770  2.789440  0.52458600  2.671340 -2.6372400 -0.998764   1  20
-3 11.377700  2.969610 -1.11879000  0.873649  3.3552300 -4.578310   1  10
-4 -3.132470  2.123200 -0.00976751  0.820582  0.0305345  1.630300   1  20
-5 -6.828980 -2.967950 -2.91577000 -1.828810  7.1589200  2.109160   1  20
-6 -3.646760 -0.594538 -1.75430000 -0.716014 -2.3906700  1.312950   1  10
+1 ID_1 ID_1 -0.64402046  2 -3.831420 64 -14.03640 5.517420  0.0714337  5.662630  0.865562 -2.269570 -0.09658590 -2.354970  1.0588900  0.195302   0   7
+2 ID_2 ID_2 -0.02786981  2  0.614044 66 -10.85050 2.119980 -0.8828830 -0.441662  -2.641770  2.789440  0.52458600  2.671340 -2.6372400 -0.998764   1  20
+3 ID_3 ID_3  2.12865748  2 -0.237792 55  -9.75369 3.183430 -2.0979300  6.873450  11.377700  2.969610 -1.11879000  0.873649  3.3552300 -4.578310   1  10
+4 ID_4 ID_4  2.12865748  2  6.698660 47  -9.07045 0.956878 -2.4840700  1.063590  -3.132470  2.123200 -0.00976751  0.820582  0.0305345  1.630300   1  20
+5 ID_5 ID_5 -0.95209579  2 -1.614230 59 -12.93790 1.294610 -1.7997300  1.444040  -6.828980 -2.967950 -2.91577000 -1.828810  7.1589200  2.109160   1  20
+6 ID_6 ID_6 -0.02786981  2 -4.389270 52 -11.85160 0.888978 -2.7231000  1.116810  -3.646760 -0.594538 -1.75430000 -0.716014 -2.3906700  1.312950   1  10
 ~~~
 
 #### 3.1.1.2. Genome-wide environment study (GWAS)
