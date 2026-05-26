@@ -49,8 +49,8 @@ The genetic data must be in **PLINK binary format**, comprising three files: `.b
 * mother's ID
 
 * sex
-
-phenotype value
+  
+* phenotype value
 
 ~~~
 1 F1 I1  0  0  1 -9
