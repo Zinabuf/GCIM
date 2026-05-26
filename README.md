@@ -53,12 +53,12 @@ The genetic data must be in **PLINK binary format**, comprising three files: `.b
 phenotype value
 
 ~~~
-1 ID_1 ID_1  0  0  1 -9
-2 ID_2 ID_2  0  0  2 -9
-3 ID_3 ID_3  0  0  2 -9
-4 ID_4 ID_4  0  0  2 -9
-5 ID_5 ID_5  0  0  1 -9
-6 ID_6 ID_6  0  0  1 -9
+1 F1 I1  0  0  1 -9
+2 F2 I2  0  0  2 -9
+3 F3 I3  0  0  2 -9
+4 F4 I4  0  0  1 -9
+5 F5 I5  0  0  2 -9
+6 F6 I6  0  0  1 -9
 ~~~
 
 **DummyData.bim:**  This is a file associated with the PLINK binary format file, which contains the following columns in order. Please note that the file should not have column headings. This follows the PLINK .bim file format.
@@ -76,12 +76,12 @@ phenotype value
 * reference allele
 
 ~~~
-1  1 SNP_1  0  768448  A  G
-2  1 SNP_2  0  853954  C  A
-3  1 SNP_4  0  940203  A  G
-4  1 SNP_5  0  987670  T  G
-5  1 SNP_6  0 1021695  A  G
-6  1 SNP_7  0 1053452  A  G
+1  1   rs1  0 1000  G  A
+2  1  rs23  0 2000  G  A
+3  1  rs45  0 3000  G  A
+4  1  rs67  0 4000  G  A
+5  1  rs89  0 5000  G  A
+6  1 rs111  0 6000  G  A
 ~~~
 
 **DummyData.bed:** This is the PLINK binary format file, which includes genotype information. This follows the PLINK .bed file format.
