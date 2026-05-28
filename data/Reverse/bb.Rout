@@ -1,0 +1,270 @@
+
+R version 4.1.3 (2022-03-10) -- "One Push-Up"
+Copyright (C) 2022 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> # Load required libraries
+> library(GxEprs)
+> library(GCIM)
+> # Set plink path
+> #plink_path <- "<plink/path>/plink2"
+> plink_path <- "/data/alh-admzw/plink2"
+> # Run GxEprs analysis for binary traits
+> 
+> # We conducted a GWEIS of the outcome variable (treated as the exposure in the proposed causal direction) to generate both additive and interaction PRS.
+> GWEIS <- GWEIS_binary(plink_path, "DummyData", "Bexp_disc.txt", "Bphen_disc_cov.txt")
+PLINK v2.0.0-a.7LM AVX2 AMD (27 Dec 2025)           cog-genomics.org/plink/2.0/
+(C) 2005-2025 Shaun Purcell, Christopher Chang    GNU General Public License v3
+Logging to /tmp/RtmpnL7WYK/B_gweis.log.
+Options in effect:
+  --allow-no-sex
+  --bfile DummyData
+  --covar Bphen_disc_cov.txt
+  --glm interaction
+  --out /tmp/RtmpnL7WYK/B_gweis
+  --parameters 1, 2, 3, 4, 5, 6, 7, 8
+  --pheno Bexp_disc.txt
+  --threads 20
+
+Start time: Tue May 26 14:15:03 2026
+Note: --allow-no-sex no longer has any effect.  (Missing-sex samples are
+automatically excluded from association analysis when sex is a covariate, and
+treated normally otherwise.)
+3095540 MiB RAM detected, ~3072744 available; reserving 1547770 MiB for main
+workspace.
+Using up to 20 threads (change this with --threads).
+1000 samples (485 females, 515 males; 1000 founders) loaded from DummyData.fam.
+1000 variants loaded from DummyData.bim.
+1 binary phenotype loaded (240 cases, 560 controls).
+6 covariates loaded from Bphen_disc_cov.txt.
+Calculating allele frequencies... 0%done.
+--glm logistic-Firth hybrid regression on phenotype 'PHENO1': 0%done.
+Results written to /tmp/RtmpnL7WYK/B_gweis.PHENO1.glm.logistic.hybrid .
+End time: Tue May 26 14:15:03 2026
+> # We conducted a GWAS of the exposure variable (treated as the outcome in the proposed causal directions) to construct an exposure PRS
+> GWAS <- GWAS_binary(plink_path, "DummyData", "Bphen_disc.txt", "Bcov_disc.txt")
+PLINK v2.0.0-a.7LM AVX2 AMD (27 Dec 2025)           cog-genomics.org/plink/2.0/
+(C) 2005-2025 Shaun Purcell, Christopher Chang    GNU General Public License v3
+Logging to /tmp/RtmpnL7WYK/B_gwas.log.
+Options in effect:
+  --allow-no-sex
+  --bfile DummyData
+  --covar Bcov_disc.txt
+  --glm
+  --out /tmp/RtmpnL7WYK/B_gwas
+  --parameters 1, 4, 5, 6
+  --pheno Bphen_disc.txt
+  --threads 20
+
+Start time: Tue May 26 14:15:03 2026
+Note: --allow-no-sex no longer has any effect.  (Missing-sex samples are
+automatically excluded from association analysis when sex is a covariate, and
+treated normally otherwise.)
+3095540 MiB RAM detected, ~3072733 available; reserving 1547770 MiB for main
+workspace.
+Using up to 20 threads (change this with --threads).
+1000 samples (485 females, 515 males; 1000 founders) loaded from DummyData.fam.
+1000 variants loaded from DummyData.bim.
+1 binary phenotype loaded (240 cases, 560 controls).
+5 covariates loaded from Bcov_disc.txt.
+Calculating allele frequencies... 0%done.
+--glm logistic-Firth hybrid regression on phenotype 'PHENO1': 0%done.
+Results written to /tmp/RtmpnL7WYK/B_gwas.PHENO1.glm.logistic.hybrid .
+End time: Tue May 26 14:15:03 2026
+> 
+> # Extract summary statistics
+> add_exp <- GWEIS[c("ID", "A1", "ADD_BETA")]
+> int_exp <- GWEIS[c("ID", "A1", "INTERACTION_BETA")]
+> add_out <- GWAS[c("ID", "A1", "BETA")]
+> 
+> # Compute PRS for each component
+> add_prs <- PRS_binary(plink_path, "DummyData", summary_input = add_exp)  # Additive PRS
+PLINK v2.0.0-a.7LM AVX2 AMD (27 Dec 2025)           cog-genomics.org/plink/2.0/
+(C) 2005-2025 Shaun Purcell, Christopher Chang    GNU General Public License v3
+Logging to /tmp/RtmpnL7WYK/prs.log.
+Options in effect:
+  --bfile DummyData
+  --out /tmp/RtmpnL7WYK/prs
+  --score /tmp/RtmpnL7WYK/summary_stats 1 2 3 header
+
+Start time: Tue May 26 14:15:03 2026
+3095540 MiB RAM detected, ~3072727 available; reserving 1547770 MiB for main
+workspace.
+Using up to 96 threads (change this with --threads).
+1000 samples (485 females, 515 males; 1000 founders) loaded from DummyData.fam.
+1000 variants loaded from DummyData.bim.
+Note: No phenotype data present.
+Calculating allele frequencies... 0%done.
+--score: 1000 variants processed.
+--score: Results written to /tmp/RtmpnL7WYK/prs.sscore .
+End time: Tue May 26 14:15:03 2026
+> int_prs <- PRS_binary(plink_path, "DummyData", summary_input = int_exp)  # Interaction PRS
+PLINK v2.0.0-a.7LM AVX2 AMD (27 Dec 2025)           cog-genomics.org/plink/2.0/
+(C) 2005-2025 Shaun Purcell, Christopher Chang    GNU General Public License v3
+Logging to /tmp/RtmpnL7WYK/prs.log.
+Options in effect:
+  --bfile DummyData
+  --out /tmp/RtmpnL7WYK/prs
+  --score /tmp/RtmpnL7WYK/summary_stats 1 2 3 header
+
+Start time: Tue May 26 14:15:03 2026
+3095540 MiB RAM detected, ~3072725 available; reserving 1547770 MiB for main
+workspace.
+Using up to 96 threads (change this with --threads).
+1000 samples (485 females, 515 males; 1000 founders) loaded from DummyData.fam.
+1000 variants loaded from DummyData.bim.
+Note: No phenotype data present.
+Calculating allele frequencies... 0%done.
+--score: 1000 variants processed.
+--score: Results written to /tmp/RtmpnL7WYK/prs.sscore .
+End time: Tue May 26 14:15:03 2026
+> out_prs <- PRS_binary(plink_path, "DummyData", summary_input = add_prs)  # Covariate PRS
+PLINK v2.0.0-a.7LM AVX2 AMD (27 Dec 2025)           cog-genomics.org/plink/2.0/
+(C) 2005-2025 Shaun Purcell, Christopher Chang    GNU General Public License v3
+Logging to /tmp/RtmpnL7WYK/prs.log.
+Options in effect:
+  --bfile DummyData
+  --out /tmp/RtmpnL7WYK/prs
+  --score /tmp/RtmpnL7WYK/summary_stats 1 2 3 header
+
+Start time: Tue May 26 14:15:03 2026
+3095540 MiB RAM detected, ~3072724 available; reserving 1547770 MiB for main
+workspace.
+Using up to 96 threads (change this with --threads).
+1000 samples (485 females, 515 males; 1000 founders) loaded from DummyData.fam.
+1000 variants loaded from DummyData.bim.
+Note: No phenotype data present.
+Calculating allele frequencies... 0%done.
+Warning: --score: 1000 entries in /tmp/RtmpnL7WYK/summary_stats were skipped
+due to missing variant IDs.
+(Add the 'list-variants' modifier to see which variants were actually used for
+scoring.)
+Error: --score: No valid variants in /tmp/RtmpnL7WYK/summary_stats.
+End time: Tue May 26 14:15:03 2026
+> 
+> # Run GCIM analysis with automatic saving and scaling
+> # A similar model specification is applied as described above for the quantitative analysis.
+>  result1 <- gcim_b0("Bexp_tar.txt", "Bphen_tar_cov.txt", 
++                   Add_PRS = add_prs, Int_PRS = int_prs, Cov_PRS = out_prs) 
+Loading data files for binary outcome analysis...
+Loading add PRS data...
+Using provided data object with 1000 samples.
+Loading int PRS data...
+Using provided data object with 1000 samples.
+Loading cov PRS data...
+Using provided data object with 1000 samples.
+Scaling PRS values (mean=0, sd=1)...
+PRS data summary:
+- Additive PRS:  1000  individuals
+- Interaction PRS:  1000  individuals
+- Covariate PRS:  1000  individuals
+Saving PRS copies to standardized temporary files...
+Merging data files by FID and IID...
+Final dataset contains 200 observations (60 cases, 140 controls) with 12 variables.
+Fitting logistic regression model...
+Formula: Outcome ~ Add_PRS + Int_PRS + Covariate_Pheno + Int_PRS:Cov_PRS +      Conf_1 + Conf_2 + Conf_3 + Conf_4 + Conf_5 
+>  result2 <- gcim_b1("Bexp_tar.txt", "Bphen_tar_cov.txt", 
++                   Add_PRS = add_prs, Int_PRS = int_prs, Cov_PRS = out_prs)
+Loading data files for binary outcome analysis...
+Loading add PRS data...
+Using provided data object with 1000 samples.
+Loading int PRS data...
+Using provided data object with 1000 samples.
+Loading cov PRS data...
+Using provided data object with 1000 samples.
+Scaling PRS values (mean=0, sd=1)...
+PRS data summary:
+- Additive PRS:  1000  individuals
+- Interaction PRS:  1000  individuals
+- Covariate PRS:  1000  individuals
+Saving PRS copies to standardized temporary files...
+Merging data files by FID and IID...
+Final dataset contains 200 observations (60 cases, 140 controls) with 12 variables.
+Fitting logistic regression model...
+Formula: Outcome ~ Add_PRS + Int_PRS + Covariate_Pheno + Cov_PRS + Int_PRS:Cov_PRS +      Conf_1 + Conf_2 + Conf_3 + Conf_4 + Conf_5 
+> # Access results
+>  print(result1$model_summary)
+
+Call:
+stats::glm(formula = model_formula, family = stats::binomial(link = "logit"), 
+    data = merged_data)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.6273  -0.8676  -0.6544   1.1214   2.2104  
+
+Coefficients:
+                Estimate Std. Error z value Pr(>|z|)    
+(Intercept)     -1.15264    0.24701  -4.666 3.06e-06 ***
+Add_PRS          2.06805    0.63443   3.260  0.00112 ** 
+Int_PRS          1.94608    0.64951   2.996  0.00273 ** 
+Covariate_Pheno  0.75477    0.35533   2.124  0.03366 *  
+Conf_1          -0.22743    0.53137  -0.428  0.66865    
+Conf_2           0.01202    0.51909   0.023  0.98153    
+Conf_3          -0.47566    0.51392  -0.926  0.35468    
+Conf_4          -0.59997    0.56149  -1.069  0.28529    
+Conf_5           0.23844    0.54946   0.434  0.66433    
+Int_PRS:Cov_PRS -0.03820    0.22323  -0.171  0.86414    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 244.35  on 199  degrees of freedom
+Residual deviance: 224.53  on 190  degrees of freedom
+AIC: 244.53
+
+Number of Fisher Scoring iterations: 4
+
+>  print(result2$model_summary)
+
+Call:
+stats::glm(formula = model_formula, family = stats::binomial(link = "logit"), 
+    data = merged_data)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.6273  -0.8676  -0.6544   1.1214   2.2104  
+
+Coefficients: (1 not defined because of singularities)
+                Estimate Std. Error z value Pr(>|z|)    
+(Intercept)     -1.15264    0.24701  -4.666 3.06e-06 ***
+Add_PRS          2.06805    0.63443   3.260  0.00112 ** 
+Int_PRS          1.94608    0.64951   2.996  0.00273 ** 
+Covariate_Pheno  0.75477    0.35533   2.124  0.03366 *  
+Cov_PRS               NA         NA      NA       NA    
+Conf_1          -0.22743    0.53137  -0.428  0.66865    
+Conf_2           0.01202    0.51909   0.023  0.98153    
+Conf_3          -0.47566    0.51392  -0.926  0.35468    
+Conf_4          -0.59997    0.56149  -1.069  0.28529    
+Conf_5           0.23844    0.54946   0.434  0.66433    
+Int_PRS:Cov_PRS -0.03820    0.22323  -0.171  0.86414    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 244.35  on 199  degrees of freedom
+Residual deviance: 224.53  on 190  degrees of freedom
+AIC: 244.53
+
+Number of Fisher Scoring iterations: 4
+
+> 
+> proc.time()
+   user  system elapsed 
+  0.491   9.715   0.328 
